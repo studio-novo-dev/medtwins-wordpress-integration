@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Simulado Nacional MedTwins · 1ª etapa do Revalida</title>
+  <meta name="description" content="Você faz a prova na plataforma e, ao terminar, recebe seu diagnóstico completo: onde você está forte, onde está perdendo pontos e o que revisar primeiro.">
+  <meta name="theme-color" content="#0C2027">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Faça o Simulado Nacional MedTwins e descubra, na hora, quais assuntos estão tirando seus pontos.">
+  <meta property="og:description" content="Você faz a prova na plataforma e, ao terminar, recebe seu diagnóstico completo: onde você está forte, onde está perdendo pontos e o que revisar primeiro.">
+  <meta property="og:image" content="assets/img/compartilhamento.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/alumni-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/medtwins.css?v=1.3.0">
+  <link rel="stylesheet" href="js/vendor/lenis-1.3.26/lenis.css">
+  <script type="module" src="js/main.js?v=1.3.0"></script>
+</head>
+<body data-tom="tinta" data-pagina="cem">
+  <main>
+    <section id="hero" class="hero" data-tom="tinta" aria-labelledby="hero-titulo">
+      <header class="topo">
+        <div class="limite topo__dentro">
+          <img class="topo__logo" src="assets/img/logo-medtwins.svg" alt="MedTwins" width="141" height="29">
+        </div>
+      </header>
+      <div class="hero__fundo" aria-hidden="true">
+        <span class="luz hero__luz"></span>
+      </div>
+      <div class="hero__grade limite">
+        <div class="hero__texto">
+          <p class="rotulo rotulo--chip hero__selo" data-surge>Simulado Nacional MedTwins<span class="visualmente-oculto"> · </span><span class="rotulo__par">1ª etapa do Revalida</span></p>
+          <h1 class="hero__titulo" id="hero-titulo">Faça o Simulado Nacional MedTwins e descubra, na hora, <span class="acento">quais assuntos estão tirando seus pontos.</span></h1>
+          <p class="hero__sub" data-surge style="--atraso: 100ms">Você faz a prova na plataforma e, ao terminar, recebe seu diagnóstico completo: onde você está forte, onde está perdendo pontos e o que revisar primeiro.</p>
+          <ul class="dados" role="list" data-surge style="--atraso: 180ms">
+            <li class="dado" hidden><span class="dado__icone" aria-hidden="true"><span class="icone icone--data"></span></span><span class="dado__texto">Data: <strong data-campanha="data"></strong></span></li>
+            <li class="dado"><span class="dado__icone" aria-hidden="true"><span class="icone icone--prova"></span></span><span class="dado__texto"><strong>100 questões</strong> <span class="sem-quebra">no padrão INEP</span></span></li>
+            <li class="dado" hidden><span class="dado__icone" aria-hidden="true"><span class="icone icone--liberacao"></span></span><span class="dado__texto">Liberação: <strong data-campanha="horario"></strong></span></li>
+            <li class="dado"><span class="dado__icone" aria-hidden="true"><span class="icone icone--gratuito"></span></span><span class="dado__texto"><strong>100% gratuito</strong></span></li>
+          </ul>
+          <button class="botao botao--largo hero__abrir" type="button" data-abrir-form data-teste="abrir-form" aria-controls="formulario" aria-expanded="false">Garantir minha vaga no simulado<span class="botao__caixa" aria-hidden="true"><span class="icone icone--seta"></span></span></button>
+        </div>
+        <div class="hero__cena parede" aria-hidden="true" data-parede>
+          <div class="parede__plano" data-plano></div>
+        </div>
+      </div>
+      <div class="veu" data-veu hidden></div>
+      <div class="lead" id="formulario" data-lead aria-labelledby="lead-titulo-1">
+        <div class="lead__card" data-tom="papel" data-lenis-prevent>
+          <span class="lead__alca" aria-hidden="true"></span>
+          <form id="simulado-nacional" name="simulado medtwins v2" class="lead__form" data-form data-teste="form" novalidate>
+            <div class="lead__cabeca">
+              <button class="lead__voltar" type="button" data-voltar aria-label="Voltar para a etapa 1" hidden><span class="icone icone--voltar" aria-hidden="true"></span></button>
+              <p class="lead__etapa" aria-live="polite">Etapa <span data-etapa-num>01</span>/02</p>
+              <span class="simbolo lead__marca" aria-hidden="true"></span>
+              <button class="lead__fechar" type="button" data-fechar aria-label="Fechar"><span class="icone icone--x" aria-hidden="true"></span></button>
+            </div>
+            <span class="lead__trilho" aria-hidden="true"><span></span><span></span></span>
+            <div class="lead__corpo">
+              <div class="passo" data-passo="1">
+                <h2 class="lead__titulo" id="lead-titulo-1" tabindex="-1">Simulado Nacional&nbsp;MedTwins</h2>
+                <div class="campos">
+                  <div class="campo" data-campo="nome">
+                    <label class="campo__rotulo" for="f-nome">Nome</label>
+                    <input class="campo__input" id="f-nome" name="nome" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" required aria-describedby="e-nome">
+                    <p class="campo__erro" id="e-nome" data-erro></p>
+                  </div>
+                  <div class="campo" data-campo="telefone">
+                    <label class="campo__rotulo" for="f-telefone">WhatsApp</label>
+                    <input class="campo__input" id="f-telefone" name="telefone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="(00) 00000-0000" maxlength="15" enterkeyhint="next" required aria-describedby="e-telefone">
+                    <p class="campo__erro" id="e-telefone" data-erro></p>
+                  </div>
+                  <div class="campo" data-campo="email">
+                    <label class="campo__rotulo" for="f-email">E-mail</label>
+                    <input class="campo__input" id="f-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" enterkeyhint="go" required aria-describedby="e-email">
+                    <p class="campo__erro" id="e-email" data-erro></p>
+                  </div>
+                </div>
+                <button class="botao botao--largo" type="button" data-teste="continuar">Continuar<span class="botao__caixa" aria-hidden="true"><span class="icone icone--seta"></span></span></button>
+              </div>
+              <div class="passo" data-passo="2" hidden>
+                <h2 class="lead__titulo" id="lead-titulo-2" tabindex="-1">Falta pouco</h2>
+                <p class="lead__apoio">Responda rapidinho para a gente entender o seu momento.</p>
+                <div class="perguntas">
+                  <fieldset class="pergunta" data-pergunta="mentoria_medtwins" aria-describedby="e-q1">
+                    <legend class="pergunta__texto"><span class="pergunta__num" aria-hidden="true">01</span><span>Você já faz parte da Mentoria MedTwins?</span></legend>
+                    <div class="opcoes">
+                      <input class="opcao__input" type="radio" required id="q1-a" name="mentoria_medtwins" value="Sim"><label class="opcao" for="q1-a"><span class="opcao__bolha" aria-hidden="true"></span>Sim</label>
+                      <input class="opcao__input" type="radio" required id="q1-b" name="mentoria_medtwins" value="Não"><label class="opcao" for="q1-b"><span class="opcao__bolha" aria-hidden="true"></span>Não</label>
+                      <p class="campo__erro" id="e-q1" data-erro></p>
+                    </div>
+                  </fieldset>
+                  <fieldset class="pergunta" data-pergunta="outra_mentoria" aria-describedby="e-q2">
+                    <legend class="pergunta__texto"><span class="pergunta__num" aria-hidden="true">02</span><span>Você já está em outra mentoria ou curso preparatório?</span></legend>
+                    <div class="opcoes">
+                      <input class="opcao__input" type="radio" required id="q2-a" name="outra_mentoria" value="Sim"><label class="opcao" for="q2-a"><span class="opcao__bolha" aria-hidden="true"></span>Sim</label>
+                      <input class="opcao__input" type="radio" required id="q2-b" name="outra_mentoria" value="Não"><label class="opcao" for="q2-b"><span class="opcao__bolha" aria-hidden="true"></span>Não</label>
+                      <p class="campo__erro" id="e-q2" data-erro></p>
+                    </div>
+                  </fieldset>
+                  <fieldset class="pergunta" data-pergunta="prova_inep" aria-describedby="e-q3">
+                    <legend class="pergunta__texto"><span class="pergunta__num" aria-hidden="true">03</span><span>Qual prova da banca do INEP você vai prestar?</span></legend>
+                    <div class="opcoes">
+                      <input class="opcao__input" type="radio" required id="q3-a" name="prova_inep" value="Revalida 2026"><label class="opcao" for="q3-a"><span class="opcao__bolha" aria-hidden="true"></span>Revalida 2026</label>
+                      <input class="opcao__input" type="radio" required id="q3-b" name="prova_inep" value="Revalida 2027"><label class="opcao" for="q3-b"><span class="opcao__bolha" aria-hidden="true"></span>Revalida 2027</label>
+                      <input class="opcao__input" type="radio" required id="q3-c" name="prova_inep" value="Residência"><label class="opcao" for="q3-c"><span class="opcao__bolha" aria-hidden="true"></span>Residência</label>
+                      <p class="campo__erro" id="e-q3" data-erro></p>
+                    </div>
+                  </fieldset>
+                  <fieldset class="pergunta" data-pergunta="ja_prestou_inep" aria-describedby="e-q4">
+                    <legend class="pergunta__texto"><span class="pergunta__num" aria-hidden="true">04</span><span>Você já prestou alguma prova do INEP antes?</span></legend>
+                    <div class="opcoes">
+                      <input class="opcao__input" type="radio" required id="q4-a" name="ja_prestou_inep" value="Sim"><label class="opcao" for="q4-a"><span class="opcao__bolha" aria-hidden="true"></span>Sim</label>
+                      <input class="opcao__input" type="radio" required id="q4-b" name="ja_prestou_inep" value="Não, primeira vez"><label class="opcao" for="q4-b"><span class="opcao__bolha" aria-hidden="true"></span>Não, primeira vez</label>
+                      <p class="campo__erro" id="e-q4" data-erro></p>
+                    </div>
+                  </fieldset>
+                  <fieldset class="pergunta" data-pergunta="interesse_mentoria" aria-describedby="e-q5">
+                    <legend class="pergunta__texto"><span class="pergunta__num" aria-hidden="true">05</span><span>Você gostaria de investir e conhecer mais sobre a Mentoria MedTwins?</span></legend>
+                    <div class="opcoes">
+                      <input class="opcao__input" type="radio" required id="q5-a" name="interesse_mentoria" value="Sim, quero conhecer"><label class="opcao" for="q5-a"><span class="opcao__bolha" aria-hidden="true"></span>Sim, quero conhecer</label>
+                      <input class="opcao__input" type="radio" required id="q5-b" name="interesse_mentoria" value="Só o grupo"><label class="opcao" for="q5-b"><span class="opcao__bolha" aria-hidden="true"></span>Só o grupo</label>
+                      <p class="campo__erro" id="e-q5" data-erro></p>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="falha" data-falha role="alert" hidden>
+                  <p class="falha__texto" data-falha-texto></p>
+                  <button class="falha__botao" type="button" data-tentar></button>
+                </div>
+                <button class="botao botao--largo lead__enviar" type="submit" data-enviar data-teste="enviar">Garantir minha vaga no simulado<span class="botao__caixa" aria-hidden="true"><span class="icone icone--seta"></span></span><span class="lead__giro" aria-hidden="true"></span></button>
+                <p class="lead__nota">O link de acesso chegará no seu e-mail.</p>
+              </div>
+              <div class="passo sucesso" data-passo="3" hidden>
+                <svg class="sucesso__selo" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" pathLength="1"/><path d="M20 33.5l8.5 8.5L45 25" pathLength="1"/></svg>
+                <h2 class="sucesso__titulo" id="lead-titulo-3" tabindex="-1">O link de acesso chegará no seu e-mail.</h2>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <span class="hero__fim" data-hero-fim aria-hidden="true"></span>
+    </section>
+    <section id="resultado" class="resultado" aria-labelledby="resultado-titulo">
+      <div class="resultado__abertura" data-tom="tinta">
+        <div class="limite">
+          <header class="resultado__cabeca">
+            <p class="resultado__linha" data-surge>Faça a prova direto na plataforma, sem PDF e sem conferir gabarito na mão.</p>
+            <h2 id="resultado-titulo" data-surge style="--atraso: 80ms">O resultado sai assim que você termina.</h2>
+          </header>
+        </div>
+      </div>
+      <div class="resultado__cena" data-tom="tinta" data-resultado>
+        <div class="resultado__fundos" aria-hidden="true">
+          <span class="resultado__fundo resultado__fundo--ceu" data-fundo="ceu"></span>
+          <span class="resultado__fundo resultado__fundo--papel" data-fundo="papel"></span>
+          <span class="resultado__simbolo"></span>
+        </div>
+        <div class="limite resultado__palco">
+          <div class="legenda-palco" data-legenda>
+            <section class="grupo" aria-labelledby="grupo-erros" data-grupo="1">
+              <h3 id="grupo-erros" class="grupo__titulo">Entenda seus erros</h3>
+              <ol class="grupo__itens" role="list">
+                <li class="etapa" data-etapa="1"><p class="etapa__texto" data-sem-orfa><span class="etapa__num" aria-hidden="true">01</span><span>Diagnóstico de desempenho por grande área</span></p><div class="etapa__mini" aria-hidden="true" data-mini="areas"></div></li>
+                <li class="etapa" data-etapa="2"><p class="etapa__texto" data-sem-orfa><span class="etapa__num" aria-hidden="true">02</span><span>Seus pontos fortes e fracos, conteúdo por conteúdo</span></p><div class="etapa__mini" aria-hidden="true" data-mini="conteudos"></div></li>
+                <li class="etapa" data-etapa="3"><p class="etapa__texto" data-sem-orfa><span class="etapa__num" aria-hidden="true">03</span><span>Análise de cada questão que você errou</span></p><div class="etapa__mini" aria-hidden="true" data-mini="questao"></div></li>
+                <li class="etapa" data-etapa="4"><p class="etapa__texto" data-sem-orfa><span class="etapa__num" aria-hidden="true">04</span><span>Correção comentada: por que a alternativa certa está certa e por que as outras estão erradas</span></p><div class="etapa__mini" aria-hidden="true" data-mini="comentario"></div></li>
+              </ol>
+            </section>
+            <section class="grupo grupo--agora" aria-labelledby="grupo-agora" data-grupo="2">
+              <h3 id="grupo-agora" class="grupo__titulo">Saiba o que fazer agora</h3>
+              <ol class="grupo__itens" role="list">
+                <li class="etapa" data-etapa="5"><p class="etapa__texto" data-sem-orfa><span class="etapa__num" aria-hidden="true">05</span><span>Suas prioridades de revisão</span></p><div class="etapa__mini" aria-hidden="true" data-mini="prioridades"></div></li>
+                <li class="etapa" data-etapa="6"><p class="etapa__texto" data-sem-orfa><span class="etapa__num" aria-hidden="true">06</span><span>Direcionamento individual de estudos, feito a partir das suas respostas</span></p><div class="etapa__mini" aria-hidden="true" data-mini="plano"></div></li>
+              </ol>
+            </section>
+          </div>
+          <div class="resultado__objeto" aria-hidden="true" data-objeto></div>
+          <div class="palco-barra" aria-hidden="true">
+            <span class="palco-barra__conta"><b data-conta>00</b> / 06</span>
+            <span class="palco-barra__linha"><i data-progresso></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="resultado__fecho" data-tom="papel">
+        <div class="limite resultado__fecho-dentro" data-surge>
+          <p class="destaque destaque--texto resultado__frase" data-sem-orfa>Você para de revisar tudo e começa a revisar <span class="acento">o que realmente está te custando pontos.</span></p>
+          <a class="botao" href="#formulario" data-ir-form>Receber meu plano de revisão<span class="botao__caixa" aria-hidden="true"><span class="icone icone--seta"></span></span></a>
+        </div>
+      </div>
+    </section>
+    <section id="quem-preparou" class="secao mesa" data-tom="tinta" aria-labelledby="mesa-titulo" data-mesa>
+      <div class="mesa__fundo" aria-hidden="true">
+        <span class="luz mesa__luz"></span>
+      </div>
+      <div class="limite mesa__dentro">
+        <h2 id="mesa-titulo" class="mesa__titulo" data-surge>Quem preparou esta prova já esteve do seu lado da <span class="acento">mesa.</span></h2>
+        <div class="mesa__grade">
+          <figure class="mesa__foto" data-foto>
+            <div class="mesa__moldura">
+              <img src="assets/img/fundadores-1400.webp" srcset="assets/img/fundadores-900.webp 900w, assets/img/fundadores-1400.webp 1400w" sizes="(max-width: 1099px) 92vw, 640px" width="1400" height="1272" alt="Kelvin Pereira, Naypsson Araújo e Kelsen Pereira, os fundadores da MedTwins" loading="lazy" decoding="async">
+            </div>
+            <span class="mesa__nome mesa__nome--1" aria-hidden="true"><span class="simbolo"></span>Kelvin Pereira</span>
+            <span class="mesa__nome mesa__nome--2" aria-hidden="true"><span class="simbolo"></span>Naypsson Araújo</span>
+            <span class="mesa__nome mesa__nome--3" aria-hidden="true"><span class="simbolo"></span>Kelsen Pereira</span>
+          </figure>
+          <div class="mesa__texto">
+            <p class="mesa__abre" data-surge>Kelvin Pereira, Kelsen Pereira e Naypsson Araújo são os três médicos fundadores da MedTwins.</p>
+            <p data-surge style="--atraso: 80ms">Todos eles já enfrentaram a banca INEP e sabem o que é ter a carreira dependendo de uma única prova. Somam aprovações em três instituições diferentes: INEP, USP e UFMT. Desde então, estudam como a banca pensa: o que ela realmente avalia, como constrói as questões e onde estão as armadilhas que mais derrubam candidatos.</p>
+            <p data-surge style="--atraso: 160ms">O Simulado Nacional nasceu desse trabalho. Ele não existe para te dar mais conteúdo. Existe para mostrar onde você está perdendo pontos e o que fazer a partir disso.</p>
+            <div class="mesa__fecho" data-surge style="--atraso: 220ms">
+              <p class="mesa__afirmacao" data-sem-orfa>Mais do que conteúdo, direcionamento. <span class="acento">Mais do que teoria, estratégia.</span></p>
+              <a class="botao" href="#formulario" data-ir-form>Quero fazer o Simulado Nacional<span class="botao__caixa" aria-hidden="true"><span class="icone icone--seta"></span></span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="rodape">
+    <div class="limite rodape__dentro">
+      <img class="rodape__logo" src="assets/img/logo-medtwins.svg" alt="MedTwins" width="141" height="29" loading="lazy">
+      <p class="rodape__legal"><span>Medtwins Comercio e Servicos Ltda | CNPJ: 58.097.633/0001-40</span> <span>· 2026 © MedTwins</span></p>
+      <nav class="rodape__fluxos" aria-label="Outros simulados"><a href="../simulado-nacional-6-areas/index.html" data-pagina-destino="simulado-nacional-6-areas" target="_top">Conhecer os simulados por área</a></nav>
+    </div>
+  </footer>
+  <div class="barra-cta" data-barra-cta>
+    <button class="botao botao--largo" type="button" data-abrir-form data-teste="abrir-form" aria-controls="formulario" aria-expanded="false">Garantir minha vaga no simulado<span class="botao__caixa" aria-hidden="true"><span class="icone icone--seta"></span></span></button>
+  </div>
+</body>
+</html>

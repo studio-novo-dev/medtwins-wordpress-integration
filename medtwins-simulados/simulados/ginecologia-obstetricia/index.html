@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulado MedTwins — Ginecologia e Obstetrícia</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+<script src="data/simulado-data.js"></script>
+<style>
+html,body{margin:0;padding:0;background:#F5F6F2}
+body{font-family:'Satoshi',system-ui,sans-serif;color:#000;-webkit-font-smoothing:antialiased}
+a{color:#076653}a:hover{color:#0C342C}
+button{font-family:'Satoshi',system-ui,sans-serif}
+::selection{background:#E2FF89}
+@keyframes mtPulse{0%,100%{opacity:1}50%{opacity:.3}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="min-height:100vh;font-family:'Satoshi',system-ui,sans-serif">
+
+<!-- ============ CAPA ============ -->
+<sc-if value="{{ isCapa }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Capa" style="min-height:100vh;background-color:#0C342C;background-image:linear-gradient(rgba(4,16,34,.38),rgba(4,16,34,.38)),url('assets/capa-bg.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;color:#FFFFFF;display:flex;flex-direction:column">
+  <header style="display:flex;justify-content:space-between;align-items:center;padding:24px clamp(20px,6vw,80px);border-bottom:1px solid rgba(255,255,255,.14)">
+    <img src="assets/logo-white.png" alt="MedTwins Revalided" style="height:clamp(30px,4vw,42px);width:auto;display:block">
+    <span style="font-size:12px;font-weight:500;letter-spacing:.1em;color:#E2FF89">/ SIMULADO INEP</span>
+  </header>
+  <main style="flex:1;padding:clamp(48px,8vh,96px) clamp(20px,6vw,80px) clamp(40px,6vh,80px);max-width:1600px;box-sizing:border-box;width:100%;margin:0 auto">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ SIMULADO INEP MEDTWINS</p>
+    <h1 style="margin:0;font-size:clamp(64px,13vw,144px);font-weight:500;line-height:.92;letter-spacing:-.025em;text-transform:uppercase">{{ especUpper }}</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border-top:1px solid rgba(255,255,255,.28);border-bottom:1px solid rgba(255,255,255,.28);margin:clamp(32px,5vh,56px) 0">
+      <div style="padding:clamp(20px,3vh,32px) 24px clamp(20px,3vh,32px) 0"><div style="font-size:clamp(34px,4.8vw,48px);font-weight:400;line-height:1.02;letter-spacing:-.01em">{{ totalQ }}</div><div style="font-size:clamp(12px,1vw,13px);letter-spacing:.14em;font-weight:500;color:rgba(255,255,255,.78);margin-top:10px">QUESTÕES INÉDITAS</div></div>
+      <div style="padding:clamp(20px,3vh,32px) 24px;border-left:1px solid rgba(255,255,255,.22)"><div style="font-size:clamp(34px,4.8vw,48px);font-weight:400;line-height:1.02;letter-spacing:-.01em">{{ duracaoLabel }}</div><div style="font-size:clamp(12px,1vw,13px);letter-spacing:.14em;font-weight:500;color:rgba(255,255,255,.78);margin-top:10px">TEMPO DE PROVA</div></div>
+      <div style="padding:clamp(20px,3vh,32px) 24px;border-left:1px solid rgba(255,255,255,.22)"><div style="font-size:clamp(34px,4.8vw,48px);font-weight:400;line-height:1.02;letter-spacing:-.01em">INEP</div><div style="font-size:clamp(12px,1vw,13px);letter-spacing:.14em;font-weight:500;color:rgba(255,255,255,.78);margin-top:10px">PADRÃO DA PROVA</div></div>
+      <div style="padding:clamp(20px,3vh,32px) 24px;border-left:1px solid rgba(255,255,255,.22)"><div style="font-size:clamp(34px,4.8vw,48px);font-weight:400;line-height:1.02;letter-spacing:-.01em">A–D</div><div style="font-size:clamp(12px,1vw,13px);letter-spacing:.14em;font-weight:500;color:rgba(255,255,255,.78);margin-top:10px">MÚLTIPLA ESCOLHA</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(24px,4vw,64px);align-items:start">
+      <p style="margin:0;font-size:clamp(16px,1.4vw,18px);line-height:1.6;color:#D7E0DC;max-width:52ch">Teste sua preparação, identifique seus pontos fortes, descubra suas principais lacunas e receba um diagnóstico do seu desempenho.</p>
+      <div>
+        <p style="margin:0 0 14px;font-size:14px;font-weight:700;letter-spacing:.1em;color:#E2FF89">/ AO FINAL, VOCÊ RECEBERÁ</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+          <sc-for list="{{ entregaveis }}" as="e" hint-placeholder-count="6">
+            <div style="border-top:1px solid rgba(255,255,255,.16);padding:13px 12px 13px 0;font-size:clamp(14px,1.2vw,16px);line-height:1.45;color:#EAF1EE">{{ e }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:clamp(40px,7vh,72px)">
+      <button onClick="{{ onStart }}" style="background:#E2FF89;color:#000;border:1px solid #E2FF89;border-radius:8px;padding:20px 40px;font-size:15px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#d3f36e;border-color:#000" style-focus="outline:2px solid #E2FF89;outline-offset:3px">{{ capaCta }}</button>
+      <sc-if value="{{ hasSaved }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onRestartAll }}" style="background:transparent;color:#D7E0DC;border:none;padding:16px 8px;font-size:13px;letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:4px" style-hover="color:#E2FF89">RECOMEÇAR DO ZERO</button>
+      </sc-if>
+    </div>
+    <p style="margin:24px 0 0;font-size:12px;color:#7E948C;letter-spacing:.04em">Seu progresso é salvo automaticamente neste dispositivo.</p>
+  </main>
+</div>
+</sc-if>
+
+<!-- ============ INSTRUÇÕES ============ -->
+<sc-if value="{{ isInstr }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Instruções" style="min-height:100vh;background:#F5F6F2">
+  <div style="max-width:960px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(20px,6vw,48px)">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ {{ especLabel }} — INSTRUÇÕES</p>
+    <h1 style="margin:0 0 clamp(32px,5vh,56px);font-size:clamp(40px,7vw,72px);font-weight:400;line-height:.98;letter-spacing:-.02em">ANTES DE COMEÇAR</h1>
+    <div style="border-top:1px solid #000">
+      <sc-for list="{{ instrucoes }}" as="it" hint-placeholder-count="6">
+        <div style="display:flex;gap:clamp(16px,4vw,40px);padding:20px 0;border-bottom:1px solid #D8DBD2;align-items:baseline">
+          <span style="font-size:14px;font-weight:500;color:#076653;min-width:28px">{{ it.n }}</span>
+          <p style="margin:0;font-size:17px;line-height:1.55;max-width:64ch">{{ it.t }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border:1px solid #0C342C;border-radius:0;margin-top:clamp(32px,5vh,48px);padding:clamp(20px,4vw,32px)">
+      <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ AUTOAVALIAÇÃO</p>
+      <h3 style="margin:0 0 12px;font-size:clamp(22px,3vw,28px);font-weight:500;line-height:1.15">QUÃO CONFIANTE VOCÊ ESTÁ?</h3>
+      <p style="margin:0 0 16px;font-size:16px;line-height:1.55;max-width:62ch">Depois de responder cada questão, você poderá informar seu nível de confiança na resposta:</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="border:1px solid #0C342C;border-radius:4px;padding:10px 18px;font-size:12px;font-weight:500;letter-spacing:.1em">BAIXA</span>
+        <span style="border:1px solid #0C342C;border-radius:4px;padding:10px 18px;font-size:12px;font-weight:500;letter-spacing:.1em">MÉDIA</span>
+        <span style="background:#0C342C;color:#fff;border:1px solid #0C342C;border-radius:4px;padding:10px 18px;font-size:12px;font-weight:500;letter-spacing:.1em">ALTA</span>
+      </div>
+      <p style="margin:16px 0 0;font-size:14px;line-height:1.5;color:#3E4A45;max-width:62ch">Isso nos ajuda a identificar conteúdos em que você errou mesmo acreditando dominar.</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(32px,5vh,48px)">
+      <button onClick="{{ onBegin }}" style="background:#E2FF89;color:#000;border:1px solid #E2FF89;border-radius:8px;padding:18px 36px;font-size:15px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#d3f36e;border-color:#000" style-focus="outline:2px solid #076653;outline-offset:3px">COMEÇAR AGORA →</button>
+      <button onClick="{{ onBackCapa }}" style="background:transparent;color:#0C342C;border:none;padding:16px 8px;font-size:13px;letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:4px" style-hover="color:#076653">Voltar</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ PROVA ============ -->
+<sc-if value="{{ isProva }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Prova" style="min-height:100vh;background:#F5F6F2;display:flex;flex-direction:column">
+  <header style="position:sticky;top:0;z-index:20;background:#F5F6F2;border-bottom:1px solid #000">
+    <div style="display:flex;align-items:center;gap:clamp(12px,2vw,28px);padding:12px clamp(16px,4vw,48px);flex-wrap:wrap">
+      <span style="font-size:12px;font-weight:500;letter-spacing:.1em;color:#076653">{{ provaContexto }}</span>
+      <div style="display:flex;align-items:center;gap:12px;flex:1 1 200px;min-width:160px">
+        <span style="font-size:13px;font-weight:500;letter-spacing:.04em;font-variant-numeric:tabular-nums;white-space:nowrap">{{ qOf }}</span>
+        <div style="flex:1;height:6px;background:#DDE0D7;border-radius:0;overflow:hidden" role="progressbar" aria-label="Progresso da prova"><div style="{{ progFillStyle }}"></div></div>
+        <span style="font-size:12px;color:#3E4A45;font-variant-numeric:tabular-nums;white-space:nowrap">{{ progressLabel }}</span>
+      </div>
+      <sc-if value="{{ showTimer }}" hint-placeholder-val="{{ false }}">
+        <span aria-label="Tempo restante" style="{{ timeStyle }}">{{ timeLabel }}</span>
+      </sc-if>
+      <span style="{{ saveStyle }}">{{ saveLabel }}</span>
+      <button onClick="{{ onOpenNav }}" style="background:transparent;border:1px solid #0C342C;border-radius:8px;color:#0C342C;padding:10px 16px;font-size:12px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#0C342C;color:#F5F6F2" style-focus="outline:2px solid #076653;outline-offset:2px">VER QUESTÕES</button>
+      <img src="assets/logo-dark.png" alt="MedTwins Revalided" style="height:26px;width:auto;display:block">
+    </div>
+  </header>
+  <sc-if value="{{ isRec }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#0C342C;color:#fff;padding:10px clamp(16px,4vw,48px);font-size:12px;font-weight:500;letter-spacing:.1em">/ REVISÃO DOS SEUS ERROS — refaça sem consultar o gabarito</div>
+  </sc-if>
+  <main style="flex:1;width:100%;max-width:820px;margin:0 auto;padding:clamp(28px,5vh,56px) clamp(16px,4vw,48px) 120px;box-sizing:border-box">
+    <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">{{ qEyebrow }}</p>
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:20px">
+      <span style="font-size:clamp(40px,6vw,56px);font-weight:400;line-height:1;letter-spacing:-.02em">{{ qNum }}</span>
+      <span style="font-size:16px;color:#5A665F">/ {{ qTotalNum }}</span>
+      <sc-if value="{{ flagged }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size:11px;font-weight:500;letter-spacing:.1em;border:1px solid #076653;color:#076653;border-radius:4px;padding:4px 10px">MARCADA PARA REVISÃO</span>
+      </sc-if>
+    </div>
+    <p style="margin:0 0 28px;font-size:18px;line-height:1.62;color:#0A0F0D;text-wrap:pretty">{{ enunciado }}</p>
+    <div style="display:flex;flex-direction:column;gap:12px" role="radiogroup" aria-label="Alternativas">
+      <sc-for list="{{ alts }}" as="a" hint-placeholder-count="4">
+        <button onClick="{{ a.onClick }}" aria-pressed="{{ a.selected }}" style="{{ a.style }}" style-hover="border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">
+          <span style="min-width:28px;font-weight:500">{{ a.letter }})</span>
+          <span style="flex:1">{{ a.text }}</span>
+          <sc-if value="{{ a.selected }}" hint-placeholder-val="{{ false }}">
+            <span style="font-size:11px;font-weight:500;letter-spacing:.1em;white-space:nowrap">✓ SELECIONADA</span>
+          </sc-if>
+        </button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ showConf }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:28px;border-top:1px solid #D8DBD2;padding-top:20px">
+        <p style="margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.1em;color:#3E4A45">QUÃO CONFIANTE VOCÊ ESTÁ NESSA RESPOSTA?</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" role="radiogroup" aria-label="Nível de confiança">
+          <sc-for list="{{ confChips }}" as="c" hint-placeholder-count="3">
+            <button onClick="{{ c.onClick }}" aria-pressed="{{ c.on }}" style="{{ c.style }}" style-hover="border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">{{ c.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+  </main>
+  <footer style="position:sticky;bottom:0;background:#F5F6F2;border-top:1px solid #000;padding:14px clamp(16px,4vw,48px)">
+    <div style="max-width:820px;margin:0 auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <button onClick="{{ onPrev }}" disabled="{{ prevDisabled }}" style="{{ prevStyle }}" style-hover="border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">← ANTERIOR</button>
+      <sc-if value="{{ showFlag }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onFlag }}" style="{{ flagStyle }}" style-hover="border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">{{ flagLabel }}</button>
+      </sc-if>
+      <div style="flex:1"></div>
+      <button onClick="{{ onNext }}" style="background:#0C342C;color:#fff;border:1px solid #0C342C;border-radius:8px;padding:14px 28px;font-size:13px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#076653;border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">{{ nextLabel }}</button>
+    </div>
+  </footer>
+
+  <!-- Navegação (drawer / bottom sheet) -->
+  <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.45);display:flex;justify-content:flex-end" onClick="{{ onCloseNav }}">
+      <div role="dialog" aria-label="Navegação das questões" style="width:min(480px,100vw);max-width:100%;background:#F5F6F2;height:100%;overflow-y:auto;padding:24px clamp(16px,3vw,28px);box-sizing:border-box;border-left:1px solid #000" onClick="{{ stop }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <p style="margin:0;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ QUESTÕES</p>
+          <button onClick="{{ onCloseNav }}" aria-label="Fechar navegação" style="background:transparent;border:1px solid #0C342C;border-radius:8px;width:40px;height:40px;font-size:16px;cursor:pointer" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #076653;outline-offset:2px">✕</button>
+        </div>
+        <p style="margin:0 0 16px;font-size:14px;color:#3E4A45">{{ navSummary }}</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;font-size:11px;letter-spacing:.06em;color:#3E4A45">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#E2FF89;border:1px solid #000;display:inline-block"></span>ATUAL</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#0C342C;display:inline-block"></span>RESPONDIDA</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#fff;border:1px solid #B9BDB2;display:inline-block"></span>SEM RESPOSTA</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;background:#fff;border:2px solid #076653;display:inline-block"></span>REVISAR</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="10">
+            <button onClick="{{ n.onClick }}" aria-label="{{ n.aria }}" style="{{ n.style }}" style-focus="outline:2px solid #076653;outline-offset:2px">{{ n.label }}</button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ showGoFinal }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ onGoFinal }}" style="margin-top:24px;width:100%;background:transparent;border:1px solid #0C342C;border-radius:8px;color:#0C342C;padding:14px;font-size:13px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #076653;outline-offset:2px">IR PARA A FINALIZAÇÃO →</button>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ============ FINALIZAÇÃO ============ -->
+<sc-if value="{{ isFinal }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Finalização" style="min-height:100vh;background:#F5F6F2">
+  <div style="max-width:960px;margin:0 auto;padding:clamp(40px,8vh,96px) clamp(20px,6vw,48px)">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ FINALIZAÇÃO</p>
+    <h1 style="margin:0 0 clamp(28px,5vh,48px);font-size:clamp(38px,7vw,72px);font-weight:400;line-height:.98;letter-spacing:-.02em">{{ finalTitle }}</h1>
+    <sc-if value="{{ timeUp }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid #9A5B00;padding:16px 20px;margin-bottom:28px;display:flex;gap:12px;align-items:baseline">
+        <span style="color:#9A5B00;font-weight:700">⚠</span>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#5C3A06">O tempo de prova terminou. Suas respostas foram preservadas — finalize para gerar o diagnóstico.</p>
+      </div>
+    </sc-if>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:#000;border:1px solid #000">
+      <div style="background:#F5F6F2;padding:24px 20px"><div style="font-size:clamp(36px,5vw,56px);line-height:1">{{ totalQ }}</div><div style="font-size:12px;letter-spacing:.1em;font-weight:500;color:#3E4A45;margin-top:8px">QUESTÕES</div></div>
+      <div style="background:#F5F6F2;padding:24px 20px"><div style="font-size:clamp(36px,5vw,56px);line-height:1">{{ fRespondidas }}</div><div style="font-size:12px;letter-spacing:.1em;font-weight:500;color:#3E4A45;margin-top:8px">RESPONDIDAS</div></div>
+      <div style="background:#F5F6F2;padding:24px 20px"><div style="font-size:clamp(36px,5vw,56px);line-height:1">{{ fSem }}</div><div style="font-size:12px;letter-spacing:.1em;font-weight:500;color:#3E4A45;margin-top:8px">SEM RESPOSTA</div></div>
+      <div style="background:#F5F6F2;padding:24px 20px"><div style="font-size:clamp(36px,5vw,56px);line-height:1">{{ fRevisar }}</div><div style="font-size:12px;letter-spacing:.1em;font-weight:500;color:#3E4A45;margin-top:8px">PARA REVISAR</div></div>
+    </div>
+    <sc-if value="{{ hasUnanswered }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid #9A5B00;padding:16px 20px;margin-top:24px;display:flex;gap:12px;align-items:baseline">
+        <span style="color:#9A5B00;font-weight:700">⚠</span>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#5C3A06">{{ unansweredMsg }}</p>
+      </div>
+    </sc-if>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:clamp(32px,5vh,48px)">
+      <sc-if value="{{ notTimeUp }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onBackProva }}" style="background:transparent;border:1px solid #0C342C;border-radius:8px;color:#0C342C;padding:18px 32px;font-size:14px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #076653;outline-offset:2px">REVISAR QUESTÕES</button>
+      </sc-if>
+      <button onClick="{{ onFinalize }}" style="background:#E2FF89;color:#000;border:1px solid #E2FF89;border-radius:8px;padding:18px 36px;font-size:14px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#d3f36e;border-color:#000" style-focus="outline:2px solid #076653;outline-offset:3px">FINALIZAR SIMULADO →</button>
+    </div>
+  </div>
+  <sc-if value="{{ confirmOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:20px" onClick="{{ onCancelFinal }}">
+      <div role="dialog" aria-label="Confirmar finalização" style="background:#F5F6F2;border:1px solid #000;max-width:520px;width:100%;padding:clamp(24px,4vw,40px)" onClick="{{ stop }}">
+        <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ CONFIRMAÇÃO</p>
+        <h3 style="margin:0 0 12px;font-size:clamp(22px,3vw,28px);font-weight:500;line-height:1.15">DESEJA REALMENTE FINALIZAR O SIMULADO?</h3>
+        <p style="margin:0 0 24px;font-size:15px;line-height:1.55;color:#3E4A45">Após finalizar, suas respostas não poderão mais ser alteradas e o diagnóstico será gerado.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end">
+          <button onClick="{{ onCancelFinal }}" style="background:transparent;border:1px solid #0C342C;border-radius:8px;color:#0C342C;padding:14px 24px;font-size:13px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #076653;outline-offset:2px">CANCELAR</button>
+          <button onClick="{{ onConfirmFinal }}" style="background:#E2FF89;color:#000;border:1px solid #E2FF89;border-radius:8px;padding:14px 28px;font-size:13px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#d3f36e;border-color:#000" style-focus="outline:2px solid #076653;outline-offset:2px">FINALIZAR</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ============ PROCESSAMENTO ============ -->
+<sc-if value="{{ isProc }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Processamento" style="min-height:100vh;background-color:#0C342C;background-image:linear-gradient(rgba(4,16,34,.5),rgba(4,16,34,.5)),url('assets/capa-bg.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;color:#fff;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box">
+  <div style="max-width:640px;width:100%">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ ANÁLISE MEDTWINS</p>
+    <h2 style="margin:0 0 clamp(28px,5vh,48px);font-size:clamp(30px,5vw,48px);font-weight:400;line-height:1;letter-spacing:-.02em">{{ procTitle }}</h2>
+    <div style="border-top:1px solid rgba(255,255,255,.2)">
+      <sc-for list="{{ procSteps }}" as="s" hint-placeholder-count="5">
+        <div style="display:flex;gap:20px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.14)">
+          <span style="font-size:12px;color:#7E948C;min-width:22px;font-variant-numeric:tabular-nums">{{ s.n }}</span>
+          <span style="{{ s.style }}">{{ s.label }}</span>
+          <span style="margin-left:auto;font-size:14px;color:#E2FF89">{{ s.mark }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <div style="height:4px;background:rgba(255,255,255,.14);margin-top:32px;overflow:hidden"><div style="{{ procBarStyle }}"></div></div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ DIAGNÓSTICO ============ -->
+<sc-if value="{{ isDiag }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Diagnóstico" style="min-height:100vh;background:#F5F6F2">
+  <section style="background-color:#0C342C;background-image:linear-gradient(rgba(4,16,34,.48),rgba(4,16,34,.48)),url('assets/capa-bg.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;color:#fff;padding:clamp(48px,9vh,112px) clamp(20px,6vw,80px) clamp(40px,7vh,80px)">
+    <div style="max-width:1600px;margin:0 auto">
+      <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ SEU DIAGNÓSTICO MEDTWINS — {{ especLabel }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,80px);align-items:flex-end">
+        <div>
+          <div style="font-size:clamp(88px,16vw,176px);line-height:1;letter-spacing:-.03em;color:#E2FF89;font-variant-numeric:tabular-nums">{{ pct }}<span style="font-size:.45em">%</span></div>
+          <div style="font-size:13px;font-weight:500;letter-spacing:.14em;margin-top:12px">DE ACERTOS</div>
+        </div>
+        <div style="display:flex;gap:1px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.2);flex-wrap:wrap">
+          <div style="background:rgba(5,20,26,.42);padding:20px 28px;min-width:110px"><div style="font-size:clamp(32px,4vw,48px);line-height:1">{{ acertos }}</div><div style="font-size:11px;letter-spacing:.12em;font-weight:500;color:#9DB3AC;margin-top:6px">ACERTOS</div></div>
+          <div style="background:rgba(5,20,26,.42);padding:20px 28px;min-width:110px"><div style="font-size:clamp(32px,4vw,48px);line-height:1">{{ erros }}</div><div style="font-size:11px;letter-spacing:.12em;font-weight:500;color:#9DB3AC;margin-top:6px">ERROS</div></div>
+          <sc-if value="{{ showSemResp }}" hint-placeholder-val="{{ false }}">
+            <div style="background:rgba(5,20,26,.42);padding:20px 28px;min-width:110px"><div style="font-size:clamp(32px,4vw,48px);line-height:1">{{ semResp }}</div><div style="font-size:11px;letter-spacing:.12em;font-weight:500;color:#9DB3AC;margin-top:6px">SEM RESPOSTA</div></div>
+          </sc-if>
+          <div style="background:rgba(5,20,26,.42);padding:20px 28px;min-width:110px"><div style="font-size:clamp(32px,4vw,48px);line-height:1">{{ totalQ }}</div><div style="font-size:11px;letter-spacing:.12em;font-weight:500;color:#9DB3AC;margin-top:6px">QUESTÕES</div></div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,.2);margin-top:clamp(32px,6vh,56px);padding-top:24px;max-width:820px">
+        <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ LEITURA MEDTWINS</p>
+        <p style="margin:0;font-size:clamp(18px,2.4vw,24px);line-height:1.45;color:#EAF1EE;text-wrap:pretty">{{ interpretacao }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(48px,8vh,96px) clamp(20px,6vw,80px);max-width:1600px;margin:0 auto;box-sizing:border-box">
+    <p style="margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ DESEMPENHO POR SUBÁREA</p>
+    <h2 style="margin:0 0 16px;font-size:clamp(30px,5vw,48px);font-weight:400;line-height:1;letter-spacing:-.02em">COMO VOCÊ FOI EM CADA ÁREA?</h2>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;margin:0 0 clamp(24px,4vh,40px);font-size:12px;font-weight:500;letter-spacing:.08em;color:#3E4A45">
+      <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;background:#0F7A4A;display:inline-block"></span>≥ 70% SATISFATÓRIO</span>
+      <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;background:#C79A00;display:inline-block"></span>50–69% ATENÇÃO</span>
+      <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;background:#C93636;display:inline-block"></span>&lt; 50% PRIORIDADE</span>
+    </div>
+    <div style="border-top:1px solid #000">
+      <sc-for list="{{ subareas }}" as="s" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:minmax(140px,240px) 1fr 90px;gap:clamp(12px,2vw,24px);align-items:center;padding:14px 0;border-bottom:1px solid #D8DBD2">
+          <div><div style="font-size:15px;font-weight:500;line-height:1.2">{{ s.nome }}</div><div style="font-size:12px;color:#5A665F;margin-top:2px">{{ s.frac }} questões</div></div>
+          <div style="height:16px;background:#E4E6DF;border:1px solid #000;position:relative"><div style="{{ s.barStyle }}"></div></div>
+          <div style="{{ s.pctStyle }}">{{ s.pctLabel }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#000;border:1px solid #000;margin-top:clamp(28px,5vh,48px)">
+      <div style="background:#F5F6F2;padding:24px">
+        <p style="margin:0 0 14px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#0F7A4A">✓ SEUS PONTOS FORTES</p>
+        <sc-for list="{{ fortes }}" as="f" hint-placeholder-count="2">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #D8DBD2;font-size:15px"><span>{{ f.nome }}</span><span style="font-weight:500">{{ f.pct }}</span></div>
+        </sc-for>
+      </div>
+      <div style="background:#F5F6F2;padding:24px">
+        <p style="margin:0 0 14px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#9A5B00">⚠ PONTOS DE ATENÇÃO</p>
+        <sc-for list="{{ atencao }}" as="f" hint-placeholder-count="2">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #D8DBD2;font-size:15px"><span>{{ f.nome }}</span><span style="font-weight:500">{{ f.pct }}</span></div>
+        </sc-for>
+      </div>
+      <div style="background-color:#0C342C;background-image:linear-gradient(rgba(4,16,34,.5),rgba(4,16,34,.5)),url('assets/capa-bg.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;color:#fff;padding:24px">
+        <p style="margin:0 0 14px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">→ PRIORIDADES</p>
+        <sc-for list="{{ prioridadesSub }}" as="f" hint-placeholder-count="2">
+          <div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid rgba(255,255,255,.2);font-size:15px"><span>{{ f.nome }}</span><span style="font-weight:500;color:#E2FF89">{{ f.pct }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
+  <section style="background:#fff;border-top:1px solid #000;border-bottom:1px solid #000;padding:clamp(48px,8vh,96px) clamp(20px,6vw,80px)">
+    <div style="max-width:1600px;margin:0 auto">
+      <p style="margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ PADRÃO DE ERROS</p>
+      <h2 style="margin:0 0 8px;font-size:clamp(30px,5vw,48px);font-weight:400;line-height:1;letter-spacing:-.02em">COMO VOCÊ ESTÁ ERRANDO?</h2>
+      <p style="margin:0 0 clamp(28px,5vh,48px);font-size:16px;line-height:1.55;color:#3E4A45;max-width:64ch">Além dos temas, analisamos o tipo de raciocínio envolvido nas questões que você errou.</p>
+      <p style="margin:0 0 20px;font-size:clamp(22px,3vw,32px);font-weight:500">{{ errosIdent }}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:#000;border:1px solid #000">
+        <sc-for list="{{ padroes }}" as="p" hint-placeholder-count="5">
+          <div style="background:#fff;padding:24px 20px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:clamp(36px,5vw,56px);line-height:1;font-variant-numeric:tabular-nums">{{ p.pct }}<span style="font-size:.5em">%</span></div>
+            <div style="font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase">{{ p.nome }}</div>
+            <div style="font-size:12px;color:#5A665F">{{ p.count }}</div>
+            <p style="margin:0;font-size:14px;line-height:1.5;color:#3E4A45">{{ p.micro }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(48px,8vh,96px) clamp(20px,6vw,80px);max-width:1600px;margin:0 auto;box-sizing:border-box">
+    <p style="margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ ERROS DE ALTA CONFIANÇA</p>
+    <h2 style="margin:0 0 20px;font-size:clamp(30px,5vw,48px);font-weight:400;line-height:1;letter-spacing:-.02em">ATENÇÃO A ESTES ERROS</h2>
+    <sc-if value="{{ hasAc }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0 0 8px;font-size:clamp(19px,2.6vw,26px);line-height:1.35;max-width:56ch">Você errou <strong style="font-weight:700">{{ acCount }}</strong> {{ acPlural }} com <strong style="font-weight:700">ALTA</strong> confiança.</p>
+      <p style="margin:0 0 28px;font-size:16px;line-height:1.55;color:#3E4A45;max-width:62ch">Esses erros merecem atenção especial porque envolvem conteúdos ou raciocínios que você acreditava dominar.</p>
+      <div style="border-top:1px solid #000">
+        <sc-for list="{{ acList }}" as="a" hint-placeholder-count="3">
+          <button onClick="{{ a.onClick }}" style="display:flex;width:100%;text-align:left;gap:clamp(12px,3vw,32px);align-items:baseline;padding:16px 8px;border:none;border-bottom:1px solid #D8DBD2;background:transparent;cursor:pointer;font-size:15px;flex-wrap:wrap" style-hover="background:#fff" style-focus="outline:2px solid #076653;outline-offset:-2px">
+            <span style="font-weight:500;min-width:110px">{{ a.q }}</span>
+            <span style="flex:1;min-width:160px">{{ a.sub }}</span>
+            <span style="color:#C93636">✕ Você respondeu {{ a.resp }}</span>
+            <span style="font-size:11px;font-weight:500;letter-spacing:.1em;border:1px solid #0C342C;border-radius:4px;padding:4px 10px">CONFIANÇA ALTA</span>
+          </button>
+        </sc-for>
+      </div>
+      <button onClick="{{ onRevisarAc }}" style="margin-top:24px;background:transparent;border:1px solid #0C342C;border-radius:8px;color:#0C342C;padding:16px 28px;font-size:13px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #076653;outline-offset:2px">REVISAR ERROS DE ALTA CONFIANÇA →</button>
+    </sc-if>
+    <sc-if value="{{ noAc }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0;font-size:17px;line-height:1.55;color:#3E4A45;max-width:62ch">✓ Nenhum erro de alta confiança neste simulado. Seus erros aconteceram em questões nas quais você já reconhecia insegurança — um bom sinal de autopercepção.</p>
+    </sc-if>
+  </section>
+
+  <section style="background-color:#0C342C;background-image:linear-gradient(rgba(4,16,34,.48),rgba(4,16,34,.48)),url('assets/capa-bg.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;color:#fff;padding:clamp(48px,8vh,96px) clamp(20px,6vw,80px)">
+    <div style="max-width:1600px;margin:0 auto">
+      <p style="margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ DIRECIONAMENTO</p>
+      <h2 style="margin:0 0 clamp(28px,5vh,48px);font-size:clamp(30px,5vw,48px);font-weight:400;line-height:1;letter-spacing:-.02em">SEU PRÓXIMO PASSO</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.2)">
+        <sc-for list="{{ dirList }}" as="d" hint-placeholder-count="3">
+          <div style="background:rgba(5,20,26,.42);padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:12px">
+            <span style="font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">PRIORIDADE {{ d.rank }}</span>
+            <span style="font-size:clamp(20px,2.6vw,26px);font-weight:500;line-height:1.15;text-transform:uppercase">{{ d.titulo }}</span>
+            <span style="font-size:14px;color:#9DB3AC">{{ d.meta }}</span>
+            <div>
+              <p style="margin:0 0 6px;font-size:11px;font-weight:500;letter-spacing:.12em;color:#9DB3AC">{{ d.focoLabel }}</p>
+              <sc-for list="{{ d.focos }}" as="f" hint-placeholder-count="3">
+                <p style="margin:0;padding:6px 0;border-top:1px solid rgba(255,255,255,.14);font-size:14px;line-height:1.4;color:#EAF1EE">{{ f }}</p>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ noErrors }}" hint-placeholder-val="{{ false }}">
+    <section style="padding:clamp(48px,8vh,96px) clamp(20px,6vw,80px);max-width:1600px;margin:0 auto;box-sizing:border-box">
+      <p style="margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#0F7A4A">✓ / DESEMPENHO MÁXIMO</p>
+      <h2 style="margin:0 0 12px;font-size:clamp(30px,5vw,48px);font-weight:400;line-height:1;letter-spacing:-.02em">VOCÊ ACERTOU TODAS AS QUESTÕES</h2>
+      <p style="margin:0;font-size:17px;line-height:1.55;color:#3E4A45;max-width:62ch">Não há padrões de erro nem prioridades de revisão neste simulado. Explore o gabarito comentado para consolidar os raciocínios de cada questão.</p>
+    </section>
+  </sc-if>
+
+  <div style="padding:clamp(32px,6vh,64px) clamp(20px,6vw,80px);max-width:1600px;margin:0 auto;box-sizing:border-box">
+    <button onClick="{{ onVerGabarito }}" style="background:#E2FF89;color:#000;border:1px solid #E2FF89;border-radius:8px;padding:20px 40px;font-size:15px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#d3f36e;border-color:#000" style-focus="outline:2px solid #076653;outline-offset:3px">VER GABARITO COMENTADO →</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ GABARITO ============ -->
+<sc-if value="{{ isGab }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Gabarito comentado" style="min-height:100vh;background:#F5F6F2">
+  <header style="position:sticky;top:0;z-index:20;background:#F5F6F2;border-bottom:1px solid #000">
+    <div style="display:flex;align-items:center;gap:clamp(12px,2vw,24px);padding:12px clamp(16px,4vw,48px);flex-wrap:wrap">
+      <button onClick="{{ onBackDiag }}" style="background:transparent;border:1px solid #0C342C;border-radius:8px;color:#0C342C;padding:8px 14px;font-size:12px;font-weight:500;letter-spacing:.06em;cursor:pointer" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #076653;outline-offset:2px">← DIAGNÓSTICO</button>
+      <span style="font-size:12px;font-weight:500;letter-spacing:.1em;color:#076653">/ GABARITO COMENTADO</span>
+      <span style="font-size:13px;color:#3E4A45">{{ gabResumo }}</span>
+      <div style="flex:1"></div>
+      <span style="font-size:12px;color:#5A665F;font-variant-numeric:tabular-nums">{{ gabPosLabel }}</span>
+      <img src="assets/logo-dark.png" alt="MedTwins Revalided" style="height:24px;width:auto;display:block">
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:0 clamp(16px,4vw,48px) 12px;flex-wrap:wrap">
+      <sc-for list="{{ gabFiltros }}" as="f" hint-placeholder-count="4">
+        <button onClick="{{ f.onClick }}" aria-pressed="{{ f.on }}" style="{{ f.style }}" style-hover="border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">{{ f.label }}</button>
+      </sc-for>
+      <select value="{{ temaSelVal }}" onChange="{{ onTemaChange }}" aria-label="Filtrar por tema" style="border:1px solid #0C342C;border-radius:4px;background:#fff;padding:9px 12px;font-size:12px;font-weight:500;letter-spacing:.04em;font-family:'Satoshi',system-ui,sans-serif;cursor:pointer">
+        <sc-for list="{{ temaOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.v }}">{{ o.label }}</option></sc-for>
+      </select>
+    </div>
+  </header>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr);gap:0;max-width:1360px;margin:0 auto">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;padding:20px clamp(16px,4vw,48px) 0">
+      <sc-for list="{{ gabSideItems }}" as="n" hint-placeholder-count="10">
+        <button onClick="{{ n.onClick }}" aria-label="{{ n.aria }}" style="{{ n.style }}" style-focus="outline:2px solid #076653;outline-offset:2px">{{ n.label }}<span style="{{ n.markStyle }}">{{ n.mark }}</span></button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ gabEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:clamp(40px,8vh,96px) clamp(16px,4vw,48px)">
+        <p style="margin:0;font-size:17px;color:#3E4A45">Nenhuma questão corresponde a este filtro.</p>
+      </div>
+    </sc-if>
+    <sc-if value="{{ gabHas }}" hint-placeholder-val="{{ false }}">
+    <article style="padding:clamp(28px,5vh,56px) clamp(16px,4vw,48px) 40px;max-width:860px">
+      <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ QUESTÃO {{ gNum }}</p>
+      <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px">
+        <span style="font-size:clamp(56px,9vw,96px);line-height:.95;letter-spacing:-.02em">{{ gNum }}</span>
+        <span style="font-size:12px;font-weight:500;letter-spacing:.1em;color:#3E4A45;text-transform:uppercase">{{ gMeta }}</span>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 24px">
+        <span style="{{ gResultStyle }}">{{ gResultLabel }}</span>
+        <sc-if value="{{ gShowWrong }}" hint-placeholder-val="{{ false }}">
+          <span style="border:1px solid #C93636;color:#C93636;border-radius:4px;padding:8px 14px;font-size:12px;font-weight:500;letter-spacing:.08em">✕ SUA RESPOSTA: {{ gSuaResp }}</span>
+        </sc-if>
+        <sc-if value="{{ gShowConf }}" hint-placeholder-val="{{ false }}">
+          <span style="border:1px solid #5A665F;color:#3E4A45;border-radius:4px;padding:8px 14px;font-size:12px;font-weight:500;letter-spacing:.08em">SUA CONFIANÇA: {{ gConf }}</span>
+        </sc-if>
+      </div>
+      <p style="margin:0 0 24px;font-size:17px;line-height:1.62;color:#0A0F0D;text-wrap:pretty">{{ gEnunciado }}</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ gAlts }}" as="a" hint-placeholder-count="4">
+          <div style="{{ a.style }}">
+            <span style="min-width:26px;font-weight:500">{{ a.letter }})</span>
+            <span style="flex:1">{{ a.text }}</span>
+            <sc-if value="{{ a.hasTag }}" hint-placeholder-val="{{ false }}"><span style="{{ a.tagStyle }}">{{ a.tag }}</span></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:clamp(32px,5vh,48px);border-top:1px solid #000;padding-top:24px">
+        <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ O QUE ESSA QUESTÃO ESTAVA AVALIANDO?</p>
+        <p style="margin:0;font-size:17px;line-height:1.55;max-width:66ch">{{ gAvalia }}</p>
+      </div>
+      <div style="margin-top:24px;background:#0C342C;color:#fff;padding:clamp(20px,3vw,32px)">
+        <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ O DETALHE QUE DEFINIA A QUESTÃO</p>
+        <p style="margin:0;font-size:17px;line-height:1.55;max-width:66ch">{{ gDetalhe }}</p>
+      </div>
+      <div style="margin-top:24px;border-top:1px solid #D8DBD2;padding-top:24px">
+        <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#0F7A4A">✓ / {{ gPorqueTitle }}</p>
+        <p style="margin:0;font-size:17px;line-height:1.55;max-width:66ch">{{ gPorque }}</p>
+      </div>
+      <div style="margin-top:24px;border-top:1px solid #D8DBD2;padding-top:24px">
+        <p style="margin:0 0 12px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#C93636">✕ / POR QUE AS OUTRAS ESTÃO ERRADAS</p>
+        <div style="border-top:1px solid #000">
+          <sc-for list="{{ gDistr }}" as="d" hint-placeholder-count="3">
+            <div style="border-bottom:1px solid #D8DBD2">
+              <button onClick="{{ d.onToggle }}" aria-expanded="{{ d.open }}" style="display:flex;width:100%;justify-content:space-between;align-items:center;gap:16px;background:transparent;border:none;padding:16px 4px;font-size:15px;font-weight:500;letter-spacing:.04em;cursor:pointer;text-align:left" style-hover="color:#076653" style-focus="outline:2px solid #076653;outline-offset:-2px">
+                <span>POR QUE {{ d.letter }} ESTÁ ERRADA?</span><span style="font-size:18px">{{ d.chev }}</span>
+              </button>
+              <sc-if value="{{ d.open }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:0;padding:0 4px 18px;font-size:16px;line-height:1.55;color:#26302B;max-width:66ch">{{ d.text }}</p>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ gShowCair }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:24px;border:1px solid #0C342C;padding:clamp(20px,3vw,28px)">
+          <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ ONDE VOCÊ PODERIA CAIR</p>
+          <p style="margin:0;font-size:16px;line-height:1.55;max-width:66ch">{{ gCairText }}</p>
+        </div>
+      </sc-if>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:clamp(32px,5vh,48px);border-top:1px solid #000;padding-top:20px;flex-wrap:wrap">
+        <button onClick="{{ onGabPrev }}" disabled="{{ gabPrevDis }}" style="{{ gabPrevStyle }}" style-hover="border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">← ANTERIOR</button>
+        <span style="font-size:13px;color:#5A665F;font-variant-numeric:tabular-nums">{{ gabPosLabel }}</span>
+        <div style="flex:1"></div>
+        <button onClick="{{ onGabNext }}" disabled="{{ gabNextDis }}" style="{{ gabNextStyle }}" style-hover="background:#076653;border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">PRÓXIMA →</button>
+      </div>
+    </article>
+    </sc-if>
+    <sc-if value="{{ hasWrong }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #000;margin:0 clamp(16px,4vw,48px);padding:clamp(28px,5vh,48px) 0 clamp(40px,7vh,72px);display:flex;gap:clamp(24px,4vw,48px);align-items:center;flex-wrap:wrap">
+        <div style="flex:1 1 320px;min-width:280px">
+          <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ PRÓXIMO PASSO</p>
+          <button onClick="{{ onGoConvite }}" style="background:#0C342C;color:#fff;border:1px solid #0C342C;border-radius:8px;padding:18px 32px;font-size:14px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#076653;border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">{{ gabCtaLabel }}</button>
+        </div>
+        <a href="{{ gps1Url }}" target="_blank" rel="noopener" aria-label="Conhecer o GPS-1 — guia de preparação estratégica MedTwins" style="flex:0 1 520px;min-width:280px;max-width:520px;margin-left:auto;display:block;border-radius:16px;overflow:hidden;transition:transform .2s,box-shadow .2s" style-hover="transform:translateY(-2px);box-shadow:0 12px 32px rgba(12,52,44,.18)" style-focus="outline:2px solid #076653;outline-offset:3px">
+          <img src="assets/banner-gps1.png" alt="Próximo nível da sua aprovação. Conheça o GPS-1 — Conhecer agora" style="display:block;width:100%;height:auto">
+        </a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ noWrong }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid #000;margin:0 clamp(16px,4vw,48px);padding:clamp(28px,5vh,48px) 0 clamp(40px,7vh,72px)">
+        <button onClick="{{ onGoEnc }}" style="background:#0C342C;color:#fff;border:1px solid #0C342C;border-radius:8px;padding:18px 32px;font-size:14px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#076653;border-color:#076653" style-focus="outline:2px solid #076653;outline-offset:2px">CONCLUIR SIMULADO →</button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ CONVITE RECUPERAÇÃO ============ -->
+<sc-if value="{{ isConvite }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Convite recuperação" style="min-height:100vh;background-color:#0C342C;background-image:linear-gradient(rgba(4,16,34,.5),rgba(4,16,34,.5)),url('assets/capa-bg.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;color:#fff;display:flex;align-items:center;padding:clamp(40px,8vh,96px) clamp(20px,6vw,80px);box-sizing:border-box">
+  <div style="max-width:900px;margin:0 auto;width:100%">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ RECUPERAÇÃO</p>
+    <h1 style="margin:0 0 20px;font-size:clamp(38px,7vw,72px);font-weight:400;line-height:.98;letter-spacing:-.02em">AGORA CORRIJA SEUS ERROS</h1>
+    <p style="margin:0 0 clamp(28px,5vh,48px);font-size:clamp(17px,2.2vw,20px);line-height:1.55;color:#D7E0DC;max-width:56ch">Você já viu onde errou e por quê. Agora teste se conseguiu corrigir o raciocínio — sem consultar o gabarito.</p>
+    <div style="display:flex;align-items:baseline;gap:20px;border-top:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(255,255,255,.2);padding:24px 0;margin-bottom:clamp(28px,5vh,48px)">
+      <span style="font-size:clamp(64px,10vw,112px);line-height:.9;color:#E2FF89;font-variant-numeric:tabular-nums">{{ convCount }}</span>
+      <span style="font-size:13px;font-weight:500;letter-spacing:.12em;color:#9DB3AC">{{ convLabel }}</span>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+      <button onClick="{{ onStartRec }}" style="background:#E2FF89;color:#000;border:1px solid #E2FF89;border-radius:8px;padding:20px 36px;font-size:15px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#d3f36e;border-color:#000" style-focus="outline:2px solid #E2FF89;outline-offset:3px">{{ convCta }}</button>
+      <button onClick="{{ onGoEnc }}" style="background:transparent;color:#D7E0DC;border:none;padding:16px 8px;font-size:13px;letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:4px" style-hover="color:#E2FF89">Pular para o encerramento</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ RESULTADO DA RECUPERAÇÃO ============ -->
+<sc-if value="{{ isRecRes }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Resultado da recuperação" style="min-height:100vh;background:#F5F6F2">
+  <div style="max-width:960px;margin:0 auto;padding:clamp(40px,8vh,96px) clamp(20px,6vw,48px)">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#076653">/ RESULTADO DA RECUPERAÇÃO</p>
+    <h1 style="margin:0 0 clamp(28px,5vh,48px);font-size:clamp(38px,7vw,72px);font-weight:400;line-height:.98;letter-spacing:-.02em">SUA REVISÃO FUNCIONOU?</h1>
+    <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px">
+      <span style="font-size:clamp(72px,13vw,144px);line-height:.9;letter-spacing:-.03em;font-variant-numeric:tabular-nums">{{ rrBig }}</span>
+      <span style="font-size:13px;font-weight:500;letter-spacing:.12em;color:#3E4A45">ERROS CORRIGIDOS APÓS A REVISÃO</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:#000;border:1px solid #000;margin:clamp(28px,5vh,48px) 0">
+      <div style="background:#F5F6F2;padding:24px 20px"><div style="font-size:12px;letter-spacing:.1em;font-weight:500;color:#3E4A45;margin-bottom:10px">PRIMEIRA TENTATIVA</div><div style="font-size:clamp(30px,4vw,40px);line-height:1">0 / {{ rrTot }}</div><div style="font-size:13px;color:#5A665F;margin-top:6px">dessas questões corretas</div></div>
+      <div style="background:#0C342C;color:#fff;padding:24px 20px"><div style="font-size:12px;letter-spacing:.1em;font-weight:500;color:#E2FF89;margin-bottom:10px">APÓS REVISÃO</div><div style="font-size:clamp(30px,4vw,40px);line-height:1;color:#E2FF89">{{ rrCorr }} / {{ rrTot }}</div><div style="font-size:13px;color:#9DB3AC;margin-top:6px">corretas na segunda tentativa</div></div>
+    </div>
+    <sc-if value="{{ rrAll }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid #0F7A4A;padding:clamp(20px,3vw,32px);margin-bottom:clamp(28px,5vh,48px)">
+        <p style="margin:0 0 8px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#0F7A4A">✓ / RECUPERAÇÃO COMPLETA</p>
+        <p style="margin:0;font-size:17px;line-height:1.55;max-width:62ch">Você corrigiu todos os erros deste simulado. Os raciocínios revisados foram aplicados corretamente na segunda tentativa.</p>
+      </div>
+    </sc-if>
+    <sc-if value="{{ rrHasStill }}" hint-placeholder-val="{{ false }}">
+      <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#9A5B00">⚠ / AINDA PRECISAM DE ATENÇÃO</p>
+      <div style="border-top:1px solid #000;margin-bottom:clamp(28px,5vh,48px)">
+        <sc-for list="{{ stillList }}" as="s" hint-placeholder-count="4">
+          <button onClick="{{ s.onClick }}" style="display:flex;width:100%;text-align:left;gap:20px;align-items:baseline;padding:14px 8px;border:none;border-bottom:1px solid #D8DBD2;background:transparent;cursor:pointer;font-size:15px;flex-wrap:wrap" style-hover="background:#fff" style-focus="outline:2px solid #076653;outline-offset:-2px">
+            <span style="font-weight:500;min-width:110px">{{ s.q }}</span><span style="flex:1">{{ s.sub }}</span><span style="color:#076653;font-size:13px">Ver correção →</span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+    <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <sc-if value="{{ rrHasStill }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onRevisarAinda }}" style="background:transparent;border:1px solid #0C342C;border-radius:8px;color:#0C342C;padding:18px 32px;font-size:14px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #076653;outline-offset:2px">REVISAR O QUE AINDA ERREI</button>
+      </sc-if>
+      <button onClick="{{ onGoEnc }}" style="background:#E2FF89;color:#000;border:1px solid #E2FF89;border-radius:8px;padding:18px 36px;font-size:14px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="background:#d3f36e;border-color:#000" style-focus="outline:2px solid #076653;outline-offset:3px">CONCLUIR →</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ============ ENCERRAMENTO ============ -->
+<sc-if value="{{ isEnc }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Encerramento" style="min-height:100vh;background-color:#0C342C;background-image:linear-gradient(rgba(4,16,34,.5),rgba(4,16,34,.5)),url('assets/capa-bg.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;color:#fff">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(48px,9vh,112px) clamp(20px,6vw,48px) clamp(48px,8vh,88px)">
+    <p style="margin:0 0 16px;font-size:12px;font-weight:500;letter-spacing:.12em;color:#E2FF89">/ {{ especLabel }} — ENCERRAMENTO</p>
+    <h1 style="margin:0 0 20px;font-size:clamp(38px,7vw,72px);font-weight:400;line-height:.98;letter-spacing:-.02em">SIMULADO CONCLUÍDO</h1>
+    <p style="margin:0 0 clamp(32px,6vh,56px);font-size:clamp(17px,2.2vw,21px);line-height:1.55;color:#D7E0DC;max-width:54ch">Você não terminou apenas uma prova. Agora sabe onde precisa concentrar sua preparação.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.2)">
+      <sc-for list="{{ encItems }}" as="e" hint-placeholder-count="6">
+        <div style="background:rgba(5,20,26,.42);padding:22px 20px"><div style="font-size:11px;letter-spacing:.12em;font-weight:500;color:#C3D2CC;margin-bottom:10px">{{ e.label }}</div><div style="font-size:clamp(22px,3vw,32px);line-height:1.1;color:#E2FF89">{{ e.value }}</div></div>
+      </sc-for>
+    </div>
+    <div style="background:#E2FF89;color:#000;margin-top:clamp(32px,6vh,56px);padding:clamp(24px,4vw,44px);display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+      <div style="max-width:56ch">
+        <h3 style="margin:0 0 8px;font-size:clamp(21px,2.8vw,28px);font-weight:500;line-height:1.15">{{ ctaTitulo }}</h3>
+        <p style="margin:0;font-size:15px;line-height:1.5">{{ ctaTexto }}</p>
+      </div>
+      <a href="{{ ctaUrl }}" style="background:#000;color:#E2FF89;border-radius:8px;padding:18px 32px;font-size:14px;font-weight:500;letter-spacing:.08em;text-decoration:none;white-space:nowrap" style-hover="background:#0C342C;color:#fff" style-focus="outline:2px solid #000;outline-offset:3px">{{ ctaBotao }} →</a>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:clamp(28px,5vh,44px)">
+      <button onClick="{{ onBackDiag }}" style="background:transparent;border:1px solid rgba(255,255,255,.5);border-radius:8px;color:#fff;padding:14px 24px;font-size:13px;font-weight:500;letter-spacing:.08em;cursor:pointer" style-hover="border-color:#E2FF89;color:#E2FF89" style-focus="outline:2px solid #E2FF89;outline-offset:2px">REVER DIAGNÓSTICO</button>
+      <button onClick="{{ onRestartAll }}" style="background:transparent;border:none;color:#9DB3AC;padding:14px 8px;font-size:13px;letter-spacing:.06em;cursor:pointer;text-decoration:underline;text-underline-offset:4px" style-hover="color:#E2FF89">REFAZER O SIMULADO DO ZERO</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;duracaoMin&quot;: {&quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 150, &quot;min&quot;: 10, &quot;max&quot;: 600, &quot;unit&quot;: &quot;min&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Configuração do simulado&quot;},
+  &quot;demoPreencher&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Demonstração&quot;, &quot;description&quot;: &quot;Preenche respostas de demonstração (32 acertos / 18 erros) e pula para a finalização&quot;},
+  &quot;gps1Url&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;https://page.medtwins.com.br/cronograma-gps/&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;CTA comercial&quot;, &quot;description&quot;: &quot;Destino do banner GPS-1 no gabarito&quot;},
+  &quot;ctaTitulo&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Continue sua preparação com a MedTwins&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;CTA comercial&quot;},
+  &quot;ctaTexto&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Transforme as prioridades deste diagnóstico em um plano de estudo dirigido, com quem entende o padrão INEP.&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;CTA comercial&quot;},
+  &quot;ctaBotao&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;CONHECER A MEDTWINS&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;CTA comercial&quot;},
+  &quot;ctaUrl&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;https://page.medtwins.com.br/cronograma-gps/&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;CTA comercial&quot;}
+}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const packageId = decodeURIComponent(location.pathname.split('/').filter(Boolean).slice(-2, -1)[0] || 'ginecologia-obstetricia').replace(/[^a-z0-9-]/gi, '-').toLowerCase();
+    this.LSKEY = 'medtwins-simulado-' + packageId + '-v1';
+    let base = { screen:'capa', mode:'main', cur:0, answers:{}, recAnswers:{}, recCur:0, navOpen:false, confirmOpen:false, procStep:-1, filter:'todas', temaSel:'todos', gabPos:0, openDist:{}, deadline:null, finished:false, recDone:false, stillWrong:[], saveState:'salvo', demoApplied:false, timeUp:false, hadSaved:false };
+    try {
+      const s = JSON.parse(localStorage.getItem(this.LSKEY) || 'null');
+      if (s && typeof s === 'object') {
+        base = { ...base, ...s, navOpen:false, confirmOpen:false, procStep:-1, openDist:{}, saveState:'salvo', hadSaved:true };
+        if (!s.finished) base.screen = 'capa';
+        else if (s.screen === 'prova' || s.screen === 'processando') base.screen = 'diagnostico';
+      }
+    } catch (e) {}
+    this.state = base;
+    this.timers = [];
+  }
+  D() { return window.SIMULADO_DATA || null; }
+  Q() { const d = this.D(); return d ? d.questoes : []; }
+  cfg() { const d = this.D(); return d ? d.config : {}; }
+  durMs() { return (this.props.duracaoMin ?? this.cfg().duracaoMin ?? 150) * 60000; }
+  persist(over) {
+    const s = { ...this.state, ...over };
+    try { localStorage.setItem(this.LSKEY, JSON.stringify({ screen:s.screen, mode:s.mode, cur:s.cur, answers:s.answers, recAnswers:s.recAnswers, recCur:s.recCur, filter:s.filter, temaSel:s.temaSel, gabPos:s.gabPos, deadline:s.deadline, finished:s.finished, recDone:s.recDone, stillWrong:s.stillWrong, demoApplied:s.demoApplied, timeUp:s.timeUp })); } catch (e) {}
+  }
+  set(patch) {
+    this.setState(patch, () => {
+      this.persist();
+      if ('answers' in patch || 'recAnswers' in patch) {
+        this.setState({ saveState:'salvando' });
+        clearTimeout(this._saveT);
+        this._saveT = setTimeout(() => this.setState({ saveState: navigator.onLine === false ? 'offline' : 'salvo' }), 400);
+      }
+    });
+  }
+  componentDidMount() {
+    this._tick = setInterval(() => {
+      const s = this.state;
+      if (s.screen === 'prova' && s.mode === 'main' && !s.finished && s.deadline) {
+        if (Date.now() >= s.deadline && !s.timeUp) this.set({ timeUp:true, screen:'finalizacao', navOpen:false });
+        else this.forceUpdate();
+      }
+    }, 1000);
+    this._on = () => { this.setState({ saveState:'reconectando' }); setTimeout(() => this.setState({ saveState:'salvo' }), 1200); };
+    this._off = () => this.setState({ saveState:'offline' });
+    window.addEventListener('online', this._on);
+    window.addEventListener('offline', this._off);
+    if (this.props.demoPreencher && !this.state.demoApplied) this.applyDemo();
+  }
+  componentWillUnmount() { clearInterval(this._tick); this.timers.forEach(clearTimeout); window.removeEventListener('online', this._on); window.removeEventListener('offline', this._off); }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.demoPreencher && !prevProps.demoPreencher && !this.state.demoApplied) this.applyDemo();
+    if (prevState.screen !== this.state.screen) window.scrollTo(0, 0);
+  }
+  applyDemo() {
+    const c = this.cfg(), qs = this.Q(); if (!qs.length) return;
+    const answers = {};
+    qs.forEach(q => {
+      const wrong = c.demoErradas.includes(q.id);
+      let sel = q.gabarito;
+      if (wrong) sel = ['A','B','C','D'].find(l => l !== q.gabarito);
+      let conf = 'media';
+      if (wrong) conf = c.demoAltaConfErradas.includes(q.id) ? 'alta' : (q.id % 2 ? 'media' : 'baixa');
+      else conf = q.id % 3 === 0 ? 'alta' : (q.id % 2 ? 'media' : 'baixa');
+      answers[q.id] = { sel, conf, flag: q.id === 16 || q.id === 43 };
+    });
+    this.set({ answers, deadline: Date.now() + this.durMs() * 0.2, screen:'finalizacao', demoApplied:true, mode:'main', finished:false, recAnswers:{}, recDone:false, stillWrong:[], timeUp:false });
+  }
+  isCorrect(q) { const a = this.state.answers[q.id]; return !!a && a.sel === q.gabarito; }
+  wrongIds() { return this.Q().filter(q => !this.isCorrect(q)).map(q => q.id); }
+  grupo(t) {
+    if (/Pré-natal|Crescimento fetal|Saúde fetal|Gestação múltipla|Isoimunização/.test(t)) return 'Pré-natal e Vigilância Fetal';
+    if (/hipertensivas|Diabetes|Obstetrícia \/ Infecções|Tromboembolismo/.test(t)) return 'Doenças Clínicas na Gestação';
+    if (/Obstetrícia \/ Emergências|Hemorragia|ectópica|Parada cardiorrespiratória/.test(t)) return 'Emergências Obstétricas';
+    if (/Trabalho de parto|Rotura de membranas/.test(t)) return 'Trabalho de Parto';
+    if (/Abortamento|trofoblástica/.test(t)) return 'Perdas Gestacionais';
+    if (/Puerpério|Saúde mental/.test(t)) return 'Puerpério e Pós-parto';
+    if (/Contracepção|Planejamento reprodutivo/.test(t)) return 'Contracepção e Planejamento';
+    if (/IST|Vulvovaginites/.test(t)) return 'IST e Vulvovaginites';
+    if (/Oncologia|Mama/.test(t)) return 'Oncologia e Mama';
+    if (/Endometriose|Sangramento uterino|Ginecologia \/ Endocrinologia|Climatério|Uroginecologia/.test(t)) return 'Ginecologia Geral e Endócrina';
+    if (/Ginecologia \/ Urgências/.test(t)) return 'Urgências Ginecológicas';
+    if (/Violência|Ética/.test(t)) return 'Ética e Violência';
+    return 'Outras áreas';
+  }
+  pad(n) { return String(n).padStart(2, '0'); }
+  startProc() {
+    this.timers.forEach(clearTimeout); this.timers = [];
+    for (let i = 1; i <= 5; i++) this.timers.push(setTimeout(() => this.setState({ procStep: i }), i * 550));
+    this.timers.push(setTimeout(() => this.set({ screen:'diagnostico' }), 5 * 550 + 1100));
+  }
+  diag() {
+    const qs = this.Q(), ans = this.state.answers;
+    const respondidas = qs.filter(q => ans[q.id] && ans[q.id].sel);
+    const acertos = qs.filter(q => this.isCorrect(q));
+    const errosResp = respondidas.filter(q => !this.isCorrect(q));
+    const semResp = qs.length - respondidas.length;
+    const pct = qs.length ? Math.round(acertos.length / qs.length * 100) : 0;
+    const groups = {};
+    qs.forEach(q => { const g = this.grupo(q.tema); (groups[g] = groups[g] || { nome:g, total:0, ok:0 }); groups[g].total++; if (this.isCorrect(q)) groups[g].ok++; });
+    const subareas = Object.values(groups).map(g => ({ ...g, pct: Math.round(g.ok / g.total * 100) })).sort((a, b) => b.pct - a.pct);
+    const wrongAll = qs.filter(q => !this.isCorrect(q));
+    const padCount = {};
+    wrongAll.forEach(q => { const p = q.padraoErro; padCount[p] = (padCount[p] || 0) + 1; });
+    const padroes = Object.entries(padCount).map(([nome, n]) => ({ nome, n, pct: Math.round(n / wrongAll.length * 100) })).sort((a, b) => b.n - a.n);
+    const ac = wrongAll.filter(q => ans[q.id] && ans[q.id].sel && ans[q.id].conf === 'alta');
+    return { respondidas: respondidas.length, acertos: acertos.length, errosResp: errosResp.length, semResp, errosTotal: wrongAll.length, pct, subareas, padroes, ac, wrongAll };
+  }
+  goGab(filter, qid) {
+    const patch = { screen:'gabarito', filter: filter || 'todas', temaSel:'todos', openDist:{} };
+    this.setState(patch, () => {
+      if (qid != null) {
+        const list = this.gabList();
+        const ix = list.findIndex(q => q.id === qid);
+        this.set({ gabPos: ix >= 0 ? ix : 0 });
+      } else this.set({ gabPos:0 });
+    });
+  }
+  gabList() {
+    const qs = this.Q(), s = this.state, ans = s.answers;
+    return qs.filter(q => {
+      if (s.filter === 'errei' && this.isCorrect(q)) return false;
+      if (s.filter === 'acertei' && !this.isCorrect(q)) return false;
+      if (s.filter === 'altaconf' && !(!this.isCorrect(q) && ans[q.id] && ans[q.id].sel && ans[q.id].conf === 'alta')) return false;
+      if (s.filter === 'ainda' && !s.stillWrong.includes(q.id)) return false;
+      if (s.temaSel !== 'todos' && this.grupo(q.tema) !== s.temaSel) return false;
+      return true;
+    });
+  }
+  fmtTime(ms) {
+    if (ms < 0) ms = 0;
+    const t = Math.floor(ms / 1000), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), sec = t % 60;
+    return this.pad(h) + ':' + this.pad(m) + ':' + this.pad(sec);
+  }
+  renderVals() {
+    const D = this.D();
+    if (!D) return { ready:false, isCapa:true, especUpper:'…', totalQ:'', duracaoLabel:'', entregaveis:[], hasSaved:false };
+    const s = this.state, c = D.config, qs = D.questoes;
+    const screen = s.screen;
+    const dur = this.props.duracaoMin ?? c.duracaoMin;
+    const durH = Math.floor(dur / 60), durM = dur % 60;
+    const isRec = s.mode === 'rec';
+    const recIds = isRec ? (s.recIds || []) : [];
+    const provaQs = isRec ? recIds.map(id => qs.find(q => q.id === id)) : qs;
+    const cur = isRec ? s.recCur : s.cur;
+    const q = provaQs[Math.min(cur, provaQs.length - 1)] || qs[0];
+    const ansMap = isRec ? s.recAnswers : s.answers;
+    const a = ansMap[q.id] || {};
+    const answeredN = provaQs.filter(x => { const v = ansMap[x.id]; return v && v.sel; }).length;
+    const flaggedN = isRec ? 0 : qs.filter(x => s.answers[x.id] && s.answers[x.id].flag).length;
+    const progressPct = Math.round(answeredN / provaQs.length * 100);
+    const remaining = s.deadline ? s.deadline - Date.now() : this.durMs();
+    const warn = remaining < 10 * 60000;
+
+    const selectAlt = (letter) => () => {
+      if (s.finished && !isRec) return;
+      if (isRec) { const ra = { ...s.recAnswers, [q.id]: { sel: letter } }; this.set({ recAnswers: ra }); }
+      else { const na = { ...s.answers, [q.id]: { ...(s.answers[q.id] || {}), sel: letter } }; this.set({ answers: na }); }
+    };
+    const setConf = (v) => () => { const na = { ...s.answers, [q.id]: { ...(s.answers[q.id] || {}), conf: v } }; this.set({ answers: na }); };
+    const altBase = 'display:flex;gap:16px;align-items:flex-start;width:100%;box-sizing:border-box;text-align:left;padding:18px 20px;border-radius:8px;font-size:17px;line-height:1.55;cursor:pointer;transition:border-color .15s,background .15s;font-family:inherit;';
+    const alts = ['A','B','C','D'].map(L => ({
+      letter: L, text: q.alternativas[L], selected: a.sel === L, onClick: selectAlt(L),
+      style: altBase + (a.sel === L ? 'background:#E2FF89;border:1px solid #000;color:#000' : 'background:#fff;border:1px solid #C9CDC2;color:#000')
+    }));
+    const confChips = [['baixa','BAIXA'],['media','MÉDIA'],['alta','ALTA']].map(([v, label]) => ({
+      label, on: a.conf === v, onClick: setConf(v),
+      style: 'border-radius:4px;padding:10px 20px;font-size:12px;font-weight:500;letter-spacing:.1em;cursor:pointer;font-family:inherit;' + (a.conf === v ? 'background:#0C342C;color:#fff;border:1px solid #0C342C' : 'background:transparent;color:#0C342C;border:1px solid #8B948D')
+    }));
+    const goToIdx = (i) => () => this.set(isRec ? { recCur:i, navOpen:false } : { cur:i, navOpen:false });
+    const navItems = provaQs.map((x, i) => {
+      const v = ansMap[x.id]; const answered = v && v.sel; const flag = !isRec && v && v.flag; const curHere = i === cur;
+      let st = 'min-height:46px;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;font-variant-numeric:tabular-nums;font-family:inherit;';
+      if (curHere) st += 'background:#E2FF89;border:2px solid #000;color:#000';
+      else if (flag) st += 'background:#fff;border:2px solid #076653;color:#0C342C';
+      else if (answered) st += 'background:#0C342C;border:1px solid #0C342C;color:#fff';
+      else st += 'background:#fff;border:1px solid #B9BDB2;color:#3E4A45';
+      return { label: this.pad(x.id), style: st, onClick: goToIdx(i), aria: 'Questão ' + x.id + (answered ? ', respondida' : ', sem resposta') + (flag ? ', marcada para revisão' : '') };
+    });
+    const onNext = () => {
+      if (cur < provaQs.length - 1) this.set(isRec ? { recCur: cur + 1 } : { cur: cur + 1 });
+      else if (isRec) {
+        const still = recIds.filter(id => { const qq = qs.find(x => x.id === id); const v = s.recAnswers[id]; return !(v && v.sel === qq.gabarito); });
+        this.set({ recDone:true, stillWrong: still, screen:'recresultado', mode:'main' });
+      } else this.set({ screen:'finalizacao' });
+    };
+    const dg = this.diag();
+    const microMap = {
+      'Interpretação': 'Os dados estavam disponíveis, mas houve dificuldade na interpretação do caso.',
+      'Diagnóstico': 'O quadro clínico apontava para um diagnóstico que não foi reconhecido corretamente.',
+      'Conduta': 'O problema foi reconhecido, mas o manejo escolhido não era o mais adequado.',
+      'Tratamento': 'O diagnóstico estava claro, mas o tratamento indicado não foi o escolhido.',
+      'Prioridade clínica': 'Uma conduta possível foi escolhida, porém não era a primeira ação necessária.',
+      'Prevenção': 'A medida preventiva correta — e seu momento certo — não foi identificada.',
+      'Investigação': 'A propedêutica escolhida não era a mais adequada para esclarecer o quadro.',
+      'Estratificação': 'Faltou classificar corretamente o risco antes de definir a conduta.',
+      'Reconhecimento': 'Os sinais de alerta do quadro não foram reconhecidos a tempo.',
+      'Ética': 'Os princípios éticos e legais aplicáveis ao caso não foram corretamente considerados.',
+      'Ética / Conduta': 'Os princípios éticos e legais aplicáveis ao caso não foram corretamente considerados.'
+    };
+    const subSorted = dg.subareas;
+    const avaliadas = subSorted.filter(x => x.total > 0);
+    const fortes = avaliadas.filter(x => x.pct >= 70).slice(0, 3);
+    const prioridadesSub = [...avaliadas].sort((x, y) => x.pct - y.pct).filter(x => x.pct < 70).slice(0, 3);
+    const prioNames = prioridadesSub.map(x => x.nome);
+    const atencao = avaliadas.filter(x => x.pct < 70 && !prioNames.slice(0, 2).includes(x.nome)).sort((x, y) => x.pct - y.pct).slice(0, 3);
+    let interp;
+    if (dg.pct >= 80) interp = 'Desempenho consistente e acima da faixa de segurança. Use as poucas lacunas identificadas abaixo para refinar a preparação final.';
+    else if (dg.pct >= 60) interp = 'Seu desempenho indica pontos importantes de atenção. Existem lacunas específicas — concentradas em ' + (prioNames.slice(0, 2).join(' e ') || 'algumas subáreas') + ' — que merecem prioridade antes da prova.';
+    else if (dg.pct >= 40) interp = 'Há lacunas relevantes em áreas de alto peso na prova. A boa notícia: elas estão mapeadas. Priorize ' + (prioNames.slice(0, 2).join(' e ') || 'as subáreas indicadas') + ' antes de avançar para revisões amplas.';
+    else interp = 'O resultado indica necessidade de revisão estruturada, começando pelas prioridades mapeadas abaixo. Trate este diagnóstico como ponto de partida, não como veredito.';
+    const semColor = (p) => p >= 70 ? '#0F7A4A' : (p >= 50 ? '#C79A00' : '#C93636');
+    const subareas = subSorted.map(x => {
+      const na = x.total === 0;
+      const col = na ? '#8B948D' : semColor(x.pct);
+      return { nome: x.nome, frac: x.ok + '/' + x.total,
+        barStyle: na ? 'height:100%;width:0;background:transparent' : 'height:100%;width:' + Math.max(x.pct, 2) + '%;background:' + col,
+        pctLabel: na ? 'NÃO AVALIADA' : x.pct + '%',
+        pctStyle: na ? 'font-size:12px;font-weight:500;letter-spacing:.08em;text-align:right;color:#8B948D' : 'font-size:clamp(20px,2.6vw,28px);text-align:right;font-variant-numeric:tabular-nums;color:' + col };
+    });
+    const padroes = dg.padroes.map(p => ({ pct: p.pct, nome: p.nome, count: p.n + (p.n === 1 ? ' questão' : ' questões'), micro: microMap[p.nome] || '' }));
+    const acList = dg.ac.map(x => ({ q: 'QUESTÃO ' + this.pad(x.id), sub: x.subtema, resp: (s.answers[x.id] || {}).sel || '—', onClick: () => this.goGab('altaconf', x.id) }));
+    const dirList = [];
+    prioridadesSub.slice(0, 2).forEach((p, i) => {
+      const wrongHere = dg.wrongAll.filter(x => this.grupo(x.tema) === p.nome);
+      dirList.push({ rank: this.pad(i + 1), titulo: p.nome, meta: 'Desempenho: ' + p.pct + '% (' + p.ok + '/' + p.total + ')', focoLabel: '/ FOCO RECOMENDADO', focos: [...new Set(wrongHere.map(x => x.subtema))].slice(0, 4) });
+    });
+    if (dg.ac.length) dirList.push({ rank: this.pad(dirList.length + 1), titulo: 'Erros de alta confiança', meta: dg.ac.length + (dg.ac.length === 1 ? ' questão' : ' questões'), focoLabel: '/ POR QUE PRIORIZAR', focos: ['Podem representar conceitos que você acredita dominar, mas ainda aplica incorretamente.'] });
+    const dirFinal = dirList.slice(0, 3);
+
+    // ---- gabarito ----
+    const gList = this.gabList();
+    const gPos = Math.min(s.gabPos, Math.max(gList.length - 1, 0));
+    const gq = gList[gPos];
+    const gAns = gq ? (s.answers[gq.id] || {}) : {};
+    const gOk = gq ? gAns.sel === gq.gabarito : false;
+    const confLabel = { baixa:'BAIXA', media:'MÉDIA', alta:'ALTA' };
+    const mkFilter = (key, label) => ({
+      label, on: s.filter === key, onClick: () => this.set({ filter: key, gabPos:0, openDist:{} }),
+      style: 'border-radius:4px;padding:9px 16px;font-size:12px;font-weight:500;letter-spacing:.08em;cursor:pointer;font-family:inherit;' + (s.filter === key ? 'background:#0C342C;color:#fff;border:1px solid #0C342C' : 'background:transparent;color:#0C342C;border:1px solid #8B948D')
+    });
+    const gabFiltros = [mkFilter('todas','TODAS'), mkFilter('errei','ERREI'), mkFilter('acertei','ACERTEI'), mkFilter('altaconf','ALTA CONFIANÇA')];
+    if (s.recDone && s.stillWrong.length) gabFiltros.push(mkFilter('ainda','AINDA ERRO'));
+    const gruposAll = [...new Set(qs.map(x => this.grupo(x.tema)))].sort();
+    const temaOpts = [{ v:'todos', label:'TODOS OS TEMAS' }, ...gruposAll.map(g => ({ v:g, label: g.toUpperCase() }))];
+    const gabSideItems = gList.map((x, i) => {
+      const ok = (s.answers[x.id] || {}).sel === x.gabarito;
+      const na = !(s.answers[x.id] || {}).sel;
+      let st = 'display:flex;align-items:center;gap:6px;min-height:40px;border-radius:4px;padding:4px 10px;font-size:13px;font-weight:500;cursor:pointer;font-variant-numeric:tabular-nums;font-family:inherit;';
+      st += i === gPos ? 'background:#0C342C;color:#fff;border:1px solid #0C342C' : 'background:#fff;color:#0C342C;border:1px solid #C9CDC2';
+      return { label: this.pad(x.id), mark: ok ? '✓' : (na ? '—' : '✕'), markStyle: 'font-size:11px;color:' + (ok ? '#7FD6A4' : (na ? '#8B948D' : '#E58A8A')) + ';', style: st, onClick: () => this.set({ gabPos: i, openDist:{} }), aria: 'Questão ' + x.id + (ok ? ', correta' : ', incorreta') };
+    });
+    const gDistr = gq ? ['A','B','C','D'].filter(L => L !== gq.gabarito).map(L => {
+      const key = gq.id + '-' + L; const open = !!s.openDist[key];
+      return { letter: L, text: gq.distratores[L] || '', open, chev: open ? '−' : '+', onToggle: () => this.set({ openDist: { ...s.openDist, [key]: !open } }) };
+    }) : [];
+    const gAlts = gq ? ['A','B','C','D'].map(L => {
+      const correct = L === gq.gabarito; const mine = gAns.sel === L;
+      let st = 'display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:8px;font-size:16px;line-height:1.5;';
+      let tag = '', tagStyle = '';
+      if (correct) { st += 'border:1px solid #0F7A4A;background:#fff;color:#000'; tag = '✓ RESPOSTA CORRETA'; tagStyle = 'font-size:11px;font-weight:500;letter-spacing:.08em;color:#0F7A4A;white-space:nowrap'; }
+      else if (mine) { st += 'border:1px solid #C93636;background:#fff;color:#000'; tag = '✕ SUA RESPOSTA'; tagStyle = 'font-size:11px;font-weight:500;letter-spacing:.08em;color:#C93636;white-space:nowrap'; }
+      else st += 'border:1px solid #E0E2DA;background:transparent;color:#3E4A45';
+      return { letter: L, text: gq.alternativas[L], style: st, tag, tagStyle, hasTag: !!tag };
+    }) : [];
+    const wrong = this.wrongIds();
+    const still = s.stillWrong || [];
+    const gCair = gq && !gOk && gAns.sel && gq.distratores[gAns.sel] ? 'A alternativa ' + gAns.sel + ' parece plausível — e foi exatamente onde sua decisão desviou. ' + gq.distratores[gAns.sel] : '';
+
+    // ---- processamento ----
+    const stepsDef = ['Calculando desempenho geral','Analisando desempenho por subárea','Identificando padrões de erro','Analisando erros de alta confiança','Definindo prioridades'];
+    const procSteps = stepsDef.map((label, i) => {
+      const done = s.procStep > i, active = s.procStep === i;
+      return { n: this.pad(i + 1), label, mark: done ? '✓' : (active ? '· · ·' : ''), style: 'font-size:16px;' + (done ? 'color:#fff' : (active ? 'color:#E2FF89;animation:mtPulse 1.2s infinite' : 'color:#5F736C')) };
+    });
+    const procPct = Math.min(100, Math.max(6, s.procStep / 5 * 100));
+
+    // ---- recuperação result ----
+    const rrTot = s.recIds ? s.recIds.length : wrong.length;
+    const rrCorr = rrTot - still.length;
+    const stillList = still.map(id => { const x = qs.find(z => z.id === id); return { q: 'QUESTÃO ' + this.pad(id), sub: x ? x.subtema : '', onClick: () => this.goGab('todas', id) }; });
+
+    // ---- encerramento ----
+    const encItems = [
+      { label:'DESEMPENHO', value: dg.pct + '%' },
+      { label:'PRINCIPAL FORÇA', value: fortes[0] ? fortes[0].nome : '—' },
+      { label:'MAIOR PRIORIDADE', value: prioridadesSub[0] ? prioridadesSub[0].nome : '—' },
+      { label:'PADRÃO DE ERRO PRINCIPAL', value: padroes[0] ? padroes[0].nome : '—' },
+      { label:'ERROS DE ALTA CONFIANÇA', value: String(dg.ac.length) },
+      { label:'CORRIGIDOS APÓS REVISÃO', value: s.recDone ? rrCorr + '/' + rrTot : '—' }
+    ];
+
+    const startRec = () => {
+      const ids = this.wrongIds();
+      this.set({ mode:'rec', recIds: ids, recCur:0, recAnswers:{}, screen:'prova', navOpen:false });
+    };
+    const goFinalScreen = () => this.set({ screen:'finalizacao', navOpen:false });
+
+    return {
+      ready:true,
+      isCapa: screen === 'capa', isInstr: screen === 'instrucoes', isProva: screen === 'prova', isFinal: screen === 'finalizacao',
+      isProc: screen === 'processando', isDiag: screen === 'diagnostico', isGab: screen === 'gabarito',
+      isConvite: screen === 'convite', isRecRes: screen === 'recresultado', isEnc: screen === 'encerramento',
+      especUpper: c.especialidade.toUpperCase(), especLabel: c.especialidade.toUpperCase(),
+      totalQ: c.totalQuestoes, duracaoLabel: durH + 'H' + (durM ? this.pad(durM) : ''),
+      entregaveis: ['Desempenho geral','Análise por subárea','Padrões de erro','Erros de alta confiança','Prioridades de estudo','Gabarito comentado completo'],
+      hasSaved: s.hadSaved && !s.finished && Object.keys(s.answers).length > 0,
+      capaCta: s.finished ? 'VER MEU DIAGNÓSTICO →' : (s.hadSaved && Object.keys(s.answers).length ? 'CONTINUAR SIMULADO →' : 'INICIAR SIMULADO →'),
+      onStart: () => { if (s.finished) this.set({ screen:'diagnostico' }); else this.set({ screen:'instrucoes' }); },
+      onRestartAll: () => { try { localStorage.removeItem(this.LSKEY); } catch (e) {} this.timers.forEach(clearTimeout); this.setState({ screen:'capa', mode:'main', cur:0, answers:{}, recAnswers:{}, recCur:0, recIds:null, navOpen:false, confirmOpen:false, procStep:-1, filter:'todas', temaSel:'todos', gabPos:0, openDist:{}, deadline:null, finished:false, recDone:false, stillWrong:[], demoApplied: s.demoApplied, timeUp:false, hadSaved:false }); },
+      instrucoes: [
+        { n:'01', t: c.totalQuestoes + ' questões de múltipla escolha, com uma única alternativa correta por questão.' },
+        { n:'02', t:'Você terá ' + durH + 'h' + (durM ? this.pad(durM) : '') + ' de prova, com cronômetro visível no topo da tela.' },
+        { n:'03', t:'É possível navegar livremente entre as questões pelo botão VER QUESTÕES.' },
+        { n:'04', t:'Questões podem ser marcadas para revisão e retomadas antes de finalizar.' },
+        { n:'05', t:'Durante a prova, nenhuma resposta correta ou explicação será exibida.' },
+        { n:'06', t:'Ao finalizar, você recebe o diagnóstico completo do seu desempenho e o gabarito comentado.' }
+      ],
+      onBegin: () => this.set({ screen:'prova', mode:'main', deadline: s.deadline || Date.now() + this.durMs() }),
+      onBackCapa: () => this.set({ screen:'capa' }),
+      // prova
+      isRec, provaContexto: isRec ? '/ RECUPERAÇÃO — ' + c.especialidade.toUpperCase() : '/ ' + c.especialidade.toUpperCase(),
+      qEyebrow: isRec ? '/ REVISÃO — QUESTÃO ORIGINAL ' + this.pad(q.id) : '/ QUESTÃO ' + this.pad(q.id) + ' — ' + this.grupo(q.tema).toUpperCase(),
+      qNum: this.pad(isRec ? cur + 1 : q.id), qTotalNum: this.pad(provaQs.length),
+      qOf: this.pad(isRec ? cur + 1 : q.id) + '/' + this.pad(provaQs.length),
+      progFillStyle: 'height:100%;width:' + progressPct + '%;background:linear-gradient(90deg,#E2FF89,#076653);transition:width .25s',
+      progressLabel: progressPct + '%',
+      showTimer: !isRec && !s.finished,
+      timeLabel: this.fmtTime(remaining),
+      timeStyle: 'font-size:14px;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:.04em;white-space:nowrap;' + (warn ? 'color:#C93636' : 'color:#0C342C'),
+      saveLabel: { salvo:'✓ SALVO', salvando:'SALVANDO…', offline:'⚠ SEM CONEXÃO', reconectando:'RECONECTANDO…' }[s.saveState],
+      saveStyle: 'font-size:10px;font-weight:500;letter-spacing:.1em;white-space:nowrap;' + (s.saveState === 'offline' ? 'color:#9A5B00' : 'color:#8B948D'),
+      onOpenNav: () => this.setState({ navOpen:true }),
+      onCloseNav: () => this.setState({ navOpen:false }),
+      stop: (e) => e.stopPropagation(),
+      navOpen: s.navOpen,
+      navSummary: 'Respondidas: ' + answeredN + ' · Sem resposta: ' + (provaQs.length - answeredN) + (isRec ? '' : ' · Para revisar: ' + flaggedN),
+      navItems, showGoFinal: !isRec,
+      onGoFinal: goFinalScreen,
+      enunciado: q.enunciado, alts,
+      flagged: !isRec && !!a.flag,
+      showConf: !isRec && !!a.sel && !s.finished,
+      confChips,
+      showFlag: !isRec,
+      onFlag: () => { const na = { ...s.answers, [q.id]: { ...(s.answers[q.id] || {}), flag: !a.flag } }; this.set({ answers: na }); },
+      flagLabel: a.flag ? '✓ MARCADA — REVISAR' : 'MARCAR PARA REVISAR',
+      flagStyle: 'border-radius:8px;padding:14px 22px;font-size:13px;font-weight:500;letter-spacing:.06em;cursor:pointer;font-family:inherit;' + (a.flag ? 'background:#0C342C;color:#E2FF89;border:1px solid #0C342C' : 'background:transparent;color:#0C342C;border:1px solid #0C342C'),
+      onPrev: () => { if (cur > 0) this.set(isRec ? { recCur: cur - 1 } : { cur: cur - 1 }); },
+      prevDisabled: cur === 0,
+      prevStyle: 'border-radius:8px;padding:14px 22px;font-size:13px;font-weight:500;letter-spacing:.06em;font-family:inherit;background:transparent;' + (cur === 0 ? 'color:#A8AFA6;border:1px solid #C9CDC2;cursor:default' : 'color:#0C342C;border:1px solid #0C342C;cursor:pointer'),
+      onNext,
+      nextLabel: cur < provaQs.length - 1 ? 'PRÓXIMA QUESTÃO →' : (isRec ? 'CONCLUIR REVISÃO →' : 'CONCLUIR →'),
+      // finalização
+      finalTitle: s.timeUp ? 'TEMPO ESGOTADO' : 'VOCÊ CHEGOU AO FINAL',
+      timeUp: s.timeUp, notTimeUp: !s.timeUp,
+      fRespondidas: dg.respondidas, fSem: c.totalQuestoes - dg.respondidas, fRevisar: flaggedN,
+      hasUnanswered: !s.finished && c.totalQuestoes - dg.respondidas > 0,
+      unansweredMsg: 'Você ainda possui ' + (c.totalQuestoes - dg.respondidas) + (c.totalQuestoes - dg.respondidas === 1 ? ' questão não respondida' : ' questões não respondidas') + '. Se finalizar agora, elas serão contabilizadas como não respondidas.',
+      onBackProva: () => this.set({ screen:'prova', navOpen:true }),
+      onFinalize: () => { if (s.finished) this.set({ screen:'diagnostico' }); else this.setState({ confirmOpen:true }); },
+      confirmOpen: s.confirmOpen,
+      onCancelFinal: () => this.setState({ confirmOpen:false }),
+      onConfirmFinal: () => { this.set({ finished:true, confirmOpen:false, screen:'processando', procStep:0 }); this.startProc(); },
+      // processamento
+      procTitle: s.procStep >= 5 ? 'SEU DIAGNÓSTICO ESTÁ PRONTO' : 'ANALISANDO SEU DESEMPENHO',
+      procSteps,
+      procBarStyle: 'height:100%;width:' + procPct + '%;background:linear-gradient(90deg,#E3EF26,#E2FF89,#076653);transition:width .5s',
+      // diagnóstico
+      pct: dg.pct, acertos: dg.acertos, erros: dg.errosResp, semResp: dg.semResp, showSemResp: dg.semResp > 0,
+      interpretacao: interp,
+      subareas, fortes: fortes.length ? fortes.map(f => ({ nome: f.nome, pct: f.pct + '%' })) : [{ nome:'Nenhuma subárea acima de 70%', pct:'' }],
+      atencao: atencao.length ? atencao.map(f => ({ nome: f.nome, pct: f.pct + '%' })) : [{ nome:'—', pct:'' }],
+      prioridadesSub: prioridadesSub.length ? prioridadesSub.map(f => ({ nome: f.nome, pct: f.pct + '%' })) : [{ nome:'Nenhuma prioridade crítica', pct:'' }],
+      hasErrors: dg.errosTotal > 0, noErrors: dg.errosTotal === 0,
+      errosIdent: dg.errosTotal + (dg.errosTotal === 1 ? ' ERRO IDENTIFICADO' : ' ERROS IDENTIFICADOS'),
+      padroes,
+      hasAc: dg.ac.length > 0, noAc: dg.ac.length === 0,
+      acCount: dg.ac.length, acPlural: dg.ac.length === 1 ? 'questão que marcou' : 'questões que marcou',
+      acList,
+      onRevisarAc: () => this.goGab('altaconf'),
+      dirList: dirFinal,
+      onVerGabarito: () => this.goGab('todas'),
+      // gabarito
+      gabResumo: c.totalQuestoes + ' questões · ' + dg.acertos + ' corretas · ' + dg.errosTotal + ' erradas',
+      gabPosLabel: gList.length ? 'QUESTÃO ' + (gq ? this.pad(gq.id) : '—') + ' · ' + (gPos + 1) + '/' + gList.length + ' NO FILTRO' : '',
+      gabFiltros, temaOpts, temaSelVal: s.temaSel,
+      onTemaChange: (e) => this.set({ temaSel: e.target.value, gabPos:0, openDist:{} }),
+      gabSideItems, gabEmpty: gList.length === 0, gabHas: gList.length > 0,
+      gNum: gq ? this.pad(gq.id) : '',
+      gMeta: gq ? [c.especialidade, gq.subtema, gq.competencia, gq.dificuldade].join(' / ') : '',
+      gResultLabel: gq ? (gOk ? '✓ VOCÊ ACERTOU — RESPOSTA ' + gq.gabarito : (gAns.sel ? '✓ RESPOSTA CORRETA: ' + gq.gabarito : '— SEM RESPOSTA · CORRETA: ' + gq.gabarito)) : '',
+      gResultStyle: 'border-radius:4px;padding:8px 14px;font-size:12px;font-weight:500;letter-spacing:.08em;' + (gOk ? 'background:#0F7A4A;color:#fff;border:1px solid #0F7A4A' : 'border:1px solid #0F7A4A;color:#0F7A4A'),
+      gShowWrong: gq ? (!gOk && !!gAns.sel) : false,
+      gSuaResp: gAns.sel || '',
+      gShowConf: gq ? !!gAns.conf : false,
+      gConf: confLabel[gAns.conf] || '—',
+      gEnunciado: gq ? gq.enunciado : '', gAlts,
+      gAvalia: gq ? gq.avalia : '', gDetalhe: gq ? gq.detalhe : '',
+      gPorqueTitle: gq ? 'POR QUE ' + gq.gabarito + ' É A RESPOSTA CORRETA?' : '',
+      gPorque: gq ? gq.porqueCorreta : '',
+      gDistr, gShowCair: !!gCair, gCairText: gCair,
+      onGabPrev: () => { if (gPos > 0) this.set({ gabPos: gPos - 1, openDist:{} }); },
+      onGabNext: () => { if (gPos < gList.length - 1) this.set({ gabPos: gPos + 1, openDist:{} }); },
+      gabPrevDis: gPos === 0, gabNextDis: gPos >= gList.length - 1,
+      gabPrevStyle: 'border-radius:8px;padding:13px 20px;font-size:12px;font-weight:500;letter-spacing:.06em;font-family:inherit;background:transparent;' + (gPos === 0 ? 'color:#A8AFA6;border:1px solid #C9CDC2;cursor:default' : 'color:#0C342C;border:1px solid #0C342C;cursor:pointer'),
+      gabNextStyle: 'border-radius:8px;padding:13px 24px;font-size:12px;font-weight:500;letter-spacing:.06em;font-family:inherit;' + (gPos >= gList.length - 1 ? 'background:#C9CDC2;color:#6B7369;border:1px solid #C9CDC2;cursor:default' : 'background:#0C342C;color:#fff;border:1px solid #0C342C;cursor:pointer'),
+      onBackDiag: () => this.set({ screen:'diagnostico' }),
+      hasWrong: wrong.length > 0 && !s.recDone, noWrong: wrong.length === 0 || s.recDone,
+      gabCtaLabel: s.recDone ? 'VER RESULTADO DA RECUPERAÇÃO →' : 'REFAZER AS ' + wrong.length + ' QUESTÕES QUE ERREI →',
+      onGoConvite: () => this.set({ screen: s.recDone ? 'recresultado' : 'convite' }),
+      // convite
+      convCount: this.pad(wrong.length), convLabel: wrong.length === 1 ? 'QUESTÃO ERRADA PARA REFAZER' : 'QUESTÕES ERRADAS PARA REFAZER',
+      convCta: 'REFAZER AS ' + wrong.length + ' QUESTÕES QUE ERREI →',
+      onStartRec: startRec,
+      onGoEnc: () => this.set({ screen:'encerramento' }),
+      // recuperação resultado
+      rrBig: rrCorr + '/' + rrTot, rrCorr, rrTot,
+      rrAll: s.recDone && still.length === 0, rrHasStill: still.length > 0,
+      stillList,
+      onRevisarAinda: () => this.goGab('ainda'),
+      // encerramento
+      encItems,
+      ctaTitulo: this.props.ctaTitulo ?? 'Continue sua preparação com a MedTwins',
+      ctaTexto: this.props.ctaTexto ?? 'Transforme as prioridades deste diagnóstico em um plano de estudo dirigido, com quem entende o padrão INEP.',
+      ctaBotao: this.props.ctaBotao ?? 'CONHECER A MEDTWINS',
+      ctaUrl: this.props.ctaUrl ?? 'https://page.medtwins.com.br/cronograma-gps/',
+      gps1Url: this.props.gps1Url ?? 'https://page.medtwins.com.br/cronograma-gps/'
+    };
+  }
+}
+</script>
+</body>
+</html>

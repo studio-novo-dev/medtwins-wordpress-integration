@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendário Estratégico MedTwins</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#FFFFFF}
+body{font-family:'Satoshi',sans-serif;color:#141414;-webkit-font-smoothing:antialiased}
+*,*::before,*::after{box-sizing:border-box}
+a{color:#00638E;text-decoration:none}a:hover{color:#004A6B}
+::selection{background:#BFD8E3}
+.mt-calendar-scroll{width:100%;overflow-x:auto;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-color:#8CB9CC transparent;scrollbar-width:thin}
+.mt-calendar-scroll-inner{min-width:720px;padding-bottom:4px}
+@media (max-width:1024px){
+  .mt-header{padding:18px 24px!important}
+  .mt-page-section{padding-left:24px!important;padding-right:24px!important}
+  .mt-main-hero{padding:44px!important;gap:40px!important}
+  .mt-event-card{gap:26px!important;padding:28px!important}
+  .mt-event-date{width:190px!important}
+}
+@media (max-width:720px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden}
+  .mt-cal-app{width:100%;min-width:0!important;overflow-x:hidden}
+  .mt-cal-app h1,.mt-cal-app h2,.mt-cal-app h3,.mt-cal-app p,.mt-cal-app [style*="text-wrap"]{text-wrap:balance!important}
+  .mt-header{padding:14px 16px!important;gap:12px!important;align-items:flex-start!important}
+  .mt-header img{height:30px!important}
+  .mt-nav{width:100%;flex-wrap:nowrap!important;overflow-x:auto;padding:2px 0 6px;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+  .mt-nav button{flex:none!important;white-space:nowrap!important}
+  .mt-page-section{padding-left:16px!important;padding-right:16px!important}
+  .mt-hero-section{padding-top:20px!important}
+  .mt-main-hero{padding:30px 22px!important;border-radius:20px!important;gap:28px!important;display:block!important}
+  .mt-hero-title-wrap,.mt-hero-list{min-width:0!important;width:100%!important}
+  .mt-hero-title{font-size:38px!important}
+  .mt-hero-list{margin-top:28px!important}
+  .mt-movement-card{padding:22px 18px!important;display:block!important}
+  .mt-movement-label{width:auto!important;padding:0!important}
+  .mt-movement-divider{width:44px!important;height:2px!important;margin:16px 0!important}
+  .mt-movement-content{padding-left:0!important}
+  .mt-upcoming-section{padding-top:38px!important;padding-bottom:48px!important}
+  .mt-section-heading{font-size:27px!important;line-height:1.08!important}
+  .mt-event-list{margin-top:28px!important;gap:18px!important}
+  .mt-event-card{display:grid!important;grid-template-columns:1fr auto;align-items:start!important;gap:18px 12px!important;padding:22px 18px!important;min-height:0!important;border-radius:18px!important}
+  .mt-event-date{width:auto!important;grid-column:1 / 2}
+  .mt-event-divider{display:none!important}
+  .mt-event-content{grid-column:1 / -1;min-width:0!important;width:100%!important}
+  .mt-event-content>div:first-child{font-size:20px!important}
+  .mt-event-action{grid-column:2;grid-row:1;width:34px!important;height:34px!important}
+  .mt-month-banner{padding:32px 22px!important;border-radius:20px!important;gap:22px!important;align-items:flex-start!important;flex-direction:column!important;flex-wrap:nowrap!important}
+  .mt-month-number{font-size:92px!important;align-self:center!important;text-align:center!important}
+  .mt-month-meta{padding-bottom:4px!important;gap:10px!important;width:100%!important;align-items:center!important;text-align:center!important}
+  .mt-month-name{font-size:25px!important}
+  .mt-month-content{padding-top:32px!important;padding-bottom:48px!important}
+  .mt-awaiting{padding:28px 22px!important;border-radius:18px!important}
+  .mt-cal-banner-section{padding-top:20px!important;padding-bottom:20px!important}
+  .mt-cal-banner{padding:32px 22px!important;border-radius:20px!important}
+  .mt-cal-banner h2{font-size:34px!important}
+  .mt-cal-section{padding-top:28px!important;padding-bottom:48px!important}
+  .mt-cal-toolbar{align-items:flex-start!important}
+  .mt-cal-actions{width:100%;align-items:stretch!important}
+  .mt-cal-actions>div{flex:none}
+  .mt-cal-actions>button{flex:1;min-width:145px}
+  .mt-calendar-scroll{margin-right:-16px;width:calc(100% + 16px);padding-right:16px}
+  .mt-calendar-scroll-inner{min-width:680px}
+  .mt-weekdays{margin-top:22px!important}
+  .mt-footer{padding:24px 16px 30px!important}
+  .mt-modal,.mt-detail-panel{top:8px!important;right:8px!important;bottom:8px!important;left:8px!important;transform:none!important;width:auto!important;max-height:none!important;border-radius:16px!important;overscroll-behavior:contain}
+  .mt-modal>div:first-child{padding:22px 48px 16px!important}
+  .mt-modal>div:nth-last-child(2){padding:18px 16px 22px!important}
+  .mt-modal>div:last-child{padding:14px 16px!important;gap:8px!important;flex-wrap:wrap!important}
+  .mt-modal>div:last-child button{flex:1;min-width:130px;padding-left:14px!important;padding-right:14px!important}
+  .mt-detail-panel>div:first-child{padding:30px 20px 26px!important}
+  .mt-detail-panel>div:last-child{padding:22px 16px 32px!important}
+  .mt-program-row{display:block!important}
+  .mt-program-when{width:auto!important;margin-bottom:7px}
+}
+@media (max-width:390px){
+  .mt-month-number{font-size:72px!important}
+  .mt-month-name{font-size:21px!important}
+  .mt-cal-actions{display:grid!important;grid-template-columns:1fr!important}
+  .mt-cal-actions>div,.mt-cal-actions>button{width:100%}
+}
+</style>
+</helmet>
+<div class="mt-cal-app" style="min-width:320px">
+  <!-- HEADER GLOBAL -->
+  <header class="mt-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:20px 48px;background:#FFFFFF;border-bottom:1px solid rgba(0,99,142,0.1)">
+    <img src="logo-medtwins.png" alt="MedTwins" onClick="{{ goGeral }}" style="height:38px;width:auto;cursor:pointer;flex:none;display:block">
+    <nav class="mt-nav" style="display:flex;gap:4px;flex-wrap:wrap;align-items:center">
+      <sc-for list="{{ navItems }}" as="nv" hint-placeholder-count="6">
+        <button onClick="{{ nv.onClick }}" style="{{ nv.st }}" style-hover="color:#004A6B">{{ nv.label }}</button>
+      </sc-for>
+    </nav>
+  </header>
+
+  <!-- ================= VISÃO GERAL ================= -->
+  <sc-if value="{{ isGeral }}" hint-placeholder-val="{{ true }}">
+    <section class="mt-page-section mt-hero-section" style="padding:40px 48px 0">
+      <div class="mt-main-hero" style="background:linear-gradient(115deg,#000000 0%,#004A6B 52%,#00638E 80%,#8CB9CC 128%);color:#FFFFFF;padding:64px;border-radius:28px;display:flex;gap:72px;flex-wrap:wrap;align-items:flex-start">
+        <div class="mt-hero-title-wrap" style="flex:35 1 300px;min-width:280px">
+          <h1 class="mt-hero-title" style="margin:0;font-family:'Satoshi',sans-serif;font-weight:900;font-size:clamp(46px,4.6vw,66px);line-height:1.02;letter-spacing:-0.02em;color:#FFFFFF">Agora na<br>MedTwins</h1>
+        </div>
+        <div class="mt-hero-list" style="flex:65 1 420px;min-width:320px;display:flex;flex-direction:column;gap:20px">
+          <sc-for list="{{ movimentos }}" as="mv" hint-placeholder-count="2">
+            <div class="mt-movement-card" style="display:flex;align-items:stretch;gap:0;background:rgba(255,255,255,0.08);border:1px solid rgba(191,216,227,0.25);border-radius:18px;padding:34px 38px">
+              <div class="mt-movement-label" style="flex:none;width:150px;display:flex;align-items:flex-start;padding-top:4px">
+                <span style="font-family:'Satoshi',sans-serif;font-weight:900;font-size:clamp(24px,2.2vw,28px);line-height:1;letter-spacing:0.02em;color:#BFD8E3;white-space:nowrap">Agora</span>
+              </div>
+              <div class="mt-movement-divider" style="flex:none;width:2px;background:#BFD8E3;border-radius:2px;margin:2px 0"></div>
+              <div class="mt-movement-content" style="flex:1;min-width:0;padding-left:34px">
+                <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:clamp(26px,2.4vw,30px);line-height:1.1;letter-spacing:-0.01em;color:#FFFFFF;text-wrap:balance">{{ mv.title }}</div>
+                <div style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:clamp(19px,1.7vw,21px);line-height:1.35;color:#BFD8E3;margin-top:11px">{{ mv.stage }}</div>
+                <div style="margin-top:18px"><span style="display:inline-block;font-family:'Satoshi',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.14em;color:#141414;background:#FFFFFF;border-radius:999px;padding:11px 22px;white-space:nowrap">Termina em {{ mv.endsDate }}</span></div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRÓXIMOS ACONTECIMENTOS -->
+    <section class="mt-page-section mt-upcoming-section" style="padding:56px 48px 64px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="width:8px;height:8px;border-radius:50%;background:#00638E"></span><span style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.26em;color:#00638E">SEQUÊNCIA ESTRATÉGICA · SET A DEZ 2026</span></div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <h2 class="mt-section-heading" style="margin:14px 0 0;font-family:'Satoshi',sans-serif;font-weight:900;font-size:34px;letter-spacing:-0.015em;color:#00638E">PRÓXIMOS ACONTECIMENTOS</h2>
+        <button onClick="{{ openNew }}" style="{{ newBtnStyle }}" style-hover="background:#004A6B">+ NOVO ACONTECIMENTO</button>
+      </div>
+      <div class="mt-event-list" style="margin-top:40px;display:flex;flex-direction:column;gap:28px">
+        <sc-for list="{{ timeline }}" as="me" hint-placeholder-count="8">
+          <div class="mt-event-card" onClick="{{ me.open }}" style="display:flex;align-items:center;gap:40px;padding:32px 44px;min-height:172px;background:{{ me.bg }};border:1px solid rgba(0,99,142,0.14);border-radius:22px;cursor:pointer;transition:background 0.18s ease,border 0.18s ease" style-hover="background:rgba(191,216,227,0.36);border:1px solid rgba(0,99,142,0.3)">
+            <div class="mt-event-date" style="flex:none;width:232px">
+              <div style="display:flex;align-items:baseline;gap:7px;white-space:nowrap">
+                <sc-for list="{{ me.dParts }}" as="dp" hint-placeholder-count="1"><span style="{{ dp.st }}">{{ dp.t }}</span></sc-for>
+              </div>
+              <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:0.16em;color:#00638E;margin-top:12px">{{ me.suf }}</div>
+            </div>
+            <div class="mt-event-divider" style="flex:none;align-self:stretch;display:flex;align-items:center;padding:10px 0"><span style="width:1px;align-self:stretch;background:rgba(0,99,142,0.22)"></span></div>
+            <div class="mt-event-content" style="flex:1;min-width:240px">
+              <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:24px;line-height:1.15;letter-spacing:0.02em;color:#00638E;text-transform:uppercase;max-width:600px;text-wrap:balance">{{ me.title }}</div>
+              <sc-if value="{{ me.time }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:9px;margin-top:12px;color:#00638E">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  <span style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:0.1em;white-space:nowrap">{{ me.time }}</span>
+                </div>
+              </sc-if>
+              <p style="margin:12px 0 0;font-weight:400;font-size:16px;line-height:1.55;color:#2B2B2B;max-width:640px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ me.desc }}</p>
+              <div style="margin-top:14px"><span style="{{ me.pillStyle }}">{{ me.status }}</span></div>
+            </div>
+            <div class="mt-event-action" style="flex:none;width:38px;height:38px;border-radius:50%;background:#FFFFFF;border:1px solid #BFD8E3;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(191,216,227,0.5)" title="Ver dossiê">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00638E" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+  </sc-if>
+
+  <!-- ================= VISÃO MENSAL ================= -->
+  <sc-if value="{{ isMes }}" hint-placeholder-val="{{ false }}">
+    <section class="mt-page-section mt-hero-section" style="padding:40px 48px 0"><div class="mt-month-banner" style="background:linear-gradient(115deg,#000000 0%,#004A6B 50%,#00638E 78%,#8CB9CC 122%);padding:56px 64px;border-radius:28px;display:flex;align-items:flex-end;justify-content:space-between;gap:48px;flex-wrap:wrap">
+      <div class="mt-month-number" style="font-weight:900;font-size:clamp(148px,15vw,224px);line-height:0.78;color:#BFD8E3;letter-spacing:-0.04em">{{ mes.num }}</div>
+      <div class="mt-month-meta" style="text-align:right;padding-bottom:16px;display:flex;flex-direction:column;align-items:flex-end;gap:16px">
+        <div style="width:44px;height:2px;background:rgba(191,216,227,0.6)"></div>
+        <div class="mt-month-name" style="font-weight:900;font-size:clamp(32px,3.4vw,46px);letter-spacing:0.12em;color:#BFD8E3;line-height:1">{{ mes.name }}</div>
+        <div style="font-weight:500;font-size:12px;letter-spacing:0.26em;color:rgba(191,216,227,0.75);white-space:nowrap">MEDTWINS · 2026</div>
+        <span style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:0.2em;color:#BFD8E3;border:1px solid rgba(191,216,227,0.45);border-radius:999px;padding:8px 18px;white-space:nowrap">{{ mes.countLabel }}</span>
+      </div>
+    </div></section>
+    <section class="mt-page-section mt-month-content" style="padding:48px 48px 72px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><span style="width:8px;height:8px;border-radius:50%;background:#00638E"></span><span style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.26em;color:#00638E;white-space:nowrap">MEDTWINS · 2026</span></div>
+      <h2 class="mt-section-heading" style="margin:0 0 32px;font-family:'Satoshi',sans-serif;font-weight:900;font-size:34px;letter-spacing:-0.015em;color:#00638E">ACONTECIMENTOS DO MÊS</h2>
+      <sc-if value="{{ mes.awaiting }}" hint-placeholder-val="{{ false }}">
+        <div class="mt-awaiting" onClick="{{ mes.awaitingOpen }}" style="background:linear-gradient(120deg,#000000 0%,#004A6B 55%,#00638E 100%);color:#FFFFFF;padding:48px;margin-bottom:32px;cursor:pointer;border-radius:24px">
+          <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:1px;background:rgba(191,216,227,0.7)"></span><span style="font-weight:500;font-size:11px;letter-spacing:0.28em;color:#BFD8E3;white-space:nowrap">ATENÇÃO AO EDITAL</span></div>
+          <div style="font-weight:900;font-size:clamp(26px,3vw,36px);color:#FFFFFF;margin-top:16px">AGUARDANDO EDITAL</div>
+          <p style="margin:16px 0 0;font-weight:400;font-size:15px;line-height:1.55;color:rgba(255,255,255,0.8);max-width:640px;text-wrap:pretty">Não existe ainda uma data confirmada para a prova prática. Existe possibilidade de a prova prática acontecer em novembro. Assim que houver confirmação, o calendário será atualizado para refletir campanhas, Sala Secreta, Curso Prático e reta final.</p>
+        </div>
+      </sc-if>
+      <div class="mt-event-list" style="display:flex;flex-direction:column;gap:28px">
+        <sc-for list="{{ mes.events }}" as="me" hint-placeholder-count="4">
+          <div class="mt-event-card" onClick="{{ me.open }}" style="display:flex;align-items:center;gap:40px;padding:32px 44px;min-height:172px;background:{{ me.bg }};border:1px solid rgba(0,99,142,0.14);border-radius:22px;cursor:pointer;transition:background 0.18s ease,border 0.18s ease" style-hover="background:rgba(191,216,227,0.36);border:1px solid rgba(0,99,142,0.3)">
+            <div class="mt-event-date" style="flex:none;width:232px">
+              <div style="display:flex;align-items:baseline;gap:7px;white-space:nowrap">
+                <sc-for list="{{ me.dParts }}" as="dp" hint-placeholder-count="1"><span style="{{ dp.st }}">{{ dp.t }}</span></sc-for>
+              </div>
+              <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14.5px;letter-spacing:0.16em;color:#00638E;margin-top:12px">{{ me.suf }}</div>
+            </div>
+            <div class="mt-event-divider" style="flex:none;align-self:stretch;display:flex;align-items:center;padding:10px 0"><span style="width:1px;align-self:stretch;background:rgba(0,99,142,0.22)"></span></div>
+            <div class="mt-event-content" style="flex:1;min-width:240px">
+              <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:24px;line-height:1.15;letter-spacing:0.02em;color:#00638E;text-transform:uppercase;max-width:600px;text-wrap:balance">{{ me.title }}</div>
+              <sc-if value="{{ me.time }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:9px;margin-top:12px;color:#00638E">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                  <span style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:0.1em;white-space:nowrap">{{ me.time }}</span>
+                </div>
+              </sc-if>
+              <p style="margin:12px 0 0;font-weight:400;font-size:16px;line-height:1.55;color:#2B2B2B;max-width:640px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ me.desc }}</p>
+              <div style="margin-top:14px"><span style="{{ me.pillStyle }}">{{ me.status }}</span></div>
+            </div>
+            <div class="mt-event-action" style="flex:none;width:38px;height:38px;border-radius:50%;background:#FFFFFF;border:1px solid #BFD8E3;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(191,216,227,0.5)" title="Ver dossiê">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00638E" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ================= CALENDÁRIO ================= -->
+  <sc-if value="{{ isCal }}" hint-placeholder-val="{{ false }}">
+    <section class="mt-page-section mt-cal-banner-section" style="padding:40px 48px 36px;background:#FFFFFF"><div class="mt-cal-banner" style="background:linear-gradient(120deg,#000000 0%,#004A6B 50%,#00638E 78%,#8CB9CC 122%);padding:56px 64px;border-radius:28px">
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <h2 style="margin:0;font-family:'Satoshi',sans-serif;font-weight:900;font-size:clamp(38px,4.5vw,56px);line-height:1.04;letter-spacing:-0.01em;color:#FFFFFF">{{ calBannerTitle }}</h2>
+        <span style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:0.2em;color:#BFD8E3;border:1px solid rgba(191,216,227,0.5);border-radius:999px;padding:9px 20px;white-space:nowrap">SET A DEZ · 2026</span>
+      </div>
+    </div></section>
+    <section class="mt-page-section mt-cal-section" style="padding:36px 48px 72px;background:#BFD8E3">
+      <div style="max-width:1240px;margin:0 auto">
+        <div class="mt-cal-toolbar" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+          <h2 style="margin:0;font-family:'Satoshi',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.005em;color:#00638E">{{ cal.title }}</h2>
+          <div class="mt-cal-actions" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:4px;background:#FFFFFF;border:1px solid rgba(0,99,142,0.1);border-radius:999px;padding:4px 6px">
+              <button onClick="{{ cal.prev }}" style="{{ cal.prevStyle }}" style-hover="background:rgba(191,216,227,0.3)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
+              </button>
+              <button onClick="{{ cal.hoje }}" style="{{ cal.hojeStyle }}" style-hover="background:rgba(191,216,227,0.6)">HOJE</button>
+              <button onClick="{{ cal.next }}" style="{{ cal.nextStyle }}" style-hover="background:rgba(191,216,227,0.3)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <button onClick="{{ calNewAction }}" style="{{ newBtnStyle }}" style-hover="background:#004A6B">{{ calNewLabel }}</button>
+          </div>
+        </div>
+        <div class="mt-calendar-scroll">
+        <div class="mt-calendar-scroll-inner">
+        <div class="mt-weekdays" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:28px">
+          <sc-for list="{{ cal.wd }}" as="w" hint-placeholder-count="7">
+            <div style="font-family:'Satoshi',sans-serif;text-align:center;padding:6px 0 10px;font-weight:600;font-size:12px;letter-spacing:0.18em;color:#004A6B;opacity:0.7">{{ w.l }}</div>
+          </sc-for>
+        </div>
+        <div class="mt-calendar-grid" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px">
+          <sc-for list="{{ cal.days }}" as="dy" hint-placeholder-count="35">
+            <div onClick="{{ dy.open }}" style="{{ dy.cellStyle }}" style-hover="{{ dy.hoverStyle }}">
+              <div style="{{ dy.numStyle }}">{{ dy.n }}</div>
+              <sc-for list="{{ dy.evs }}" as="ch" hint-placeholder-count="0">
+                <div>
+                  <div style="{{ ch.st }}">{{ ch.label }}</div>
+                  <sc-if value="{{ ch.sub }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-family:'Satoshi',sans-serif;font-weight:400;font-size:12px;line-height:1.4;color:#2B2B2B;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;hyphens:auto">{{ ch.sub }}</div>
+                  </sc-if>
+                  <sc-if value="{{ ch.statusLabel }}" hint-placeholder-val="{{ false }}">
+                    <div><span style="{{ ch.statusSt }}">{{ ch.statusLabel }}</span></div>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ dy.more }}" hint-placeholder-val="{{ false }}">
+                <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12px;color:#00638E;margin-top:5px">{{ dy.more }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+        </div>
+        </div>
+        <p style="margin:24px 0 0;font-weight:500;font-size:12px;letter-spacing:0.04em;color:#004A6B;opacity:0.75">{{ calFootnote }}</p>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- FOOTER -->
+  <footer class="mt-footer" style="padding:28px 48px 36px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <span style="font-weight:500;font-size:11px;letter-spacing:0.24em;color:#2B2B2B;opacity:0.65">CENTRAL VISUAL DO CALENDÁRIO MEDTWINS</span>
+    <span style="font-weight:500;font-size:11px;letter-spacing:0.24em;color:#00638E">SET A DEZ · 2026</span>
+  </footer>
+
+  <!-- ================= EDITOR DE ACONTECIMENTO ================= -->
+  <sc-if value="{{ editorOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeEditor }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:60"></div>
+    <aside class="mt-modal" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(640px,94vw);max-height:88vh;background:#FFFFFF;z-index:61;box-shadow:0 24px 80px rgba(0,0,0,0.18);border-radius:20px;display:flex;flex-direction:column;overflow:hidden">
+      <div style="padding:30px 60px 22px;flex:none;border-bottom:1px solid rgba(0,99,142,0.08);position:relative;text-align:center">
+        <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.28em;color:#00638E">{{ editorTitle }}</div>
+        <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:18px;line-height:1.3;color:#141414;margin-top:8px">{{ editorHeading }}</div>
+        <button onClick="{{ closeEditor }}" style="position:absolute;top:22px;right:22px;background:none;border:1px solid rgba(0,99,142,0.2);color:#00638E;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(191,216,227,0.3)">✕</button>
+      </div>
+      <div style="flex:1;overflow:auto;padding:28px 40px 32px;display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ editorSections }}" as="sec" hint-placeholder-count="6">
+          <div style="flex:none;border:1px solid rgba(0,99,142,0.14);border-radius:16px;overflow:hidden">
+            <div onClick="{{ sec.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;cursor:pointer;background:rgba(191,216,227,0.14)" style-hover="background:rgba(191,216,227,0.3)">
+              <div style="display:flex;align-items:baseline;gap:14px">
+                <span style="font-family:'Satoshi',sans-serif;font-weight:900;font-size:13px;color:#00638E">{{ sec.idx }}</span>
+                <span style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:0.14em;color:#00638E">{{ sec.name }}</span>
+              </div>
+              <span style="{{ sec.chev }}">›</span>
+            </div>
+            <sc-if value="{{ sec.open }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:22px;display:flex;flex-direction:column;gap:18px">
+                <sc-for list="{{ sec.fields }}" as="fd" hint-placeholder-count="3">
+                  <div>
+                    <div style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:10.5px;letter-spacing:0.22em;color:#00638E;margin-bottom:7px">{{ fd.label }}</div>
+                    <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ true }}">
+                      <input type="{{ fd.type }}" value="{{ fd.value }}" onChange="{{ fd.onChange }}" placeholder="{{ fd.ph }}" style="width:100%;box-sizing:border-box;font-family:'Satoshi',sans-serif;font-weight:500;font-size:14.5px;color:#141414;background:#FFFFFF;border:1px solid rgba(0,99,142,0.22);border-radius:10px;padding:12px 14px;outline:none" style-focus="border:1px solid #00638E">
+                    </sc-if>
+                    <sc-if value="{{ fd.isArea }}" hint-placeholder-val="{{ false }}">
+                      <textarea value="{{ fd.value }}" onChange="{{ fd.onChange }}" placeholder="{{ fd.ph }}" rows="{{ fd.rows }}" style="width:100%;box-sizing:border-box;font-family:'Satoshi',sans-serif;font-weight:400;font-size:14.5px;line-height:1.5;color:#141414;background:#FFFFFF;border:1px solid rgba(0,99,142,0.22);border-radius:10px;padding:12px 14px;outline:none;resize:vertical" style-focus="border:1px solid #00638E"></textarea>
+                    </sc-if>
+                    <sc-if value="{{ fd.isStatus }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <sc-for list="{{ fd.options }}" as="op" hint-placeholder-count="3">
+                          <button onClick="{{ op.pick }}" style="{{ op.st }}">{{ op.label }}</button>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ sec.hasProg }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:14px">
+                    <sc-for list="{{ progItems }}" as="pit" hint-placeholder-count="0">
+                      <div style="border:1px solid rgba(0,99,142,0.16);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;background:rgba(191,216,227,0.08)">
+                        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                          <span style="font-family:'Satoshi',sans-serif;font-weight:900;font-size:12px;letter-spacing:0.12em;color:#00638E">ITEM {{ pit.n }}</span>
+                          <div style="display:flex;gap:6px">
+                            <button onClick="{{ pit.up }}" title="Mover para cima" style="{{ pit.miniSt }}">↑</button>
+                            <button onClick="{{ pit.down }}" title="Mover para baixo" style="{{ pit.miniSt }}">↓</button>
+                            <button onClick="{{ pit.remove }}" title="Remover item" style="{{ pit.miniSt }}">✕</button>
+                          </div>
+                        </div>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap">
+                          <input type="date" value="{{ pit.data }}" onChange="{{ pit.setData }}" style="flex:1;min-width:130px;font-family:'Satoshi',sans-serif;font-weight:500;font-size:13.5px;color:#141414;border:1px solid rgba(0,99,142,0.22);border-radius:8px;padding:10px 12px;outline:none">
+                          <input value="{{ pit.horario }}" onChange="{{ pit.setHorario }}" placeholder="Horário (ex.: 19h)" style="flex:1;min-width:120px;font-family:'Satoshi',sans-serif;font-weight:500;font-size:13.5px;color:#141414;border:1px solid rgba(0,99,142,0.22);border-radius:8px;padding:10px 12px;outline:none">
+                        </div>
+                        <input value="{{ pit.quem }}" onChange="{{ pit.setQuem }}" placeholder="Responsável / professor / participante" style="width:100%;box-sizing:border-box;font-family:'Satoshi',sans-serif;font-weight:500;font-size:13.5px;color:#141414;border:1px solid rgba(0,99,142,0.22);border-radius:8px;padding:10px 12px;outline:none">
+                        <input value="{{ pit.tema }}" onChange="{{ pit.setTema }}" placeholder="Título / tema *" style="width:100%;box-sizing:border-box;font-family:'Satoshi',sans-serif;font-weight:500;font-size:13.5px;color:#141414;border:1px solid rgba(0,99,142,0.22);border-radius:8px;padding:10px 12px;outline:none">
+                        <input value="{{ pit.obs }}" onChange="{{ pit.setObs }}" placeholder="Observação (opcional)" style="width:100%;box-sizing:border-box;font-family:'Satoshi',sans-serif;font-weight:400;font-size:13.5px;color:#141414;border:1px solid rgba(0,99,142,0.22);border-radius:8px;padding:10px 12px;outline:none">
+                      </div>
+                    </sc-for>
+                    <button onClick="{{ addProgItem }}" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.14em;color:#00638E;background:rgba(191,216,227,0.25);border:1px dashed rgba(0,99,142,0.4);border-radius:999px;padding:12px 22px;cursor:pointer;align-self:flex-start" style-hover="background:rgba(191,216,227,0.5)">+ ADICIONAR ITEM</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ sec.hasPilares }}" hint-placeholder-val="{{ false }}">
+                  <div>
+                    <div style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:10.5px;letter-spacing:0.22em;color:#00638E;margin-bottom:7px">PILARES DA COMUNICAÇÃO</div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+                      <sc-for list="{{ pilaresChips }}" as="pc" hint-placeholder-count="0">
+                        <span style="display:inline-flex;align-items:center;gap:8px;font-family:'Satoshi',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:0.06em;color:#004A6B;background:#BFD8E3;border-radius:999px;padding:8px 8px 8px 16px">{{ pc.label }}<button onClick="{{ pc.remove }}" style="border:none;background:rgba(0,74,107,0.14);color:#004A6B;width:20px;height:20px;border-radius:50%;cursor:pointer;font-size:11px;line-height:1;display:flex;align-items:center;justify-content:center">✕</button></span>
+                      </sc-for>
+                    </div>
+                    <div style="display:flex;gap:10px">
+                      <input value="{{ pilarDraft }}" onChange="{{ setPilarDraft }}" onKeyDown="{{ pilarKeyDown }}" placeholder="Adicionar pilar e pressionar Enter" style="flex:1;font-family:'Satoshi',sans-serif;font-weight:500;font-size:13.5px;color:#141414;border:1px solid rgba(0,99,142,0.22);border-radius:8px;padding:10px 12px;outline:none">
+                      <button onClick="{{ addPilar }}" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.1em;color:#00638E;background:none;border:1px solid rgba(0,99,142,0.35);border-radius:999px;padding:10px 18px;cursor:pointer" style-hover="background:rgba(191,216,227,0.3)">ADICIONAR</button>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{ editorError }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:none;font-family:'Satoshi',sans-serif;font-weight:500;font-size:13px;color:#004A6B;background:rgba(191,216,227,0.3);border:1px dashed rgba(0,74,107,0.5);border-radius:10px;padding:12px 16px">{{ editorError }}</div>
+        </sc-if>
+      </div>
+      <div style="flex:none;display:flex;justify-content:center;gap:14px;padding:20px 40px;border-top:1px solid rgba(0,99,142,0.12);background:#FFFFFF">
+        <button onClick="{{ closeEditor }}" style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:0.12em;color:#00638E;background:none;border:1px solid rgba(0,99,142,0.35);border-radius:999px;padding:13px 26px;cursor:pointer" style-hover="background:rgba(191,216,227,0.25)">CANCELAR</button>
+        <button onClick="{{ saveEvent }}" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.12em;color:#FFFFFF;background:#00638E;border:none;border-radius:999px;padding:13px 28px;cursor:pointer" style-hover="background:#004A6B">SALVAR ACONTECIMENTO</button>
+      </div>
+    </aside>
+  </sc-if>
+
+  <!-- ================= PAINEL DE DETALHE ================= -->
+  <sc-if value="{{ panelOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePanel }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:50"></div>
+    <aside class="mt-detail-panel" style="position:fixed;top:0;right:0;bottom:0;width:clamp(320px,min(540px,90vw),560px);background:#FFFFFF;z-index:51;box-shadow:-12px 0 40px rgba(0,0,0,0.14);overflow:auto;border-radius:24px 0 0 24px">
+      <div style="background:linear-gradient(120deg,#000000 0%,#004A6B 60%,#00638E 100%);padding:48px 40px 40px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:36px">
+          <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:1px;background:rgba(191,216,227,0.7)"></span><span style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.28em;color:#BFD8E3;white-space:nowrap">DOSSIÊ</span></div>
+          <button onClick="{{ closePanel }}" style="background:none;border:1px solid rgba(191,216,227,0.5);color:#BFD8E3;font-family:'Satoshi',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.2em;padding:8px 16px;cursor:pointer;border-radius:999px" style-hover="border:1px solid #BFD8E3;color:#FFFFFF">FECHAR ✕</button>
+        </div>
+        <div style="font-weight:900;font-size:clamp(28px,2.6vw,34px);line-height:1.12;letter-spacing:0.02em;color:#FFFFFF;text-transform:uppercase;text-wrap:balance">{{ panel.title }}</div>
+        <div style="display:flex;gap:28px;flex-wrap:wrap;margin-top:24px">
+          <div style="display:flex;align-items:center;gap:10px;color:#BFD8E3">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex:none"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+            <span style="font-weight:500;font-size:14px;letter-spacing:0.14em;white-space:nowrap">{{ panel.dateLabel }}</span>
+          </div>
+          <sc-if value="{{ panel.time }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;color:#BFD8E3">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+              <span style="font-weight:500;font-size:14px;letter-spacing:0.14em;white-space:nowrap">{{ panel.time }}</span>
+            </div>
+          </sc-if>
+        </div>
+        <div style="margin-top:24px"><span style="{{ panel.pillStyle }}">{{ panel.status }}</span></div>
+      </div>
+      <div style="padding:36px 36px 48px;display:flex;flex-direction:column;gap:16px">
+        <sc-if value="{{ panel.desc }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">O QUE É</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.desc }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.obj }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(191,216,227,0.18);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">OBJETIVO PRINCIPAL</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.obj }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.objMarca }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">OBJETIVO DE MARCA</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.objMarca }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.pub }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(191,216,227,0.18);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">PÚBLICO</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.pub }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.estrategia }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">ESTRATÉGIA</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.estrategia }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.jornadaIntro }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(191,216,227,0.18);border-radius:20px;padding:24px 26px">
+            <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">JORNADA E CONTINUIDADE</div>
+            <div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.jornadaIntro }}</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+              <sc-for list="{{ panel.caminhos }}" as="cm" hint-placeholder-count="0">
+                <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.1);border-radius:14px;padding:18px 20px">
+                  <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.18em;color:#00638E">{{ cm.label }}</div>
+                  <div style="font-weight:400;font-size:15.5px;line-height:1.55;color:#2B2B2B;margin-top:6px;text-wrap:pretty">{{ cm.text }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ panel.jornada }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">CONTEXTO NA JORNADA</div><div style="font-weight:500;font-size:15.5px;line-height:1.7;color:#004A6B;text-wrap:pretty">{{ panel.jornada }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.hasProgDet }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px">
+            <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:14px">PROGRAMAÇÃO DESTA EDIÇÃO</div>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ panel.progDet }}" as="pd" hint-placeholder-count="0">
+                <div class="mt-program-row" style="display:flex;gap:20px;padding:16px 4px;border-bottom:1px solid rgba(0,99,142,0.1)">
+                  <div class="mt-program-when" style="flex:none;width:110px;font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.06em;color:#00638E;line-height:1.4">{{ pd.when }}</div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-weight:700;font-size:15.5px;line-height:1.4;color:#141414">{{ pd.who }}</div>
+                    <div style="font-weight:400;font-size:15px;line-height:1.5;color:#2B2B2B;margin-top:3px">{{ pd.what }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ panel.pilares }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(191,216,227,0.18);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">PILARES DA COMUNICAÇÃO</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.pilares }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.hasProg }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(191,216,227,0.18);border-radius:20px;padding:24px 26px">
+            <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">PROGRAMAÇÃO</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ panel.prog }}" as="pi" hint-placeholder-count="0">
+                <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:5px;height:5px;border-radius:50%;background:#00638E;transform:translateY(-2px)"></span><span style="font-weight:400;font-size:15.5px;line-height:1.55;color:#2B2B2B">{{ pi.t }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ panel.hasStrat }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px">
+            <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">ESTRATÉGIA</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ panel.strat }}" as="si" hint-placeholder-count="0">
+                <div style="display:flex;gap:12px;align-items:baseline"><span style="flex:none;width:5px;height:5px;border-radius:50%;background:#00638E;transform:translateY(-2px)"></span><span style="font-weight:400;font-size:15.5px;line-height:1.55;color:#2B2B2B">{{ si.t }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ panel.orientacao }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">ORIENTAÇÃO DE COMUNICAÇÃO</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.orientacao }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.mensagem }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(191,216,227,0.35);border-radius:20px;padding:28px 26px">
+            <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">MENSAGEM CENTRAL</div>
+            <div style="font-weight:500;font-size:16.5px;line-height:1.6;color:#004A6B;text-wrap:pretty">{{ panel.mensagem }}</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ panel.obs }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#FFFFFF;border:1px solid rgba(0,99,142,0.14);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">OBSERVAÇÕES</div><div style="font-weight:400;font-size:16px;line-height:1.6;color:#2B2B2B;text-wrap:pretty">{{ panel.obs }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.cat }}" hint-placeholder-val="{{ false }}">
+          <div style="background:rgba(191,216,227,0.18);border-radius:20px;padding:24px 26px"><div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.16em;color:#00638E;margin-bottom:12px">CATEGORIA</div><div style="font-weight:500;font-size:14px;letter-spacing:0.14em;color:#2B2B2B">{{ panel.cat }}</div></div>
+        </sc-if>
+        <sc-if value="{{ panel.canEdit }}" hint-placeholder-val="{{ false }}">
+          <div style="border-top:1px solid rgba(0,99,142,0.12);padding-top:24px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <button onClick="{{ panel.onEdit }}" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.14em;color:#FFFFFF;background:#00638E;border:none;border-radius:999px;padding:12px 24px;cursor:pointer" style-hover="background:#004A6B">EDITAR ACONTECIMENTO</button>
+              <button onClick="{{ panel.onAskDelete }}" style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.14em;color:#00638E;background:none;border:1px solid rgba(0,99,142,0.4);border-radius:999px;padding:12px 24px;cursor:pointer" style-hover="border:1px solid #00638E;background:rgba(191,216,227,0.2)">EXCLUIR ACONTECIMENTO</button>
+            </div>
+            <sc-if value="{{ panel.confirmDelete }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(191,216,227,0.2);border:1px dashed rgba(0,74,107,0.5);border-radius:14px;padding:18px 20px">
+                <div style="font-weight:500;font-size:14px;color:#2B2B2B;margin-bottom:12px">Tem certeza de que deseja excluir este acontecimento?</div>
+                <div style="display:flex;gap:10px">
+                  <button onClick="{{ panel.onConfirmDelete }}" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:11.5px;letter-spacing:0.12em;color:#FFFFFF;background:#004A6B;border:none;border-radius:999px;padding:10px 20px;cursor:pointer">SIM, EXCLUIR</button>
+                  <button onClick="{{ panel.onCancelDelete }}" style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:11.5px;letter-spacing:0.12em;color:#00638E;background:none;border:1px solid rgba(0,99,142,0.35);border-radius:999px;padding:10px 20px;cursor:pointer">CANCELAR</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
+    </aside>
+  </sc-if>
+
+  <!-- ================= ENTREGÁVEL: DETALHE ================= -->
+  <sc-if value="{{ dPanelOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ dClosePanel }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:70"></div>
+    <div class="mt-modal" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(520px,94vw);max-height:86vh;background:#FFFFFF;z-index:71;box-shadow:0 24px 80px rgba(0,0,0,0.18);border-radius:20px;display:flex;flex-direction:column;overflow:hidden">
+      <div style="padding:28px 60px 22px;flex:none;border-bottom:1px solid rgba(0,99,142,0.08);position:relative;text-align:center">
+        <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.28em;color:#00638E">ENTREGÁVEL</div>
+        <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:18px;line-height:1.3;color:#141414;margin-top:8px">{{ dPanel.title }}</div>
+        <div style="margin-top:12px"><span style="{{ dPanel.statusSt }}">{{ dPanel.status }}</span></div>
+        <button onClick="{{ dClosePanel }}" style="position:absolute;top:22px;right:22px;background:none;border:1px solid rgba(0,99,142,0.2);color:#00638E;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(191,216,227,0.3)">✕</button>
+      </div>
+      <div style="flex:1;overflow:auto;padding:24px 34px;display:flex;flex-direction:column;gap:16px">
+        <sc-for list="{{ dPanel.rows }}" as="r" hint-placeholder-count="4">
+          <div>
+            <div style="font-family:'Satoshi',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:0.22em;color:#00638E">{{ r.k }}</div>
+            <div style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:15px;line-height:1.5;color:#2B2B2B;margin-top:4px">{{ r.v }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="flex:none;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:18px 24px;border-top:1px solid rgba(0,99,142,0.12);background:#FFFFFF">
+        <sc-if value="{{ dPanel.canDeliver }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ dPanel.markDone }}" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.12em;color:#FFFFFF;background:#00638E;border:none;border-radius:999px;padding:12px 24px;cursor:pointer" style-hover="background:#004A6B">MARCAR COMO ENTREGUE</button>
+        </sc-if>
+        <button onClick="{{ dPanel.edit }}" style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.12em;color:#00638E;background:none;border:1px solid rgba(0,99,142,0.35);border-radius:999px;padding:12px 22px;cursor:pointer" style-hover="background:rgba(191,216,227,0.25)">EDITAR</button>
+        <sc-if value="{{ dPanel.canCancel }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ dPanel.cancel }}" style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.12em;color:#2B2B2B;background:none;border:1px solid rgba(43,43,43,0.3);border-radius:999px;padding:12px 22px;cursor:pointer;opacity:0.8" style-hover="background:rgba(43,43,43,0.06)">CANCELAR ENTREGÁVEL</button>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ================= ENTREGÁVEL: CADASTRO ================= -->
+  <sc-if value="{{ dEditorOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ dCloseEditor }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:72"></div>
+    <div class="mt-modal" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(560px,94vw);max-height:88vh;background:#FFFFFF;z-index:73;box-shadow:0 24px 80px rgba(0,0,0,0.18);border-radius:20px;display:flex;flex-direction:column;overflow:hidden">
+      <div style="padding:28px 60px 20px;flex:none;border-bottom:1px solid rgba(0,99,142,0.08);position:relative;text-align:center">
+        <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.28em;color:#00638E">{{ dEditorTitle }}</div>
+        <div style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:18px;line-height:1.3;color:#141414;margin-top:8px">{{ dEditorHeading }}</div>
+        <button onClick="{{ dCloseEditor }}" style="position:absolute;top:22px;right:22px;background:none;border:1px solid rgba(0,99,142,0.2);color:#00638E;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(191,216,227,0.3)">✕</button>
+      </div>
+      <div style="flex:1;overflow:auto;padding:24px 34px 28px;display:flex;flex-direction:column;gap:18px">
+        <sc-for list="{{ dFields }}" as="fd" hint-placeholder-count="6">
+          <div>
+            <div style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:10.5px;letter-spacing:0.22em;color:#00638E;margin-bottom:7px">{{ fd.label }}</div>
+            <sc-if value="{{ fd.isText }}" hint-placeholder-val="{{ true }}">
+              <input type="{{ fd.type }}" value="{{ fd.value }}" onChange="{{ fd.onChange }}" placeholder="{{ fd.ph }}" style="width:100%;box-sizing:border-box;font-family:'Satoshi',sans-serif;font-weight:500;font-size:14.5px;color:#141414;background:#FFFFFF;border:1px solid rgba(0,99,142,0.22);border-radius:10px;padding:12px 14px;outline:none" style-focus="border:1px solid #00638E">
+            </sc-if>
+            <sc-if value="{{ fd.isArea }}" hint-placeholder-val="{{ false }}">
+              <textarea value="{{ fd.value }}" onChange="{{ fd.onChange }}" placeholder="{{ fd.ph }}" rows="{{ fd.rows }}" style="width:100%;box-sizing:border-box;font-family:'Satoshi',sans-serif;font-weight:400;font-size:14.5px;line-height:1.5;color:#141414;background:#FFFFFF;border:1px solid rgba(0,99,142,0.22);border-radius:10px;padding:12px 14px;outline:none;resize:vertical" style-focus="border:1px solid #00638E"></textarea>
+            </sc-if>
+            <sc-if value="{{ fd.isStatus }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ fd.options }}" as="op" hint-placeholder-count="3">
+                  <button onClick="{{ op.pick }}" style="{{ op.st }}">{{ op.label }}</button>
+                </sc-for>
+              </div>
+            </sc-if>
+            <sc-if value="{{ fd.isSelect }}" hint-placeholder-val="{{ false }}">
+              <div style="position:relative">
+                <button onClick="{{ fd.toggle }}" onKeyDown="{{ fd.keyDown }}" style="{{ fd.triggerSt }}" style-focus="border:1px solid #00638E">
+                  <span style="{{ fd.valueSt }}">{{ fd.display }}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00638E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="{{ fd.chevSt }}"><path d="M6 9l6 6 6-6"></path></svg>
+                </button>
+                <sc-if value="{{ fd.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;top:calc(100% + 6px);left:0;right:0;background:#FFFFFF;border:1px solid rgba(0,99,142,0.16);border-radius:12px;box-shadow:0 12px 36px rgba(0,74,107,0.14);padding:7px;z-index:90;max-height:260px;overflow:auto">
+                    <sc-for list="{{ fd.people }}" as="pp" hint-placeholder-count="6">
+                      <div onClick="{{ pp.pick }}" style="{{ pp.st }}" style-hover="{{ pp.hoverSt }}">
+                        <span>{{ pp.v }}</span>
+                        <sc-if value="{{ pp.sel }}" hint-placeholder-val="{{ false }}">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00638E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M20 6L9 17l-5-5"></path></svg>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{ dError }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:none;font-family:'Satoshi',sans-serif;font-weight:500;font-size:13px;color:#004A6B;background:rgba(191,216,227,0.3);border:1px dashed rgba(0,74,107,0.5);border-radius:10px;padding:12px 16px">{{ dError }}</div>
+        </sc-if>
+      </div>
+      <div style="flex:none;display:flex;justify-content:center;gap:14px;padding:20px 40px;border-top:1px solid rgba(0,99,142,0.12);background:#FFFFFF">
+        <button onClick="{{ dCloseEditor }}" style="font-family:'Satoshi',sans-serif;font-weight:500;font-size:12.5px;letter-spacing:0.12em;color:#00638E;background:none;border:1px solid rgba(0,99,142,0.35);border-radius:999px;padding:13px 26px;cursor:pointer" style-hover="background:rgba(191,216,227,0.25)">CANCELAR</button>
+        <button onClick="{{ dSave }}" style="font-family:'Satoshi',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:0.12em;color:#FFFFFF;background:#00638E;border:none;border-radius:999px;padding:13px 28px;cursor:pointer" style-hover="background:#004A6B">REGISTRAR</button>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { view: null, month: 9, calMonth: null, panel: null, editorOpen: false, editingId: null, form: {}, progItems: [], pilares: [], pilarDraft: '', openSec: 0, editorError: null, confirmDelete: false, calTab: 'estrategico', dPanel: null, dEditorOpen: false, dEditingId: null, dForm: {}, dError: null };
+  componentDidMount() {
+    this.timer = setInterval(() => this.forceUpdate(), 60000);
+    this.refreshFn = () => this.forceUpdate();
+    window.addEventListener('mt-refresh', this.refreshFn);
+    this.outsideFn = () => { if (this.state.dSelOpen) this.setState({ dSelOpen: null }); };
+    document.addEventListener('click', this.outsideFn);
+  }
+  componentWillUnmount() { clearInterval(this.timer); window.removeEventListener('mt-refresh', this.refreshFn); document.removeEventListener('click', this.outsideFn); }
+
+  static STORE_KEY = 'mtCalendarCustomEvents_v1';
+  loadCustom() {
+    try { return JSON.parse(localStorage.getItem(Component.STORE_KEY) || '[]'); } catch (e) { return []; }
+  }
+  saveCustom(list) { localStorage.setItem(Component.STORE_KEY, JSON.stringify(list)); }
+  // ===== ENTREGÁVEIS DA EQUIPE (persistência isolada — não misturar com acontecimentos) =====
+  static DELIV_KEY = 'mtCalendarDeliverables_v1';
+  loadDeliv() { try { return JSON.parse(localStorage.getItem(Component.DELIV_KEY) || '[]'); } catch (e) { return []; } }
+  saveDelivList(l) { localStorage.setItem(Component.DELIV_KEY, JSON.stringify(l)); }
+  delivStatus(dd, t) {
+    const base = { fontFamily: "'Satoshi',sans-serif", fontWeight: 600, fontSize: '13px', lineHeight: 1.25, letterSpacing: '0.01em', marginTop: '6px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', overflowWrap: 'anywhere', borderRadius: '7px', padding: '6px 10px', border: '1px solid transparent' };
+    const chip = { fontFamily: "'Satoshi',sans-serif", fontWeight: 700, fontSize: '10.5px', letterSpacing: '0.12em', marginTop: '5px', display: 'inline-block', borderRadius: '999px', padding: '4px 10px', whiteSpace: 'nowrap' };
+    if (dd.status === 'entregue') return { label: 'ENTREGUE', pillSt: { ...base, background: 'rgba(0,99,142,0.1)', color: '#00638E' }, chipSt: { ...chip, background: 'rgba(0,99,142,0.12)', color: '#00638E' } };
+    if (dd.status === 'cancelado') return { label: 'CANCELADO', pillSt: { ...base, background: 'rgba(43,43,43,0.07)', color: '#2B2B2B', opacity: 0.65 }, chipSt: { ...chip, background: 'rgba(43,43,43,0.1)', color: '#2B2B2B', opacity: 0.75 } };
+    const p = (dd.prazo || '').split('-').map(Number);
+    const pz = p.length === 3 ? new Date(p[0], p[1] - 1, p[2]) : t;
+    const late = Math.round((t - pz) / 864e5);
+    if (late > 0) return { label: 'ATRASADO • ' + late + (late === 1 ? ' DIA' : ' DIAS'), pillSt: { ...base, background: 'rgba(191,216,227,0.55)', color: '#004A6B', border: '1px solid #004A6B' }, chipSt: { ...chip, background: '#004A6B', color: '#FFFFFF' } };
+    return { label: late === 0 ? 'ENTREGA HOJE' : 'AGUARDANDO ENTREGA', pillSt: { ...base, background: 'rgba(191,216,227,0.55)', color: '#004A6B' }, chipSt: { ...chip, background: '#BFD8E3', color: '#004A6B' } };
+  }
+  openDelivEditor(id) {
+    const t = this.today();
+    const iso = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+    const empty = { entregavel: '', responsavel: '', solicitadoEm: iso, prazo: '', solicitadoPor: '', relacionadoA: '', observacao: '', status: 'aguardando' };
+    if (id) {
+      const rec = this.loadDeliv().find(x => x.id === id);
+      if (!rec) return;
+      this.setState({ dEditorOpen: true, dEditingId: id, dForm: { ...empty, ...rec }, dError: null, dPanel: null });
+    } else this.setState({ dEditorOpen: true, dEditingId: null, dForm: empty, dError: null });
+  }
+  doSaveDeliv() {
+    const f = this.state.dForm;
+    const req = [['entregavel', 'Informe o que precisa ser entregue.'], ['responsavel', 'Selecione o responsável.'], ['solicitadoEm', 'Informe a data da solicitação.'], ['prazo', 'Informe o prazo de entrega.'], ['solicitadoPor', 'Selecione quem solicitou.']];
+    for (const [k, msg] of req) if (!f[k] || !String(f[k]).trim()) { this.setState({ dError: msg }); return; }
+    const list = this.loadDeliv();
+    const id = this.state.dEditingId || ('deliv-' + Date.now());
+    const prev = list.find(x => x.id === id);
+    const rec = { id, created_at: (prev && prev.created_at) || new Date().toISOString(), updated_at: new Date().toISOString(), entregavel: f.entregavel.trim(), responsavel: f.responsavel.trim(), solicitadoEm: f.solicitadoEm, prazo: f.prazo, solicitadoPor: f.solicitadoPor.trim(), relacionadoA: (f.relacionadoA || '').trim(), observacao: (f.observacao || '').trim(), status: f.status || 'aguardando' };
+    const i = list.findIndex(x => x.id === id);
+    if (i >= 0) list[i] = rec; else list.push(rec);
+    this.saveDelivList(list);
+    this.setState({ dEditorOpen: false, dEditingId: null, dError: null });
+  }
+  setDelivStatus(id, status) {
+    const list = this.loadDeliv();
+    const i = list.findIndex(x => x.id === id);
+    if (i < 0) return;
+    list[i] = { ...list[i], status, updated_at: new Date().toISOString() };
+    this.saveDelivList(list);
+    this.forceUpdate();
+  }
+  static MONTHS_PT = ['JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO'];
+  // start: null = data inicial PENDENTE (a informar). Movimento sem start é tratado como já em andamento até end.
+  static MOVIMENTOS = [
+    { id: 'jeitao-lote1', title: 'Jeitão MedTwins', stage: 'Vendas · Primeiro Lote', start: null, end: [2026,9,5], status: 'ativo', ordem: 1 },
+    { id: 'gps1-pre', title: 'Lançamento GPS-1', stage: 'Estratégia de Pré-Lançamento', start: null, end: [2026,9,20], status: 'ativo', ordem: 2 }
+  ];
+  normalizeCustom(c) {
+    const p2 = n => String(n).padStart(2, '0');
+    const mon3 = m => Component.MONTHS_PT[m - 1].slice(0, 3);
+    const s = c.start, e = c.end;
+    const sameMonth = e && e[1] === s[1];
+    let big, suf, dateLabel;
+    if (e && sameMonth) { big = p2(s[2]) + ' A ' + p2(e[2]); suf = Component.MONTHS_PT[s[1] - 1]; dateLabel = p2(s[2]) + ' A ' + p2(e[2]) + ' ' + mon3(s[1]); }
+    else if (e) { big = p2(s[2]); suf = Component.MONTHS_PT[s[1] - 1]; dateLabel = p2(s[2]) + ' ' + mon3(s[1]) + ' A ' + p2(e[2]) + ' ' + mon3(e[1]); }
+    else { big = p2(s[2]); suf = Component.MONTHS_PT[s[1] - 1]; dateLabel = p2(s[2]) + ' ' + mon3(s[1]); }
+    const progDet = (c.progItems || []).filter(i => i.tema).map(i => {
+      let when = '';
+      if (i.data) { const dp = i.data.split('-').map(Number); when = p2(dp[2]) + '/' + p2(dp[1]); }
+      if (i.horario) when += (when ? ' | ' : '') + i.horario;
+      return { when: when || '—', who: i.quem || '', what: i.tema, _day: i.data ? Number(i.data.split('-')[2]) : null, _mon: i.data ? Number(i.data.split('-')[1]) : null };
+    });
+    return {
+      id: c.id, custom: true, title: c.nome, start: s, end: e || undefined, time: c.horario ? c.horario.toUpperCase() : undefined,
+      provisional: c.status === 'provisorio', awaitingDef: c.status === 'aguardando',
+      dateLabel, big, suf, dayBig: big, dayMon: mon3(s[1]), short: c.nome,
+      shortDesc: c.descricaoCurta || undefined, desc: c.oQueE || c.descricaoCurta || '',
+      obj: c.objetivo || undefined, objMarca: c.objetivoMarca || undefined, pub: c.publico || undefined,
+      estrategia: c.estrategia || undefined, jornada: c.jornada || undefined,
+      progDet: progDet.length ? progDet : undefined,
+      pilares: (c.pilares && c.pilares.length) ? c.pilares.join(' · ') : undefined,
+      orientacao: c.orientacao || undefined, mensagem: c.mensagem || undefined, obs: c.observacoes || undefined
+    };
+  }
+  emptyForm() { return { nome: '', dataInicial: '', dataFinal: '', horario: '', status: 'confirmado', descricaoCurta: '', oQueE: '', objetivo: '', objetivoMarca: '', publico: '', estrategia: '', jornada: '', orientacao: '', mensagem: '', observacoes: '' }; }
+  openEditor(ev) {
+    if (ev) {
+      const raw = this.loadCustom().find(c => c.id === ev);
+      if (!raw) return;
+      this.setState({ editorOpen: true, editingId: ev, form: { ...this.emptyForm(), ...raw.formSnapshot }, progItems: (raw.progItems || []).map(i => ({ ...i })), pilares: [...(raw.pilares || [])], pilarDraft: '', openSec: 0, editorError: null, panel: null });
+    } else {
+      this.setState({ editorOpen: true, editingId: null, form: this.emptyForm(), progItems: [], pilares: [], pilarDraft: '', openSec: 0, editorError: null });
+    }
+  }
+  doSave() {
+    const f = this.state.form;
+    if (!f.nome || !f.nome.trim()) { this.setState({ editorError: 'Informe o nome do acontecimento.', openSec: 0 }); return; }
+    if (!f.dataInicial) { this.setState({ editorError: 'Informe a data inicial.', openSec: 0 }); return; }
+    const pd = f.dataInicial.split('-').map(Number);
+    const start = [pd[0], pd[1], pd[2]];
+    let end;
+    if (f.dataFinal) { const pe2 = f.dataFinal.split('-').map(Number); end = [pe2[0], pe2[1], pe2[2]]; if (this.d(end) < this.d(start)) end = undefined; }
+    const list = this.loadCustom();
+    const id = this.state.editingId || ('custom-' + Date.now());
+    const prev = this.state.editingId ? list.find(c => c.id === id) : null;
+    const rec = {
+      id, created_at: (prev && prev.created_at) || new Date().toISOString(), updated_at: new Date().toISOString(),
+      nome: f.nome.trim(), start, end: end || null,
+      horario: f.horario.trim(), status: f.status, descricaoCurta: f.descricaoCurta.trim(),
+      oQueE: f.oQueE.trim(), objetivo: f.objetivo.trim(), objetivoMarca: f.objetivoMarca.trim(),
+      publico: f.publico.trim(), estrategia: f.estrategia.trim(), jornada: f.jornada.trim(),
+      orientacao: f.orientacao.trim(), mensagem: f.mensagem.trim(), observacoes: f.observacoes.trim(),
+      progItems: this.state.progItems.filter(i => i.tema && i.tema.trim()),
+      pilares: this.state.pilares, formSnapshot: { ...f }
+    };
+    const idx = list.findIndex(c => c.id === id);
+    if (idx >= 0) list[idx] = rec; else list.push(rec);
+    this.saveCustom(list);
+    this.setState({ editorOpen: false, editingId: null, editorError: null });
+  }
+  doDelete(id) {
+    this.saveCustom(this.loadCustom().filter(c => c.id !== id));
+    this.setState({ panel: null, confirmDelete: false });
+  }
+
+  get EVENTS() {
+    return [
+      { id: 'semana', title: 'Semana Revalida + Simulados', start: [2026,9,7], end: [2026,9,11], time: '19H | BRASÍLIA', dateLabel: '07 A 11 SET', dayBig: '07 A 11', dayMon: 'SET', big: '07 A 11', suf: 'SETEMBRO', cat: 'EVENTO ONLINE', short: 'Semana Revalida', cat: 'EVENTO ONLINE', hideCat: true, shortDesc: 'Semana especial de reta final da MedTwins criada para direcionar o aluno nos últimos dias antes da prova.', desc: 'A Semana Revalida – Reta Final é um evento recorrente da MedTwins que acontece sempre na semana imediatamente anterior à prova teórica do Revalida. É uma ação educacional e estratégica criada para os últimos dias de preparação, quando o aluno já acumulou conteúdo e precisa principalmente de direção, prioridade e clareza sobre o que revisar.', obj: 'Ajudar genuinamente o revalidando na reta final, oferecendo revisão útil, atualização, direcionamento e estratégia para os últimos dias antes da prova.', objMarca: 'Aumentar a percepção de valor da MedTwins, fortalecer confiança, proximidade e relacionamento e fazer com que a marca se torne a referência natural para o próximo passo da jornada do aluno.', pub: 'Médicos formados no exterior que estão a poucos dias da primeira etapa do Revalida, sejam alunos MedTwins ou ainda não clientes. É um público que tende a estar mais cansado, ansioso, inseguro sobre o que priorizar e buscando segurança e direção para os últimos dias.', estrategia: 'A Semana Revalida não deve ser tratada como “mais conteúdo”. A estratégia é ajudar o aluno a filtrar o que realmente importa, reforçar a percepção de domínio da banca INEP e demonstrar, na prática, a capacidade da MedTwins de transformar excesso de informação em direção estratégica.', jornadaIntro: 'O evento não termina no último dia de aula nem no dia da prova.', jornadaCaminhos: [{ label: 'NÃO APROVADO', text: 'A MedTwins deve ser a referência natural para a próxima preparação teórica.' }, { label: 'APROVADO', text: 'A jornada avança para a segunda etapa e a MedTwins deve ser a referência natural para a preparação prática.' }], progDet: [{ when: '07 SET · 19H', who: 'Dra. Camila Lemes', what: 'Aula 9' }, { when: '08 SET · 19H', who: 'Dr. Gustavo Caregnatto', what: 'Síndrome Coronariana Aguda (SCA)' }, { when: '09 SET · 19H', who: 'Dra. Tassila Melo', what: 'Obesidade e Síndrome Metabólica' }, { when: '10 SET · 19H', who: 'Dra. Joyce Menezes', what: 'Atualizações Ministério da Saúde / INEP 2026' }, { when: '11 SET · 10H', who: 'Dra. Ana Castro', what: 'Síndrome Oncoginecológica' }], pilares: 'Reta final, banca INEP, objetividade, percepção de valor, acolhimento e continuidade. A urgência deve vir da proximidade real da prova, sem terrorismo ou promessa de aprovação.', mensagem: 'Agora não é hora de tentar estudar tudo novamente. É hora de saber o que merece atenção, revisar com estratégia e chegar à prova com mais clareza sobre como transformar conhecimento em pontos.' },
+      { id: 'horah', title: 'Hora H Online', start: [2026,9,12], time: '09H ÀS 19H', dateLabel: '12 SET', dayBig: '12', dayMon: 'SET', big: '12', suf: 'SETEMBRO', cat: 'EVENTO ONLINE', short: 'Hora H Online', desc: 'Revisão final ao vivo, um dia antes da prova teórica.' },
+      { id: 'prova', title: 'Prova Teórica Revalida 2026.2', start: [2026,9,13], dateLabel: '13 SET', dayBig: '13', dayMon: 'SET', big: '13', suf: 'SETEMBRO', cat: 'MARCO OFICIAL', short: 'Prova Teórica 2026.2', desc: 'Dia oficial da prova.', obs: 'Ação Porta de Prova; captação de leads para a próxima etapa; divulgação do sorteio do Curso Prático Presencial.' },
+      { id: 'gabarito', title: 'Gabarito Preliminar + Pitch do Prático + Sorteio', start: [2026,9,15], dateLabel: '15 SET', dayBig: '15', dayMon: 'SET', big: '15', suf: 'SETEMBRO', cat: 'MARCO', short: 'Gabarito + Pitch', desc: 'Previsão do gabarito preliminar, Esqueleto da Prova Prática, Pitch do Curso Prático e sorteio da ação Porta de Prova.', obs: 'Direcionamento dos aprovados para preparação da segunda fase.' },
+      { id: 'gps', title: 'GPS da Aprovação', start: [2026,9,21], end: [2026,9,23], time: '19H | BRASÍLIA', dateLabel: '21 A 23 SET', dayBig: '21 A 23', dayMon: 'SET', big: '21 A 23', suf: 'SETEMBRO', cat: 'EVENTO ONLINE', short: 'GPS da Aprovação', desc: 'Evento de três dias.', obj: 'Pitch da preparação teórica.', obs: 'Público principal: Revalida 2027 e 2028.' },
+      { id: 'sala', title: 'Sala Secreta', start: [2026,9,23], recurring: true, time: 'TODAS AS QUARTAS-FEIRAS', dateLabel: 'A PARTIR DE 23 SET', dayBig: '23 +', dayMon: 'SET', big: '23 +', suf: 'SETEMBRO', cat: 'RECORRENTE', short: 'Sala Secreta', desc: 'Continuidade do trabalho focado na prova prática. Recorrência: todas as quartas-feiras.' },
+      { id: 'inep', title: 'Simulado Geral INEP', start: [2026,10,4], dateLabel: '04 OUT', dayBig: '04', dayMon: 'OUT', big: '04', suf: 'OUTUBRO', cat: 'EVENTO ONLINE', short: 'Simulado Geral INEP', desc: 'Simulado completo no padrão da banca INEP.', obj: 'Captação e preparação para Revalida 2027/2028.' },
+      { id: 'gpsini', title: 'Início do GPS', start: [2026,10,5], dateLabel: '05 OUT', dayBig: '05', dayMon: 'OUT', big: '05', suf: 'OUTUBRO', cat: 'MENTORIA', short: 'Início do GPS', desc: 'Início oficial da Mentoria/GPS da Aprovação.', obs: 'Público: turmas focadas em Revalida 2027 e 2028.' },
+      { id: 'foz', title: 'Evento Foz do Iguaçu', start: [2026,10,17], dateLabel: '17 OUT', dayBig: '17', dayMon: 'OUT', big: '17', suf: 'OUTUBRO', cat: 'PRESENCIAL', short: 'Evento Foz do Iguaçu', desc: 'Ação de captação de novos alunos, evento com o Jeitão MedTwins, conteúdo estratégico, geração de leads e oportunidade comercial.' },
+      { id: 'ro', title: 'Emergência Twins | Rondônia', start: [2026,10,24], end: [2026,10,25], dateLabel: '24 E 25 OUT', dayBig: '24 E 25', dayMon: 'OUT', big: '24 E 25', suf: 'OUTUBRO', cat: 'PRESENCIAL', short: 'Emergência Twins RO', desc: 'Curso de Emergência / Primeiros Plantões.' },
+      { id: 'edital', title: 'Aguardando Edital', awaiting: true, monthNum: 11, dateLabel: 'NOVEMBRO', dayBig: 'NOV', dayMon: '2026', big: 'NOV', suf: '2026', cat: 'ATENÇÃO AO EDITAL', short: 'Aguardando edital', desc: 'Não existe ainda uma data confirmada para a prova prática. Existe possibilidade de a prova prática acontecer em novembro.', obs: 'Assim que houver confirmação, o calendário será atualizado para refletir campanhas, Sala Secreta, Curso Prático e reta final.' },
+      { id: 'sp', title: 'Emergência Twins | São Paulo', start: [2026,11,28], end: [2026,11,29], dateLabel: '28 E 29 NOV', dayBig: '28 E 29', dayMon: 'NOV', big: '28 E 29', suf: 'NOVEMBRO', cat: 'PRESENCIAL', short: 'Emergência Twins SP', desc: 'Curso de Emergência / Primeiros Plantões.' },
+      { id: 'pratico', title: 'Curso Prático Presencial MedTwins', start: [2026,12,13], provisional: true, dateLabel: '13 DEZ', dayBig: '13', dayMon: 'DEZ', big: '13', suf: 'DEZEMBRO', cat: 'PREVISÃO', short: 'Curso Prático (prev.)', desc: 'Previsão de Curso Prático Presencial MedTwins. Data mantida como provisória até definição do calendário oficial/editais.' },
+      ...this.loadCustom().map(c => this.normalizeCustom(c))
+    ];
+  }
+
+  d(a) { return new Date(a[0], a[1] - 1, a[2]); }
+  mockDate() {
+    try {
+      const q = (typeof window !== 'undefined' && window.__mtMockDate) || new URLSearchParams(location.search).get('mockDate');
+      if (q && /^\d{4}-\d{2}-\d{2}$/.test(q)) { const p = q.split('-').map(Number); return new Date(p[0], p[1] - 1, p[2]); }
+    } catch (e) {}
+    return null;
+  }
+  today() {
+    const mock = this.mockDate(); if (mock) return mock;
+    const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(new Date()).split('-').map(Number);
+    return new Date(p[0], p[1] - 1, p[2]);
+  }
+  count(s, t) {
+    const days = Math.round((s - t) / 864e5);
+    if (days <= 0) return 'ACONTECE HOJE';
+    if (days === 1) return 'FALTA 1 DIA';
+    return 'FALTAM ' + days + ' DIAS';
+  }
+  evStatus(ev, t) {
+    if (ev.awaiting) return { label: 'AGUARDANDO CONFIRMAÇÃO', kind: 'awaiting' };
+    if (ev.awaitingDef) return { label: 'AGUARDANDO DEFINIÇÃO', kind: 'awaiting' };
+    if (ev.recurring) return { label: 'RECORRENTE', kind: 'recurring' };
+    const s = this.d(ev.start), e = ev.end ? this.d(ev.end) : s;
+    if (ev.provisional) return { label: 'DATA PROVISÓRIA', kind: 'prov' };
+    if (t > e) return { label: 'CONCLUÍDO', kind: 'done' };
+    if (t >= s) return { label: e > s ? 'ACONTECENDO AGORA' : 'ACONTECE HOJE', kind: 'now' };
+    return { label: this.count(s, t), kind: 'up' };
+  }
+  pill(kind) {
+    const base = { fontFamily: "'Satoshi',sans-serif", fontWeight: 500, fontSize: '11.5px', letterSpacing: '0.16em', padding: '9px 20px', borderRadius: '999px', flex: 'none', whiteSpace: 'nowrap', display: 'inline-block' };
+    if (kind === 'now') return { ...base, background: '#00638E', color: '#FFFFFF' };
+    if (kind === 'done') return { ...base, color: '#2B2B2B', opacity: 0.5, background: 'rgba(43,43,43,0.06)' };
+    if (kind === 'prov' || kind === 'awaiting') return { ...base, color: '#004A6B', border: '1px dashed rgba(0,74,107,0.5)', background: 'rgba(191,216,227,0.18)' };
+    if (kind === 'recurring') return { ...base, color: '#00638E', background: 'rgba(191,216,227,0.45)' };
+    return { ...base, background: '#BFD8E3', color: '#004A6B' };
+  }
+  openEv(id) { this.setState({ panel: id }); }
+
+  renderVals() {
+    const t = this.today();
+    const EV = this.EVENTS;
+    const view = this.state.view ?? 'geral';
+    const month = this.state.month;
+    const setView = (v, m) => this.setState({ view: v, month: m ?? this.state.month, panel: null });
+    const monthDefs = [
+      { num: '09', name: 'SETEMBRO', m: 9 }, { num: '10', name: 'OUTUBRO', m: 10 },
+      { num: '11', name: 'NOVEMBRO', m: 11 }, { num: '12', name: 'DEZEMBRO', m: 12 }
+    ];
+    const tabEntNav = (this.state.calTab || 'estrategico') === 'entregaveis';
+    const navDefs = [
+      { label: 'VISÃO GERAL', act: view === 'geral', go: () => setView('geral') },
+      { label: 'ENTREGÁVEIS SOLICITADOS', act: view === 'cal' && tabEntNav, go: () => { this.setState({ view: 'cal', calTab: 'entregaveis', panel: null, dPanel: null }); } },
+      { label: 'CALENDÁRIO ANUAL', act: view === 'cal' && !tabEntNav, go: () => { this.setState({ view: 'cal', calTab: 'estrategico', panel: null, dPanel: null }); } },
+      ...monthDefs.map(md => ({ label: md.name, act: view === 'mes' && month === md.m, go: () => setView('mes', md.m) }))
+    ];
+    const navItems = navDefs.map(n => ({
+      label: n.label, onClick: n.go,
+      st: { fontFamily: "'Satoshi',sans-serif", fontWeight: n.act ? 700 : 500, fontSize: '13px', letterSpacing: '0.14em', color: n.act ? '#004A6B' : '#00638E', background: n.act ? 'rgba(191,216,227,0.4)' : 'none', border: 'none', borderRadius: '999px', padding: '11px 18px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background 0.15s ease' }
+    }));
+
+    const dated = EV.filter(e => e.start && !e.recurring && !e.awaiting);
+    const inProgress = dated.find(e => { const s = this.d(e.start), en = e.end ? this.d(e.end) : s; return t >= s && t <= en; });
+    const upcoming = dated.filter(e => this.d(e.start) > t).sort((a, b) => this.d(a.start) - this.d(b.start));
+    const heroEv = inProgress || upcoming[0] || dated[dated.length - 1];
+    const heroSt = this.evStatus(heroEv, t);
+    let big = '', bigLabel = '';
+    if (heroSt.kind === 'now') { big = 'AGORA'; bigLabel = 'EM ANDAMENTO'; }
+    else if (heroSt.kind === 'done') { big = 'FIM'; bigLabel = 'CONCLUÍDO'; }
+    else {
+      const days = Math.round((this.d(heroEv.start) - t) / 864e5);
+      if (days === 0) { big = 'HOJE'; bigLabel = 'É O DIA'; }
+      else { big = String(days); bigLabel = days === 1 ? 'DIA · É AMANHÃ' : 'DIAS RESTANTES'; }
+    }
+    const hero = { title: heroEv.title, dateLabel: heroEv.dateLabel, time: heroEv.time || null, desc: heroEv.obj || heroEv.desc || '', big, bigLabel };
+    const nm = inProgress ? upcoming[0] : upcoming[1];
+    const nmSt = nm ? this.evStatus(nm, t) : null;
+    const nextMarco = nm ? { title: nm.title, dateLabel: nm.dateLabel, big: nm.big, suf: nm.suf, time: nm.time || null, count: nmSt.label, pillStyle: this.pill(nmSt.kind), greenPillStyle: { fontFamily: "'Satoshi',sans-serif", fontWeight: 700, fontSize: '11.5px', letterSpacing: '0.16em', padding: '11px 24px', borderRadius: '999px', flex: 'none', whiteSpace: 'nowrap', display: 'inline-block', background: '#FFFFFF', color: '#141414' }, open: () => this.openEv(nm.id) } : null;
+
+    const numSt = { fontFamily: "'Satoshi',sans-serif", fontWeight: 700, fontSize: '72px', lineHeight: 0.95, color: '#00638E', letterSpacing: '-0.03em' };
+    const conSt = { fontFamily: "'Satoshi',sans-serif", fontWeight: 500, fontSize: '30px', lineHeight: 1, color: '#00638E', opacity: 0.75 };
+    const rowVals = (e, i) => {
+      const st = this.evStatus(e, t);
+      const dParts = String(e.big).split(' ').map(tk => (tk === 'A' || tk === 'E' || tk === '+') ? { t: tk, st: conSt } : { t: tk, st: numSt });
+      return { big: e.big, dParts, suf: e.suf, title: e.title, time: e.time || null, status: st.label, pillStyle: this.pill(st.kind), desc: e.shortDesc || e.desc || '', cat: e.cat, bg: i % 2 === 0 ? 'rgba(191,216,227,0.16)' : '#FFFFFF', open: () => this.openEv(e.id) };
+    };
+    const sortKey = e => e.start ? this.d(e.start).getTime() : (e.monthNum ? new Date(2026, e.monthNum - 1, 1).getTime() : Infinity);
+    const timeline = EV.filter(e => this.evStatus(e, t).kind !== 'done').sort((a, b) => sortKey(a) - sortKey(b)).map(rowVals);
+
+    const counts = m => EV.filter(e => (e.start && e.start[1] === m) || e.monthNum === m).length;
+    const months = monthDefs.map(md => ({ num: md.num, name: md.name, sub: counts(md.m) + (counts(md.m) === 1 ? ' acontecimento' : ' acontecimentos'), onClick: () => setView('mes', md.m) }));
+
+    const md = monthDefs.find(x => x.m === month) || monthDefs[0];
+    const mesEvents = EV.filter(e => e.start && e.start[1] === month && !e.awaiting).sort((a, b) => this.d(a.start) - this.d(b.start)).map(rowVals);
+    const nEv = counts(md.m);
+    const mes = { num: md.num, name: md.name, events: mesEvents, countLabel: nEv + (nEv === 1 ? ' ACONTECIMENTO' : ' ACONTECIMENTOS'), awaiting: month === 11, awaitingOpen: () => this.openEv('edital') };
+
+    const calM = this.state.calMonth ?? (t.getFullYear() === 2026 && t.getMonth() >= 8 && t.getMonth() <= 11 ? t.getMonth() + 1 : 9);
+    const cmd = monthDefs.find(x => x.m === calM) || monthDefs[0];
+    const m0 = cmd.m - 1;
+    const tabEnt = (this.state.calTab || 'estrategico') === 'entregaveis';
+    const delivList = this.loadDeliv();
+    const first = new Date(2026, m0, 1).getDay();
+    const nDays = new Date(2026, m0 + 1, 0).getDate();
+    const emptyCell = { padding: '12px 14px 14px', minHeight: '132px', borderRadius: '12px', minWidth: 0, overflow: 'hidden', background: 'rgba(255,255,255,0.35)', border: '1px solid transparent' };
+    const days = [];
+    for (let i = 0; i < first; i++) days.push({ n: '', numStyle: {}, cellStyle: emptyCell, hoverStyle: {}, evs: [], more: null, open: null });
+    for (let day = 1; day <= nDays; day++) {
+      const date = new Date(2026, m0, day);
+      const isToday = date.getTime() === t.getTime();
+      const iso2 = '2026-' + String(cmd.m).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+      const dHits = tabEnt ? delivList.filter(dd => dd.prazo === iso2) : [];
+      const hits = [];
+      if (!tabEnt) EV.forEach(e => {
+        if (!e.start) return;
+        const s = this.d(e.start), en = e.end ? this.d(e.end) : s;
+        const hit = e.recurring ? (date >= s && date.getDay() === 3) : (date >= s && date <= en);
+        if (hit) hits.push(e);
+      });
+      const hasEv = tabEnt ? dHits.length > 0 : hits.length > 0;
+      const main = hits[0];
+      const evs = tabEnt ? dHits.slice(0, 2).map(dd => {
+        const ds = this.delivStatus(dd, t);
+        return { label: (dd.responsavel || '').toUpperCase(), sub: dd.entregavel, statusLabel: ds.label, statusSt: ds.chipSt, st: ds.pillSt };
+      }) : hits.slice(0, 2).map(e => {
+        let sub = null;
+        if (e.progDet) {
+          const pd = e.progDet.find(it => {
+            if (it._day != null) return it._day === day && it._mon === cmd.m;
+            const mm = String(it.when || '').match(/^(\d{2})/);
+            return mm && Number(mm[1]) === day;
+          });
+          if (pd) sub = pd.what;
+        }
+        return {
+          label: e.short, sub,
+          st: {
+            fontFamily: "'Satoshi',sans-serif", fontWeight: e.recurring ? 500 : 600, fontSize: e.recurring ? '12px' : '13px', lineHeight: 1.25, letterSpacing: '0.01em',
+            marginTop: '6px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', overflowWrap: 'anywhere', hyphens: 'auto',
+            color: '#004A6B', background: e.recurring ? 'rgba(191,216,227,0.32)' : 'rgba(191,216,227,0.55)', borderRadius: '7px', padding: '6px 10px',
+            opacity: e.recurring ? 0.9 : 1,
+            border: e.provisional ? '1px dashed rgba(0,74,107,0.5)' : '1px solid transparent'
+          }
+        };
+      });
+      const nHits = tabEnt ? dHits.length : hits.length;
+      const more = nHits > 2 ? '+' + (nHits - 2) : null;
+      const isMulti = !tabEnt && main && !main.recurring && main.end && main.start[1] === main.end[1];
+      const contRibbon = hasEv && isMulti ? 'inset 0 2px 0 #BFD8E3' : null;
+      days.push({
+        n: String(day).padStart(2, '0'), evs, more,
+        open: hasEv ? (tabEnt ? () => this.setState({ dPanel: dHits[0].id }) : () => this.openEv(main.id)) : null,
+        cellStyle: { ...emptyCell, background: '#FCFEFF', border: '1px solid rgba(0,99,142,0.12)', cursor: hasEv ? 'pointer' : 'default', boxShadow: contRibbon || 'none', transition: 'background 0.15s ease' },
+        hoverStyle: hasEv ? { ...emptyCell, background: '#F2F8FB', border: '1px solid rgba(0,99,142,0.28)', cursor: 'pointer', boxShadow: contRibbon || 'none' } : null,
+        numStyle: isToday
+          ? { fontFamily: "'Satoshi',sans-serif", fontWeight: 600, fontSize: '14px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', background: '#00638E', color: '#FFFFFF' }
+          : { fontFamily: "'Satoshi',sans-serif", fontWeight: hasEv ? 600 : 500, fontSize: '14px', lineHeight: 1, color: hasEv ? '#00638E' : '#2B2B2B', opacity: hasEv ? 1 : 0.6 }
+      });
+    }
+    while (days.length % 7 !== 0) days.push({ n: '', numStyle: {}, cellStyle: emptyCell, hoverStyle: {}, evs: [], more: null, open: null });
+    const arrowSt = en => ({ fontFamily: "'Satoshi',sans-serif", width: '34px', height: '34px', borderRadius: '50%', border: 'none', background: 'none', color: '#00638E', cursor: en ? 'pointer' : 'default', opacity: en ? 1 : 0.3, display: 'flex', alignItems: 'center', justifyContent: 'center' });
+    const tm = t.getFullYear() === 2026 && t.getMonth() + 1 >= 9 && t.getMonth() + 1 <= 12 ? t.getMonth() + 1 : null;
+    const cal = {
+      name: cmd.name, title: cmd.name + ' · 2026', wd: ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'].map(l => ({ l })), days,
+      prev: () => { if (calM > 9) this.setState({ calMonth: calM - 1 }); },
+      next: () => { if (calM < 12) this.setState({ calMonth: calM + 1 }); },
+      hoje: () => { if (tm) this.setState({ calMonth: tm }); },
+      hojeStyle: { fontFamily: "'Satoshi',sans-serif", fontWeight: 700, fontSize: '12px', letterSpacing: '0.14em', color: tm ? '#00638E' : '#2B2B2B', opacity: tm ? 1 : 0.4, background: 'rgba(191,216,227,0.5)', border: 'none', borderRadius: '999px', padding: '9px 18px', cursor: tm ? 'pointer' : 'default' },
+      prevStyle: arrowSt(calM > 9), nextStyle: arrowSt(calM < 12)
+    };
+
+    const nowEvs = EV.filter(e => !e.awaiting && !e.recurring && e.start && this.evStatus(e, t).kind === 'now');
+    const futEvs = EV.filter(e => !e.awaiting && !e.recurring && e.start && this.d(e.start) > t).sort((a, b) => this.d(a.start) - this.d(b.start));
+    const agendaEvs = [...nowEvs, ...futEvs].slice(0, 2);
+    const agenda = agendaEvs.map(e => {
+      const st = this.evStatus(e, t);
+      return { day: e.dayBig, mon: e.dayMon, title: e.title, time: e.time || null, status: st.label, pillStyle: this.pill(st.kind), open: () => this.openEv(e.id) };
+    });
+
+    const pe = EV.find(e => e.id === this.state.panel);
+    const pst = pe ? this.evStatus(pe, t) : null;
+    const panel = pe ? {
+      title: pe.title, dateLabel: pe.dateLabel, time: pe.time || null, status: pst.label, pillStyle: this.pill(pst.kind),
+      cat: pe.hideCat ? null : (pe.cat || null), desc: pe.desc || null, obj: pe.obj || null, obs: pe.obs || null,
+      objMarca: pe.objMarca || null, pub: pe.pub || null, estrategia: pe.estrategia || null,
+      jornadaIntro: pe.jornadaIntro || null, hasCaminhos: !!(pe.jornadaCaminhos && pe.jornadaCaminhos.length), caminhos: pe.jornadaCaminhos || [],
+      hasProgDet: !!(pe.progDet && pe.progDet.length), progDet: pe.progDet || [],
+      pilares: pe.pilares || null, mensagem: pe.mensagem || null,
+      jornada: pe.jornada || null,
+      orientacao: pe.orientacao || null,
+      hasProg: !!(pe.prog && pe.prog.length), prog: (pe.prog || []).map(t2 => ({ t: t2 })),
+      hasStrat: !!(pe.strat && pe.strat.length), strat: (pe.strat || []).map(t2 => ({ t: t2 })),
+      canEdit: !!pe.custom, confirmDelete: this.state.confirmDelete,
+      onEdit: () => this.openEditor(pe.id),
+      onAskDelete: () => this.setState({ confirmDelete: true }),
+      onConfirmDelete: () => this.doDelete(pe.id),
+      onCancelDelete: () => this.setState({ confirmDelete: false })
+    } : { title: '', dateLabel: '', time: null, status: '', pillStyle: {}, cat: null, desc: null, obj: null, obs: null, objMarca: null, pub: null, estrategia: null, jornadaIntro: null, hasCaminhos: false, caminhos: [], hasProgDet: false, progDet: [], pilares: null, mensagem: null, jornada: null, orientacao: null, hasProg: false, prog: [], hasStrat: false, strat: [], canEdit: false, confirmDelete: false, onEdit: null, onAskDelete: null, onConfirmDelete: null, onCancelDelete: null };
+
+    // ===== EDITOR =====
+    const F = this.state.form;
+    const setF = (k, v) => this.setState({ form: { ...this.state.form, [k]: v }, editorError: null });
+    const txt = (k, label, ph, type) => ({ label, ph: ph || '', type: type || 'text', value: F[k] ?? '', onChange: ev2 => setF(k, ev2.target.value), isText: true, isArea: false, isStatus: false });
+    const area = (k, label, ph, rows) => ({ label, ph: ph || '', rows: rows || 3, value: F[k] ?? '', onChange: ev2 => setF(k, ev2.target.value), isText: false, isArea: true, isStatus: false });
+    const statusField = () => ({
+      label: 'STATUS', isText: false, isArea: false, isStatus: true,
+      options: [['confirmado', 'CONFIRMADO'], ['provisorio', 'PROVISÓRIO'], ['aguardando', 'AGUARDANDO DEFINIÇÃO']].map(([v, l]) => ({
+        label: l, pick: () => setF('status', v),
+        st: { fontFamily: "'Satoshi',sans-serif", fontWeight: F.status === v ? 700 : 500, fontSize: '11.5px', letterSpacing: '0.1em', color: F.status === v ? '#FFFFFF' : '#00638E', background: F.status === v ? '#00638E' : 'rgba(191,216,227,0.2)', border: '1px solid rgba(0,99,142,0.3)', borderRadius: '999px', padding: '9px 16px', cursor: 'pointer' }
+      }))
+    });
+    const secDefs = [
+      { name: 'INFORMAÇÕES GERAIS', fields: [txt('nome', 'NOME DO ACONTECIMENTO *', 'Ex.: Semana Revalida + Simulados'), txt('dataInicial', 'DATA INICIAL *', '', 'date'), txt('dataFinal', 'DATA FINAL (OPCIONAL)', '', 'date'), txt('horario', 'HORÁRIO', 'Ex.: 19h | Brasília'), statusField(), area('descricaoCurta', 'DESCRIÇÃO CURTA', 'Resumo exibido nas listagens', 2)] },
+      { name: 'ESTRATÉGIA', fields: [area('oQueE', 'O QUE É', 'O que é este acontecimento?', 4), area('objetivo', 'OBJETIVO PRINCIPAL', 'O que este acontecimento pretende produzir para o público?', 3), area('objetivoMarca', 'OBJETIVO DE MARCA', 'Qual é o papel estratégico para a MedTwins?', 3), area('publico', 'PÚBLICO', 'Quem é, momento da jornada, contexto, necessidades', 3), area('estrategia', 'ESTRATÉGIA', 'Qual é a lógica estratégica deste acontecimento?', 4)] },
+      { name: 'JORNADA', fields: [area('jornada', 'JORNADA E CONTINUIDADE', 'De onde o público vem, o que acontece depois, bifurcações', 4)] },
+      { name: 'PROGRAMAÇÃO', fields: [], hasProg: true },
+      { name: 'COMUNICAÇÃO', fields: [area('orientacao', 'ORIENTAÇÃO DE COMUNICAÇÃO', 'Regras, cuidados e tom', 3), area('mensagem', 'MENSAGEM CENTRAL', 'Qual ideia central deve atravessar a comunicação?', 3)], hasPilares: true },
+      { name: 'OBSERVAÇÕES', fields: [area('observacoes', 'OBSERVAÇÕES INTERNAS', 'Informações que não pertencem às categorias anteriores', 3)] }
+    ];
+    const editorSections = secDefs.map((sd, i) => ({
+      idx: '0' + (i + 1), name: sd.name, open: this.state.openSec === i,
+      toggle: () => this.setState({ openSec: this.state.openSec === i ? -1 : i }),
+      chev: { fontFamily: "'Satoshi',sans-serif", fontSize: '20px', color: '#00638E', transform: this.state.openSec === i ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s ease', lineHeight: 1 },
+      fields: sd.fields, hasProg: !!sd.hasProg, hasPilares: !!sd.hasPilares
+    }));
+    const miniSt = { fontFamily: "'Satoshi',sans-serif", width: '26px', height: '26px', borderRadius: '50%', border: '1px solid rgba(0,99,142,0.3)', background: '#FFFFFF', color: '#00638E', cursor: 'pointer', fontSize: '12px', lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' };
+    const setItems = items => this.setState({ progItems: items });
+    const progItems = this.state.progItems.map((it, i) => {
+      const upd = (k, v) => { const arr = this.state.progItems.map((x, j) => j === i ? { ...x, [k]: v } : x); setItems(arr); };
+      const swap = di => { const arr = [...this.state.progItems]; const j = i + di; if (j < 0 || j >= arr.length) return; [arr[i], arr[j]] = [arr[j], arr[i]]; setItems(arr); };
+      return {
+        n: i + 1, miniSt, data: it.data || '', horario: it.horario || '', quem: it.quem || '', tema: it.tema || '', obs: it.obs || '',
+        setData: e2 => upd('data', e2.target.value), setHorario: e2 => upd('horario', e2.target.value), setQuem: e2 => upd('quem', e2.target.value), setTema: e2 => upd('tema', e2.target.value), setObs: e2 => upd('obs', e2.target.value),
+        up: () => swap(-1), down: () => swap(1), remove: () => setItems(this.state.progItems.filter((_, j) => j !== i))
+      };
+    });
+    const addPilarFn = () => { const v = (this.state.pilarDraft || '').trim(); if (!v) return; this.setState({ pilares: [...this.state.pilares, v], pilarDraft: '' }); };
+    const pilaresChips = this.state.pilares.map((p, i) => ({ label: p, remove: () => this.setState({ pilares: this.state.pilares.filter((_, j) => j !== i) }) }));
+    const newBtnStyle = { fontFamily: "'Satoshi',sans-serif", fontWeight: 700, fontSize: '12px', letterSpacing: '0.14em', color: '#FFFFFF', background: '#00638E', border: 'none', borderRadius: '999px', padding: '13px 26px', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background 0.15s ease' };
+
+    // ===== ENTREGÁVEIS: vals =====
+    const fmtBR = iso => iso ? iso.split('-').reverse().join('/') : '—';
+    const dp = delivList.find(x => x.id === this.state.dPanel);
+    const dps = dp ? this.delivStatus(dp, t) : null;
+    const dPanel = dp ? {
+      title: dp.entregavel, status: dps.label,
+      statusSt: { ...dps.chipSt, fontSize: '11.5px', padding: '7px 16px', marginTop: 0 },
+      rows: [
+        { k: 'RESPONSÁVEL', v: dp.responsavel },
+        { k: 'SOLICITADO POR', v: dp.solicitadoPor },
+        { k: 'SOLICITADO EM', v: fmtBR(dp.solicitadoEm) },
+        { k: 'PRAZO DE ENTREGA', v: fmtBR(dp.prazo) },
+        ...(dp.relacionadoA ? [{ k: 'RELACIONADO A', v: dp.relacionadoA }] : []),
+        ...(dp.observacao ? [{ k: 'OBSERVAÇÃO', v: dp.observacao }] : [])
+      ],
+      canDeliver: dp.status === 'aguardando', canCancel: dp.status === 'aguardando',
+      markDone: () => this.setDelivStatus(dp.id, 'entregue'),
+      cancel: () => this.setDelivStatus(dp.id, 'cancelado'),
+      edit: () => this.openDelivEditor(dp.id)
+    } : { title: '', status: '', statusSt: {}, rows: [], canDeliver: false, canCancel: false, markDone: null, cancel: null, edit: null };
+    const DF = this.state.dForm || {};
+    const setDF = (k, v) => this.setState({ dForm: { ...this.state.dForm, [k]: v }, dError: null });
+    const dTxt = (k, label, ph, type) => ({ label, ph: ph || '', type: type || 'text', value: DF[k] ?? '', onChange: e2 => setDF(k, e2.target.value), isText: true, isArea: false, isStatus: false });
+    const TEAM = ['Ana Flávia', 'Kelsen', 'Kelvin', 'Ana Laura', 'Arthur', 'Diogo'];
+    const openSel = this.state.dSelOpen;
+    const dSel = (k, label) => {
+      const val = DF[k] ?? '';
+      const isOpen = openSel === k;
+      const pick = v => { setDF(k, v); this.setState({ dSelOpen: null }); };
+      return {
+        label, isText: false, isArea: false, isStatus: false, isSelect: true,
+        open: isOpen, display: val || 'Selecione',
+        toggle: e2 => { e2.stopPropagation(); this.setState({ dSelOpen: isOpen ? null : k }); },
+        keyDown: e2 => {
+          if (e2.key === 'Escape') this.setState({ dSelOpen: null });
+          else if (e2.key === 'Enter' || e2.key === ' ') { e2.preventDefault(); this.setState({ dSelOpen: isOpen ? null : k }); }
+          else if (e2.key === 'ArrowDown' || e2.key === 'ArrowUp') {
+            e2.preventDefault();
+            const i = TEAM.indexOf(val);
+            const j = e2.key === 'ArrowDown' ? Math.min(i + 1, TEAM.length - 1) : Math.max(i - 1, 0);
+            setDF(k, TEAM[i === -1 && e2.key === 'ArrowDown' ? 0 : j]);
+          }
+        },
+        triggerSt: { width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', fontFamily: "'Satoshi',sans-serif", fontWeight: 500, fontSize: '14.5px', textAlign: 'left', color: '#141414', background: '#FFFFFF', border: isOpen ? '1px solid #00638E' : '1px solid rgba(0,99,142,0.22)', borderRadius: '10px', padding: '12px 14px', outline: 'none', cursor: 'pointer' },
+        valueSt: { color: val ? '#141414' : '#2B2B2B', opacity: val ? 1 : 0.5, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+        chevSt: { flex: 'none', transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform 0.15s ease' },
+        people: TEAM.map(v => ({
+          v, sel: v === val, pick: e2 => { e2.stopPropagation(); pick(v); },
+          st: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', height: '40px', padding: '0 16px', boxSizing: 'border-box', fontFamily: "'Satoshi',sans-serif", fontWeight: v === val ? 600 : 400, fontSize: '14px', color: v === val ? '#00638E' : '#2B2B2B', background: v === val ? 'rgba(191,216,227,0.3)' : 'transparent', borderRadius: '8px', cursor: 'pointer' },
+          hoverSt: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', height: '40px', padding: '0 16px', boxSizing: 'border-box', fontFamily: "'Satoshi',sans-serif", fontWeight: v === val ? 600 : 500, fontSize: '14px', color: '#004A6B', background: 'rgba(191,216,227,0.45)', borderRadius: '8px', cursor: 'pointer' }
+        }))
+      };
+    };
+    const dFields = [
+      dTxt('entregavel', 'ENTREGÁVEL *', 'O que precisa ser entregue?'),
+      dSel('responsavel', 'RESPONSÁVEL *'),
+      dTxt('solicitadoEm', 'SOLICITADO EM *', '', 'date'),
+      dTxt('prazo', 'PRAZO DE ENTREGA *', '', 'date'),
+      dSel('solicitadoPor', 'SOLICITADO POR *'),
+      dTxt('relacionadoA', 'RELACIONADO A', 'Ex.: Semana Revalida 27.1 (opcional)'),
+      { label: 'OBSERVAÇÃO', ph: 'Contexto do combinado (opcional)', rows: 3, value: DF.observacao ?? '', onChange: e2 => setDF('observacao', e2.target.value), isText: false, isArea: true, isStatus: false },
+      { label: 'STATUS', isText: false, isArea: false, isStatus: true,
+        options: [['aguardando', 'AGUARDANDO ENTREGA'], ['entregue', 'ENTREGUE'], ['cancelado', 'CANCELADO']].map(([v, l]) => ({
+          label: l, pick: () => setDF('status', v),
+          st: { fontFamily: "'Satoshi',sans-serif", fontWeight: DF.status === v ? 700 : 500, fontSize: '11.5px', letterSpacing: '0.1em', color: DF.status === v ? '#FFFFFF' : '#00638E', background: DF.status === v ? '#00638E' : 'rgba(191,216,227,0.2)', border: '1px solid rgba(0,99,142,0.3)', borderRadius: '999px', padding: '9px 16px', cursor: 'pointer' }
+        })) }
+    ];
+
+    return {
+      navItems, isGeral: view === 'geral', isMes: view === 'mes', isCal: view === 'cal',
+      calBannerTitle: tabEnt ? 'ENTREGÁVEIS SOLICITADOS' : 'CALENDÁRIO ANUAL',
+      calNewLabel: tabEnt ? '+ NOVO ENTREGÁVEL' : '+ NOVO ACONTECIMENTO',
+      calNewAction: tabEnt ? () => this.openDelivEditor(null) : () => this.openEditor(null),
+      calFootnote: tabEnt ? 'Entregáveis aparecem na data do prazo combinado · Atraso é identificado automaticamente pelo sistema' : 'Contorno tracejado indica data provisória · Recorrências (Sala Secreta, quartas-feiras) aparecem com menor peso',
+      dPanelOpen: !!dp, dPanel, dClosePanel: () => this.setState({ dPanel: null }),
+      dEditorOpen: this.state.dEditorOpen, dFields, dError: this.state.dError,
+      dEditorTitle: this.state.dEditingId ? 'EDITAR ENTREGÁVEL' : 'NOVO ENTREGÁVEL',
+      dEditorHeading: (DF.entregavel && DF.entregavel.trim()) ? DF.entregavel : 'Novo Entregável',
+      dCloseEditor: () => this.setState({ dEditorOpen: false, dEditingId: null, dError: null, dSelOpen: null }),
+      dSave: () => this.doSaveDeliv(),
+      hero, nextMarco, timeline, months, mes, cal,
+      movimentos: Component.MOVIMENTOS.filter(m => (m.start ? t >= this.d(m.start) : true) && t <= this.d(m.end)).sort((a, b) => (a.ordem || 0) - (b.ordem || 0)).map(m => ({ title: m.title, stage: m.stage, endsDate: String(m.end[2]).padStart(2, '0') + '/' + String(m.end[1]).padStart(2, '0') })),
+      agenda, panelOpen: !!pe, panel, closePanel: () => this.setState({ panel: null, confirmDelete: false }),
+      goGeral: () => setView('geral'),
+      editorOpen: this.state.editorOpen, editorSections, progItems, pilaresChips,
+      pilarDraft: this.state.pilarDraft, setPilarDraft: e2 => this.setState({ pilarDraft: e2.target.value }),
+      pilarKeyDown: e2 => { if (e2.key === 'Enter') { e2.preventDefault(); addPilarFn(); } },
+      addPilar: addPilarFn,
+      addProgItem: () => this.setState({ progItems: [...this.state.progItems, { data: '', horario: '', quem: '', tema: '', obs: '' }], openSec: 3 }),
+      editorError: this.state.editorError,
+      editorTitle: this.state.editingId ? 'EDITAR ACONTECIMENTO' : 'NOVO ACONTECIMENTO',
+      editorHeading: (F.nome && F.nome.trim()) ? F.nome : 'Novo Acontecimento',
+      openNew: () => this.openEditor(null),
+      closeEditor: () => this.setState({ editorOpen: false, editingId: null, editorError: null }),
+      saveEvent: () => this.doSave(),
+      newBtnStyle
+    };
+  }
+}
+</script>
+</body>
+</html>

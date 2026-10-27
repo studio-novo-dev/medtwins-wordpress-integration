@@ -1,0 +1,34 @@
+{
+  "links": {
+    "nacional": "https://page.medtwins.com.br/simulado-geral-medtwins/",
+    "pediatria": "https://page.medtwins.com.br/simulado-medtwins-pediatria/",
+    "ginecologia-obstetricia": "https://page.medtwins.com.br/simulado-medtwins-ginecologia-e-obstetricia/",
+    "cirurgia": "https://page.medtwins.com.br/simulado-medtwins-cirurgia/",
+    "preventiva-saude-coletiva": "https://page.medtwins.com.br/simulado-medtwins-preventiva-e-saude-coletiva/",
+    "clinica-medica": "https://page.medtwins.com.br/simulado-medtwins-clinica-medica/",
+    "simulado-geral": "https://page.medtwins.com.br/simulado-geral-medtwins/"
+  },
+  "campanhas": {
+    "cem": {
+      "captura": "simulado-nacional",
+      "acesso": "simulado-nacional-liberacao",
+      "form_name": "simulado medtwins v2",
+      "data": "",
+      "horario": ""
+    },
+    "seis-areas": {
+      "captura": "simulado-nacional-6-areas",
+      "acesso": "simulado-nacional-6-areas-liberacao",
+      "form_name": "simulado medtwins v2",
+      "data": "",
+      "horario": ""
+    }
+  },
+  "paginas": {
+    "simulado-nacional": "",
+    "simulado-nacional-liberacao": "",
+    "simulado-nacional-6-areas": "",
+    "simulado-nacional-6-areas-liberacao": ""
+  },
+  "rd_script": "https://d335luupugsy2.cloudfront.net/js/loader-scripts/3189d7c7-cc5f-4759-9de7-7d9a34c46e44-loader.js"
+}

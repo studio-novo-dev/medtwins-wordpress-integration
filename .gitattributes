@@ -1,0 +1,20 @@
+* text=auto
+*.php text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+*.ps1 text eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.mp4 binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+*.pdf binary

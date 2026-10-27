@@ -1,0 +1,24 @@
+# Somente fontes oficiais, documentação e ferramentas.
+/*
+!/.gitignore
+!/.gitattributes
+!/AGENTS.md
+!/README.md
+!/package.json
+!/package-lock.json
+!/scripts/
+!/docs/
+!/medtwins-simulados/
+!/medtwins-lps-e-sites/
+/entrada/
+/dist/
+/tmp/
+/.browser-tests/
+/medtwins-lps-e-sites/medtwins-simulados/
+/medtwins-lps-e-sites/previews/
+**/node_modules/
+**/.DS_Store
+**/Thumbs.db
+**/*.log
+**/.env
+**/.env.*

@@ -1,0 +1,12 @@
+{
+  "name": "medtwins-plugins",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ferramentas de verificação dos plugins WordPress MedTwins; não usadas no site publicado.",
+  "scripts": {
+    "test:fluxos": "node medtwins-lps-e-sites/tools/verify-simulados-flows.mjs",
+    "test:animacoes": "node medtwins-lps-e-sites/tools/verify-animations.mjs",
+    "test:videos": "node medtwins-lps-e-sites/tools/inspect-video-webkit.mjs"
+  },
+  "devDependencies": { "playwright-core": "1.56.1" }
+}
